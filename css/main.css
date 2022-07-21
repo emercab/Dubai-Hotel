@@ -29,6 +29,9 @@ body { background-color: var(--light); }
 h1, h2, h3, h4 {
     font-family: var(--font2);
 }
+h1 { font-size: 40px }
+h2 { font-size: 32px }
+h3 { font-size: 28px }
 
 a { text-decoration: none; }
 
@@ -38,6 +41,11 @@ a { text-decoration: none; }
     font-size: var(--md);
     border: 0;
     box-shadow: 0px 0px 10px 0px rgba(22, 22, 22, 0.8);
+}
+.btn:hover {
+    opacity: 0.9;
+    cursor: pointer;
+    transform: scale(1.05, 1.05);
 }
 .btn-primary {
     background-color: var(--primary);
@@ -128,7 +136,7 @@ a { text-decoration: none; }
     width: 560px;
     height: 330px;
     top: calc((100vh - 100px - 330px) / 2);
-    left: 100px;
+    left: 50px;
 }
 .hero .hero-text h1 {
     color: var(--primary);
@@ -138,6 +146,15 @@ a { text-decoration: none; }
 .hero .hero-text p {
     color: var(--light);
     font-size: var(--lg);
+}
+
+/* Section */
+.section {
+    width: 100%;
+    padding: 50px;
+}
+.row {
+    padding: 30px 0;
 }
 
 /* Footer */
