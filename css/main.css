@@ -151,10 +151,22 @@ a { text-decoration: none; }
 /* Section */
 .section {
     width: 100%;
-    padding: 50px;
 }
 .row {
-    padding: 30px 0;
+    padding: 80px 50px;
+}
+.section-title {
+    display: flex;
+    align-items: center;
+    height: calc(100vw * 300 / 1920);
+    background-image: url(https://i.ibb.co/PN33vZk/background-header.jpg);
+    background-position:center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 0 50px;
+}
+.section-title h1 {
+    color: var(--light);
 }
 
 /* Footer */
