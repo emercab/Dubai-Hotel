@@ -167,6 +167,8 @@ a { text-decoration: none; }
 }
 .section-title h1 {
     color: var(--light);
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--primary);
 }
 
 /* Footer */
