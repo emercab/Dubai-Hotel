@@ -1,0 +1,31 @@
+.box-login {
+    width: 350px;
+    margin: 90px auto 0;
+}
+
+.box-credential-error {
+    padding: 15px 10px;
+    color: white;
+    border-radius: 10px;
+    background-color: var(--red);
+}
+
+.table .btn-accion {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 0 3px;
+    font-size: 17px;
+}
+
+select.select-border.form-control:not([size]):not([multiple]) {
+    height: 35.5px;
+    border: 1px solid #ccc;
+}
+
+nav .navbar-logo .logo {
+    margin-left: 25px;
+}
+
+nav .navbar-logo .logo img {
+    height: 38px;
+}
