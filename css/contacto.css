@@ -15,10 +15,14 @@
 
 .row {
     display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 40px;
+    height: auto;
 }
 
 .map {
-    flex: 50%;
+    width: 40%;
 }
 
 
@@ -38,4 +42,81 @@
     border-top: var(--secondary);
     border-width: 3px;
     border-color: var(--secondary);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.modal-container {
+    /* display: none; */
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    z-index: 15050;
+    height: 100%;
+    width: 100%;
+    transition: opacity 0.3s ease ;
+}
+
+.modal-container.show {
+    pointer-events: auto;
+    opacity: 1;
+}
+.modal {
+    align-self: center;
+    background-color: var(--light);
+    margin: 0 auto;
+    padding: 30px 60px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    width: 600px;
+    height: 500px;
+    max-height: 100%;
+    max-width: 100%;
+    text-align: center;
+    
+}
+
+.modal h2{
+    color: var(--primary);
+}
+
+
+
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    line-height: 3;
+    align-items: center;
+    
+    
+    
+    
+}
+
+.formulario .formulario-input {
+    width: 100%;
+}
+
+input, textarea{
+    border-radius: 10px;
+    font-size: 20px;
+    font-family: var(--font2);
+    width: 100%;
+    padding: 2px 5px;
+}
+textarea {
+    resize: none;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
 }

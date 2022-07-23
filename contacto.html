@@ -62,11 +62,52 @@
                   </br>
                   <p>¿Necesitas ayuda? Envíanos un mensaje con tu problema, nuestro equipo se pondra en contacto lo antes posible:</p>
                   </br>
-                  <button class="btn btn-secondary text-primary">Contacto</button>
+                  <button class="btn btn-secondary text-primary" id="open">Contacto</button>
                </div>            
             </div>
-
          </section>
+         <div class="modal-container" id="modal_container">
+            <div class="modal">
+               <h2> Contacto</h2>
+                  <br/>
+                  <form action="">
+                     <div class="formulario">
+                        <div class="formulario-input">
+                           <input type="text" name="nombre_contacto" required placeholder="Nombre completo">
+                        </div>
+                        <div class="formulario-input">
+                           <input type="email" name="correo_persona" required placeholder="Correo electrónico">
+                        </div>
+                        <div class="formulario-input">
+                           <textarea name="msg_contacto"  rows="7" required placeholder="Cuentanos tu problema"></textarea>
+                        </div>                     
+                     </div>
+                     
+                  </form>
+                  
+                  <div class="actions">
+                     <div class="actions-btn">
+                        <button class="btn btn-secondary text-primary" id="close">Cerrar</button>
+                     </div>
+                     <div class="actions-btn">
+                        <button class="btn btn-secondary text-primary">Enviar</button>
+                     </div>
+                  
+               </div>
+            </div>
+         </div>
+         <script>
+            const open=document.getElementById("open");
+            const modal_container = document.getElementById("modal_container");
+            const close = document.getElementById("close");
+
+            open.addEventListener('click', () =>{
+               modal_container.classList.add('show');
+            });
+            close.addEventListener('click', () =>{
+               modal_container.classList.remove('show');
+            });
+         </script>
       </main>
 
       <!-- Footer -->
