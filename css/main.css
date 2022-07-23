@@ -148,6 +148,15 @@ a { text-decoration: none; }
     font-size: var(--lg);
 }
 
+/* habitaciones  */
+.section-habitaciones {
+    width: 100%;
+    
+}
+.section-detalles {
+    width: 100%;
+}
+
 /* Section */
 .section {
     width: 100%;
