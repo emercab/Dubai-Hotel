@@ -35,6 +35,10 @@ h3 { font-size: 28px }
 
 a { text-decoration: none; }
 
+.text-center {
+    text-align: center;
+}
+
 .btn {
     padding: 12px 20px;
     border-radius: 10px;
@@ -58,6 +62,12 @@ a { text-decoration: none; }
 }
 .text-secondary {
     color: var(--secondary)
+}
+.btn-other {
+    background-color: var(--other);
+}
+.text-other {
+    color: var(--other)
 }
 .btn-light {
     background-color: var(--light);
@@ -168,6 +178,44 @@ a { text-decoration: none; }
 .section-title h1 {
     color: var(--light);
     padding-bottom: 6px;
+    border-bottom: 2px solid var(--primary);
+}
+
+/* Cards */
+.cards-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 45px;
+    width: 100%;
+    padding: 20px;
+    margin-top: 20px;
+}
+.card {
+    display: flex;
+    width: 380px;
+    min-height: 250px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 10px 3px var(--dark);
+}
+.card:hover {
+    transform: scale(1.02, 1.02);
+}
+.card img {
+    width: 130px;
+    min-height: 220px;
+    object-fit: cover;
+}
+.card .card-info {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    align-items: center;
+    padding: 0 10px;
+}
+.card .card-info h3 {
+    padding: 0 10px;
     border-bottom: 2px solid var(--primary);
 }
 
