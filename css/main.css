@@ -22,11 +22,14 @@
 }
 
 html {
-    width: 100vw;
     font-family: var(--font1);
 }
 
-body { background-color: var(--light); }
+body {
+    width: 100vw;
+    background-color: var(--light);
+    overflow-x: hidden;
+}
 
 h1, h2, h3, h4 {
     font-family: var(--font2);
