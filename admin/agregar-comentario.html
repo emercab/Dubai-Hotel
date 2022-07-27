@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>SLS Dubai Hotel / Habitaciones</title>
+    <title>SLS Dubai Hotel / Comentarios</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -84,8 +84,7 @@
                         <div class="pcoded-inner-navbar main-menu">
                             <div class="mb-3">
                                 <div class="main-menu-header">
-                                    <img class="img-80 img-radius" src="https://icon-library.com/images/generic-user-icon/generic-user-icon-19.jpg" 
-                                        alt="User-Profile-Image">
+                                    <img class="img-80 img-radius" src="https://icon-library.com/images/generic-user-icon/generic-user-icon-19.jpg" alt="User-Profile-Image">
                                     <div class="user-details">
                                         <span id="more-details">John Doe</span>
                                     </div>
@@ -94,14 +93,14 @@
   
                             <!-- OPCIONES -->
                             <ul class="pcoded-item pcoded-left-item">
-                                <li >
+                                <li>
                                     <a href="usuarios.html" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-user"></i></span>
                                         <span class="pcoded-mtext">Usuarios</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <li class="active">
+                                <li>
                                   <a href="habitaciones.html" class="waves-effect waves-dark">
                                       <span class="pcoded-micon"><i class="ti-agenda"></i></span>
                                       <span class="pcoded-mtext">Habitaciones</span>
@@ -115,13 +114,13 @@
                                       <span class="pcoded-mcaret"></span>
                                   </a>
                                 </li>
-                                <li>
+                                <li class="active">
                                     <a href="comentarios.html" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-comments"></i></span>
                                         <span class="pcoded-mtext">Comentarios</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
-                                </li>
+                                  </li>
                                 <li>
                                     <a href="../index.html" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-back-left"></i></span>
@@ -141,7 +140,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="page-header-title">
-                                            <h5>Nuevo habitación</h5>
+                                            <h5>Modificar comentario</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -157,44 +156,37 @@
                                       <div class="page-body">
                                         <div class="row">
                                             <div class="col-xs-12 col-md-12 text-right mb-3">
-                                                <a class="btn btn-primary" href="habitaciones.html">
+                                                <a class="btn btn-primary" href="usuarios.html">
                                                     <i class="ti-angle-left"></i>
-                                                    Listado de habitaciones
+                                                    Listado de comentarios
                                                 </a>
                                             </div>
-
+                                            
                                             <div class="col-xs-12 col-md-12">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <b>Información de la habitación</b>
+                                                        <b>Información del comentario</b>
                                                     </div>
                                                     <div class="card-block">
                                                         <div class="row">
-                                                             <div class="col-xs-12 col-md-4">
+                                                             <div class="col-xs-12 col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>Nombre</label>
-                                                                    <input type="text" name="txtNombre" class="form-control" value="habitacion #1" />
+                                                                    <label>Cliente</label>
+                                                                    <input type="text" name="txtApellido" class="form-control" value="######" readonly />
                                                                 </div>
                                                              </div>
-                                                             <div class="col-xs-12 col-md-4">
+                                                             <div class="col-xs-12 col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>
-                                                                        Precio
-                                                                        <i class="ti-info-alt"  data-toggle="tooltip" data-placement="top" 
-                                                                            data-original-title="Al crear la primera habitación se le asigna el mismo precio a las nuevas habitaciones a registrar.">
-                                                                        </i>
-                                                                    </label>
-                                                                    
-                                                                    <input type="number" name="txtNombre" class="form-control" value="Disponible" />
+                                                                    <label>Habitación</label>
+                                                                    <input type="text" name="txtApellido" class="form-control" value="######" readonly />
                                                                 </div>
                                                              </div>
-                                                             <div class="col-xs-12 col-md-4">
+                                                             <div class="col-xs-12 col-md-12">
                                                                 <div class="form-group">
-                                                                    <label>Estado</label>
-                                                                    <input type="text" name="txtNombre" class="form-control" value="Disponible" readonly />
+                                                                    <label>Comentario</label>
+                                                                    <textarea rows="4" class="form-control"></textarea>
                                                                 </div>
                                                              </div>
-
                                                              <div class="col-xs-12 col-md-12 text-right">
                                                                 <button class="btn btn-primary" type="button">
                                                                     <i class="ti-save"></i>
