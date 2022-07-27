@@ -210,7 +210,6 @@ a { text-decoration: none; }
     min-height: 250px;
     border-radius: 20px;
     overflow: hidden;
-    padding: 10px;
     box-shadow: 0 0 10px 3px var(--dark);
 }
 .card:hover {
@@ -227,6 +226,7 @@ a { text-decoration: none; }
     justify-content:space-evenly;
     align-items: center;
     padding: 0 10px;
+    padding: 10px;
 }
 .card .card-info h3 {
     padding: 0 10px;
