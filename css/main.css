@@ -86,6 +86,11 @@ a { text-decoration: none; }
     cursor: pointer;
     transform: scale(1.05, 1.05);
 }
+.btn-sm {
+   font-size: var(--sm);
+   padding: 6px 10px;
+   border-radius: 7px;
+}
 .btn-primary {
     background-color: var(--primary);
 }
@@ -116,6 +121,19 @@ a { text-decoration: none; }
 .text-dark {
     color: var(--dark)
 }
+.btn-white {
+   background-color: var(--white);
+}
+.text-white {
+   color: var(--white)
+}
+.btn-black {
+   background-color: var(--black);
+}
+.text-black {
+   color: var(--black)
+}
+
 
 /* Header */
 .header {

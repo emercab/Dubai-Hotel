@@ -118,8 +118,10 @@
 }
 .login-right {
    display: flex;
+   flex-direction: column;
    justify-content: center;
    align-items: center;
+   row-gap: 25px;
    width: 50%;
    min-height: 450px;
    background: linear-gradient(180deg, rgba(26 77 46 / 93%), rgba(0 0 0 / 90%)), url(https://i.ibb.co/6DQs7kR/hotel-lobby.jpg);
