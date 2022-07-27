@@ -1,0 +1,74 @@
+:root {
+    --primary: #F7BF4F; /* rgb(247,191,79) */
+    --secondary: #1A4D2E; /* rgb(26,77,46) */
+    --other: #8EB458; /* rgb(142,180,88) */
+    --light: #FAF3E3; /* rgb(250,243,227) */
+    --dark: #2C3333; /* rgb(44,51,51) */
+    --black: #161616; /* rgb(22,22,22) */
+    --white: #fff; /* rgb(255,255,255) */
+    --sm: 14px;
+    --md: 18px;
+    --lg: 24px;
+    --font1: 'Mada', sans-serif;
+    --font2: 'Literata', serif;
+}
+  .section-form{
+    margin: 70px 0 ;
+  }
+  .form-register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    background: #1A4D2E;
+    padding: 60px;
+    margin: auto;
+    margin-top: 0px;
+    border-radius: 4px;
+    color: white;
+    box-shadow: 7px 13px 37px #000;
+    border-radius: 25px;
+  }
+  
+  .form-register h2 {
+    margin-bottom: 30px;
+    text-align: center;
+
+  }
+  
+  .controls {
+    width: 100%;
+    background:var(--light);
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 24px;
+    border: 1px solid #F7BF4F;
+    font-size:var(--md);
+    color:var(--dark);
+  }
+  
+  .form-register p {
+    height: 40px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 40px;
+  }
+  
+  .form-register a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .form-register a:hover {
+    color: white;
+    text-decoration: underline;
+  }
+  
+  .form-register .total{
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  
