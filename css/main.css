@@ -201,7 +201,7 @@ a { text-decoration: none; }
 
 .header .menu .item.dropdown .sub-menu {
     position: absolute;
-    background-color: var(--white);
+    background-color: var(--other);
     z-index: 1;
     text-align: left;
     padding: 7px 12px;
@@ -222,13 +222,13 @@ a { text-decoration: none; }
 .header .menu .item.dropdown .sub-menu a {
     padding: 0;
     border-radius: 0;
-    background-color: var(--white);
-    color: var(--dark);
+    background-color: var(--other);
+    color: var(--light);
     font-weight: normal;
 }
 
 .header .menu .item.dropdown .sub-menu a:hover {
-    color: var(--primary);
+    color: var(--secondary);
 }
 
 .header .menu .item.dropdown:hover .sub-menu {

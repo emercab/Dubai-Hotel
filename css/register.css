@@ -19,7 +19,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--primary);
+  background-color: var(--secondary);
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
@@ -110,11 +110,13 @@
 }
 .register-right {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  row-gap: 25px;
   width: 25%;
   min-height: 500px;
-  background: linear-gradient(180deg, rgba(26 77 46 / 93%), rgba(0 0 0 / 90%)), url(https://i.ibb.co/6DQs7kR/hotel-lobby.jpg);
+  background: linear-gradient(90deg, rgba(247 191 79 / 83%), rgba(250 243 227 / 85%)), url(https://i.ibb.co/6DQs7kR/hotel-lobby.jpg);
   background-repeat:no-repeat;
   background-position: 75% center;
   background-size: cover;
