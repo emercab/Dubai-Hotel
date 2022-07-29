@@ -10,7 +10,7 @@ Proyecto de ciclo 3 de Misión TIC en el que se implementan las tecnologías de 
  - ✨ Nicolás Abril Cruz
  - ✨ Emerson Cabrera Salas
  - ✨ Gabriela Curiel Marchena
- - ✨ Jhon Díaz Marchena
+ - ✨ Jhon Díaz Martinez
  - ✨ Erick Rangel Angulo
 
 Misión TIC 2022 - Universidad del Norte.
