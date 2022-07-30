@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block estilos_propios %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/index.css') }}">
+{% endblock %}
+
+{% block banner %}
+    <!-- Hero -->
+    <section class="hero">
+    <div class="hero-text">
+        <h1>Vive una experiencia única con nosotros</h1>
+        <p>
+            Más de 25 años de servicio nos permite brindarle una estancia llena de confort y calidad.
+        </p>
+        <a href="./habitaciones" class="btn btn-primary text-secondary">¡Reserve ahora!</a>
+    </div>
+    </section>   
+{% endblock %}
+
+{% block principal %}
+    <section class="section">
+        <div class="row section-enjoy">
+        <div class="info">
+            <h2>Disfruta nuestras habitaciones</h2>
+            <p>
+                Hemos cuidado cada detalle para hacer que tu experiencia sea inolvidable.<br>
+                Conoce y explora en un ambiente de tranquilidad y relajación.
+            </p>
+            <a href="./habitaciones" class="btn btn-secondary text-primary">Buscar habitaciones</a>
+        </div>
+        <img src="https://i.ibb.co/RSpx1Lp/logo-transparent-light.png" alt="SLS Dubai Hotel">
+        </div>
+    </section>
+{% endblock %}

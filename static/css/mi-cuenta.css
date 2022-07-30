@@ -1,0 +1,129 @@
+:root {
+    --primary: #F7BF4F; /* rgb(247,191,79) */
+    --secondary: #1A4D2E; /* rgb(26,77,46) */
+    --other: #8EB458; /* rgb(142,180,88) */
+    --light: #FAF3E3; /* rgb(250,243,227) */
+    --dark: #2C3333; /* rgb(44,51,51) */
+    --black: #161616; /* rgb(22,22,22) */
+    --white: #fff; /* rgb(255,255,255) */
+    --sm: 14px;
+    --md: 18px;
+    --lg: 24px;
+    --font1: 'Mada', sans-serif;
+    --font2: 'Literata', serif;
+    --transition-menu: background-color 200ms linear 25ms;
+    --transition-btn: transform 0.3s ease-in-out 0s;
+}
+
+main {
+    display: flex;
+}
+
+.sidebar {
+    margin: 0;
+    padding: 7px;
+    width: 250px;
+    background-color: #F7BF4F;
+    min-height: 500px;
+    height: auto;
+}
+
+.content {
+    width: 100%
+}
+
+.row-welcome {
+    padding: 25px 80px;
+}
+
+/* Sidebar links */
+.sidebar a {
+    display: block;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
+}
+  
+/* Active/current link */
+.sidebar a.active {
+    background-color: #3F6346;
+    color: white;
+    border-radius: 15px;
+}
+  
+    /* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+    background-color: #5E826C;
+    color: white;
+    border-radius: 15px;
+}
+
+.card {
+    width: 480px;
+}
+.card .card-info h3 {
+    font-size: 26px;
+}
+.card .card-info .num-habitacion {
+    font-size: var(--lg);
+    font-family: var(--font2);
+    font-weight: bold;
+}
+.card .card-info .calificacion-container {
+    width: 75%;
+    padding: 5px 0;
+    border-radius: 10px;
+    margin-top: 8px;
+    background-color: var(--primary);
+    text-align: center;
+}
+.card .card-info .calificacion {
+    font-size: var(--md);
+    font-family: var(--font1);
+    color: var(--secondary);
+}
+.card .card-info .nota {
+    font-size: 30px;
+    font-family: var(--font2);
+    font-weight: bold;
+    color: var(--black);
+    line-height: 40px;
+}
+.card .card-info .estrellas {
+    margin-top: 8px;
+    color: var(--primary);
+}
+.card .card-info .info-reserva-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+.card .card-info .info-reserva-container .info-left {
+    width: 50%;
+}
+.card .card-info .info-reserva-container .info-left .estadia {
+    font-size: var(--md);
+    font-weight: bold;
+    color: var(--secondary);
+}
+.card .card-info .info-reserva-container .info-left .fechas {
+    margin-left: 15px;
+}
+.card .card-info .info-reserva-container .info-right {
+    width: 50%;
+}
+.card .card-info .info-reserva-container .info-right .item {
+    display: flex;
+    align-items: center;
+    padding-top: 5px;
+}
+.card .card-info .info-reserva-container .info-right .item .svg-icon {
+    color: var(--secondary)
+}
+.card .card-info .info-reserva-container .info-right .item p {
+    margin-left: 8px;
+    line-height: 20px;
+    color: var(--black);
+}
