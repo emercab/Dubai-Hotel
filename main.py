@@ -3,8 +3,12 @@ from admin.routes.admin import bp_admin
 from routes.habitaciones import bp_habitaciones
 from routes.contacto import bp_contacto
 from routes.micuenta import bp_micuenta
+from settings.config import Configuration
 
 app = Flask(__name__)
+# Cargo las opciones de configuración
+app.config.from_object(Configuration)
+
 
 # Me vinculo con el route de los endpoints de /admin
 app.register_blueprint(bp_admin)

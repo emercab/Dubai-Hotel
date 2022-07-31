@@ -1,14 +1,27 @@
+# En este archivo irán todas las clases que van a representar
+# todos los formularios del proyecto usando la librería WTForms
+
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
 
 
-class FormInicio(FlaskForm):
-    nombre = StringField(
-        "Usuario:", validators=[DataRequired(message="Este campo es obligatorio")]
+# Formulario del Login
+class LoginForm(FlaskForm):
+    username = StringField(
+        "Usuario, cédula o email:",
+        validators=[
+            DataRequired(message="Ingrese su Usuario, cédula o email.")
+        ],
+        id="username",
+        name="txtUsername",
     )
     password = PasswordField(
-        "Password:", validators=[DataRequired(message="Ingrese su contraseña")]
+        "Password:",
+        validators=[
+            DataRequired(message="Ingrese su contraseña.")
+        ],
+        id="password",
+        name="txtPassword"
     )
-    recordar = BooleanField("Recordar usuario")
-    enviar = SubmitField("Ingresar")
+    ingresar = SubmitField("Ingresar", None, None, id="miid")

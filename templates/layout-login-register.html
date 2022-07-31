@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!-- Google Fonts -->
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,700&family=Mada:wght@400;700&display=swap" rel="stylesheet"> 
+   <!-- CSS - Agregar los estilos propios de cada página -->
+   <link rel="stylesheet" href="{{ url_for('static', filename='./css/main.css') }}">
+   {% block estilos_propios %}
+   {% endblock %}
+   <!-- Title -->
+   <title>SLS Dubai Hotel | {{data.titulo_head}} | Grupo 04 | Misión TIC 2022</title>
+</head>
+<body>
+   {% block principal %}
+   {% endblock %}
+</body>
+</html>
