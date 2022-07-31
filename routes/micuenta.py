@@ -1,10 +1,11 @@
 # Acá van todas las rutas de la aplicación del endpoint mi-cuenta
 
 from flask import jsonify, render_template, request, Blueprint
-from forms import LoginForm
+from forms import LoginForm, RegisterForm
 
 # Objeto de la clase Blueprint que vincula el main con este módulo
 bp_micuenta = Blueprint("bp_micuenta", __name__)
+
 
 # Ruta del Login
 @bp_micuenta.route("/mi-cuenta/login", methods=["GET", "POST"])
@@ -22,9 +23,18 @@ def login():
 
 
 # Ruta del formulario de registro
-@bp_micuenta.route("/mi-cuenta/register", methods=["GET"])
+@bp_micuenta.route("/mi-cuenta/register", methods=["GET", "POST"])
 def register():
-    return "Register."
+    # Creo un objeto de tipo formulario que le pasaré al template y
+    # que se inicializa con los parámetros recibidos en la vista
+    register_form = RegisterForm(request.form)
+    
+    # Diccionario que prepara todo lo que se le enviará al template
+    data = {
+        "titulo": "Ingrese al Sistema",
+        "form": register_form,
+    }
+    return render_template("register.html", data=data)
 
 
 @bp_micuenta.route("/mi-cuenta", methods=["GET"])

@@ -84,7 +84,7 @@
 .register-left form .inline-form .form-control label {
   display: block;
 }
-.register-left form .inline-form .form-control input {
+.register-left form .inline-form .form-control input:not(.btn) {
   display: block;
   width: 100%;
   height: 36px;
@@ -92,6 +92,10 @@
   color: var(--dark);
   border: 1px solid var(--primary);
   border-radius: 8px;
+}
+.register-left form input.btn {
+  display: block;
+  margin: 0 auto;
 }
 .register-left .login a {
   color: var(--secondary);

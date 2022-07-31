@@ -1,0 +1,91 @@
+{% extends "layout-login-register.html" %}
+
+{% block estilos_propios %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/register.css') }}">
+{% endblock %}
+
+{% block principal %}
+    <main class="register-main">
+
+        <section class="register-container">
+
+            <!-- Left Side -->
+            <div class="register-left">
+                <div class="register-info-container">
+                    <!-- Info Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="info-icon" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                    </svg>
+                    <div class="register-info">
+                        <h3>Registro de Usuario</h3>
+                        <p>Todos los campos son obligatorios.</p>
+                    </div>
+                </div>
+                <!-- Línea -->
+                <p class="linea"></p>
+
+                <!-- Form Register -->
+                <form action="/mi-cuenta/register" method="post">
+                    {{data.form.csrf_token}}
+                    <!-- Primera fila de controles -->
+                    <div class="inline-form">
+                        <div class="form-control w-50">
+                            {{data.form.nombres.label()}}
+                            {{data.form.nombres()}}
+                        </div>
+                        <div class="form-control w-50">
+                            {{data.form.apellidos.label()}}
+                            {{data.form.apellidos()}}
+                        </div>
+                    </div>
+                    <!-- Segunda fila de controles -->
+                    <div class="inline-form">
+                        <div class="form-control w-25">
+                            {{data.form.cedula.label()}}
+                            {{data.form.cedula()}}
+                        </div>
+                        <div class="form-control w-75">
+                            {{data.form.email.label()}}
+                            {{data.form.email()}}
+                        </div>
+                    </div>
+                    <!-- Tercera fila de controles -->
+                    <div class="inline-form">
+                        <div class="form-control w-75">
+                            {{data.form.direccion.label()}}
+                            {{data.form.direccion()}}
+                        </div>
+                        <div class="form-control w-25">
+                            {{data.form.celular.label()}}
+                            {{data.form.celular()}}
+                        </div>
+                    </div>
+                    <!-- Cuarta fila de controles -->
+                    <div class="inline-form">
+                        <div class="form-control w-50">
+                            {{data.form.password.label()}}
+                            {{data.form.password()}}
+                        </div>
+                        <div class="form-control w-50">
+                            {{data.form.confirm_password.label()}}
+                            {{data.form.confirm_password()}}
+                        </div>
+                    </div>
+                        {{data.form.registrar()}}
+                </form>
+                <p class="login">
+                    ¿Ya está registrado? <a href="/mi-cuenta/login">Ingrese desde aquí</a>
+                </p>
+            </div>
+
+            <!-- Right Side -->
+            <div class="register-right">
+                <img src="https://i.ibb.co/RSpx1Lp/logo-transparent-light.png" alt="SLS Dubai Hotel">
+                <a href="/" class="btn btn-secondary btn-sm text-white">
+                    Ir a la página principal
+                </a>
+            </div>
+        </section>
+    </main> 
+{% endblock %}

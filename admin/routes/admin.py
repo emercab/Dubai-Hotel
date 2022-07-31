@@ -1,5 +1,5 @@
 from flask import jsonify, request, Blueprint
-from admin.decorators import hola_decorator
+from decorators import hola_decorator
 
 bp_admin = Blueprint("bp_admin", __name__, template_folder='./admin/templates')
 
