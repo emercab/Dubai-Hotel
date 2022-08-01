@@ -1,7 +1,7 @@
 # Proyecto SLS Dubai Hotel
 ![enter image description here](https://i.ibb.co/2P0J6qT/logo-transparent-dark.png)
 
-Disponible en: [http://lsldubaihotel.site](http://lsldubaihotel.site)
+Disponible en: [http://slsdubaihotel.site](http://slsdubaihotel.site)
 
 Proyecto de ciclo 3 de Misión TIC en el que se implementan las tecnologías de HTML, CSS, Javascript, Python y Flask.
 
