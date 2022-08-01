@@ -6,7 +6,7 @@ from routes.micuenta import bp_micuenta
 from settings.config import Configuration
 
 app = Flask(__name__)
-# Cargo las opciones de configuración
+# Cargo las opciones de configuración de la app
 app.config.from_object(Configuration)
 
 
@@ -19,13 +19,14 @@ app.register_blueprint(bp_habitaciones)
 # Me vinculo con el route de los endpoints de /contacto
 app.register_blueprint(bp_contacto)
 
-# Me vinculo con el route de los endpoints de /micuenta
+# Me vinculo con el route de los endpoints de /mi-cuenta
 app.register_blueprint(bp_micuenta)
 
 
 # Cargamos la página principal (home)
 @app.route("/", methods=["GET"])
 def index():
+    # Preparo datos a enviar al template
     data = {
         "titulo_head": "Home",
         "user_login": False,

@@ -31,6 +31,8 @@ class LoginForm(FlaskForm):
             "class": "btn btn-secondary text-primary"
         }
     )
+# Fin Formulario del Login
+
 
 # Formulario de Registro
 class RegisterForm(FlaskForm):
@@ -132,3 +134,4 @@ class RegisterForm(FlaskForm):
             "class": "btn btn-secondary text-primary"
         }
     )
+# Fin Formulario de Registro

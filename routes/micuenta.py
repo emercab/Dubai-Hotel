@@ -20,6 +20,7 @@ def login():
         "form": login_form,
     }
     return render_template("login.html", data=data)
+# Fin de la ruta del Login
 
 
 # Ruta del formulario de registro
@@ -35,23 +36,32 @@ def register():
         "form": register_form,
     }
     return render_template("register.html", data=data)
+# Fin de Ruta del formulario de registro
 
 
+# Ruta de Mi Cuenta
 @bp_micuenta.route("/mi-cuenta", methods=["GET"])
 def mi_cuenta():
     return "Estamos en Mi Cuenta."
+# Fin de Ruta de Mi Cuenta
 
 
+# Ruta de Mis Reservas
 @bp_micuenta.route("/mi-cuenta/reservas", methods=["GET"])
 def reservas():
     return "Estamos en Mis Reservas."
+# Fin Ruta de Mis Reservas
 
 
+# Ruta Calificar Habitaciones
 @bp_micuenta.route("/mi-cuenta/calificar-habitacion", methods=["GET"])
 def calificar_habitacion():
     return "Estamos en Calificar Habitación."
+# Fin Ruta Calificar Habitaciones
 
 
+# Ruta de Cerrar Sesión
 @bp_micuenta.route("/mi-cuenta/logout", methods=["GET"])
 def logout():
     return "Cerrar sesión."
+# Fin Ruta de Cerrar Sesión
