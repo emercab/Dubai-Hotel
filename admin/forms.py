@@ -12,9 +12,14 @@ class UsuarioForm(RegisterForm):
         }
     )
 
+
+class ReservaForm(FlaskForm):
+    pass
+
+
 class HabitacionForm(FlaskForm):
     nombre = StringField(
-        "Habitación",
+        "Número",
         validators=[
             DataRequired("Ingresar el nombre de la habitación.")
         ],
