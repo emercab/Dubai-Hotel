@@ -133,6 +133,18 @@ a { text-decoration: none; }
 .text-black {
    color: var(--black)
 }
+.mensaje {
+    margin: 0 auto;
+    padding: 10px;
+    text-align: center;
+    border-radius: 8px;
+    font-size: var(--sm);
+}
+.is-danger {
+    border: 1px solid darkred;
+    background-color: #f0aeae;
+    color: darkred;
+}
 
 
 /* Header */

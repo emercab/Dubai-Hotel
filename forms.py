@@ -14,7 +14,10 @@ class LoginForm(FlaskForm):
             DataRequired(message="Ingrese su Usuario, cédula o email.")
         ],
         id="username",
-        name="txtUsername"
+        name="txtUsername",
+        render_kw= {
+            "autocomplete": "off"
+        }
     )
     password = PasswordField(
         "Contraseña:",
@@ -22,7 +25,10 @@ class LoginForm(FlaskForm):
             DataRequired(message="Ingrese su contraseña.")
         ],
         id="password",
-        name="txtPassword"
+        name="txtPassword",
+        render_kw= {
+            "autocomplete": "off"
+        }
     )
     
     ingresar = SubmitField(

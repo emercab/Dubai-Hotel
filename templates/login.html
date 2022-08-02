@@ -24,8 +24,19 @@
             <!-- Línea -->
             <p class="linea"></p>
 
+            <!-- Mensajes -->
+            {% with mensajes = get_flashed_messages() %}
+               {% if mensajes %}
+                  <div class="mensaje is-danger w-80">
+                     {% for mensaje in mensajes %}
+                        {{ mensaje }}
+                     {% endfor %}
+                  </div>
+               {% endif %}
+            {% endwith %}
+
             <!-- Form Login -->
-            <form action="#" method="post">
+            <form action="/mi-cuenta/login" method="post">
                <!-- Genero mi secret key para evitar ataques csrf -->
                {{data.form.csrf_token}}
                <div class="inline-form">
