@@ -1,0 +1,115 @@
+:root {
+    --primary: #F7BF4F; /* rgb(247,191,79) */
+    --secondary: #1A4D2E; /* rgb(26,77,46) */
+    --secondary-light: #2c824e; /* rgb(26,77,46) */
+    --other: #8EB458; /* rgb(142,180,88) */
+    --light: #FAF3E3; /* rgb(250,243,227) */
+    --dark: #2C3333; /* rgb(44,51,51) */
+    --black: #161616; /* rgb(22,22,22) */
+    --white: #fff; /* rgb(255,255,255) */
+}
+
+/* template */
+/*header y navbar*/
+.pcoded .pcoded-header[header-theme="theme1"],
+.pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item > li.active > a {
+    background: var(--secondary);
+}
+
+/* button.btn-primary */
+.btn-primary, .sweet-alert button.confirm, .wizard > .actions a {
+    background-color: var(--secondary);
+    border-color: var(--secondary);
+    color: var(--white);
+    cursor: pointer;
+    -webkit-transition: all ease-in 0.3s;
+    transition: all ease-in 0.3s;
+}
+
+/* pseudo class btn-primary */
+.btn-primary:hover, .sweet-alert button.confirm:hover, .wizard > .actions a:hover,
+.btn-primary:active, .sweet-alert button.confirm:active, .wizard > .actions a:active,
+.btn-primary:focus, .sweet-alert button.confirm:focus, .wizard > .actions a:focus {
+    background-color: var(--secondary-light) !important;
+    border-color: var(--secondary-light);
+}
+
+/* nav head - foto user */
+.pcoded[fream-type="theme1"] .main-menu .main-menu-header::before {
+    background: var(--white);
+}
+
+.pcoded[fream-type="theme1"] .main-menu .main-menu-header::after {
+    content: "";
+    background-color: #e4e9eb;
+    width: 80%;
+    height: 1px;
+    position: absolute;
+    left: 10%;
+    bottom: 10px;
+}
+
+.pcoded .pcoded-navbar[navbar-theme="themelight1"] .main-menu .main-menu-header .user-details span {
+    color: var(--black);    
+}
+
+/* item nav */
+.pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item li:hover > a {
+    color: var(--primary) !important;
+}
+
+.pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item li:hover > a .pcoded-micon {
+    color: var(--primary) !important;
+}
+
+/* item nav active */
+.pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item > li.active > a {
+    color: var(--white) !important;
+}
+
+.pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item > li.active > a .pcoded-micon {
+    color: var(--white) !important;
+}
+
+a:focus, a:hover {
+    text-decoration: none;
+    color: var(--primary);
+}
+
+/* inputs */
+.form-control:focus {
+    border: 1px solid var(--primary);
+}
+
+/* Particular */
+.box-login {
+    width: 350px;
+    margin: 90px auto 0;
+}
+
+.box-credential-error {
+    padding: 15px 10px;
+    color: white;
+    border-radius: 10px;
+    background-color: var(--red);
+}
+
+.table .btn-accion {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 0 3px;
+    font-size: 17px;
+}
+
+select.select-border.form-control:not([size]):not([multiple]) {
+    height: 35.5px;
+    border: 1px solid #ccc;
+}
+
+nav .navbar-logo .logo {
+    margin-left: 25px;
+}
+
+nav .navbar-logo .logo img {
+    height: 38px;
+}

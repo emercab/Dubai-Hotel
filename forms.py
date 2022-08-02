@@ -22,7 +22,11 @@ class LoginForm(FlaskForm):
             DataRequired(message="Ingrese su contraseña.")
         ],
         id="password",
-        name="txtPassword"
+        name="txtPassword",
+        render_kw={
+            "placeholder": "Ingrese su clave...",
+            "class": "form-control",
+        }
     )
     
     ingresar = SubmitField(
