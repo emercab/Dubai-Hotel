@@ -14,51 +14,51 @@
                 <b>Información de la reserva</b>
             </div>
             <div class="card-block">
-                <div class="row">
-                     <div class="col-xs-12 col-md-3">
-                        <div class="form-group">
-                            <label>Cliente</label>
-                            <select class="select-border form-control">
-                                <option>Seleccione un cliente</option>
-                            </select>
+                <form action="{{ url_for('bp_admin.nueva_reserva_admin') }}" method="post">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                           <div class="form-group">
+                               {{ data.form.cliente.label() }}
+                               {{ data.form.cliente() }}
+                           </div>
                         </div>
-                     </div>
-                     <div class="col-xs-12 col-md-3">
-                        <div class="form-group">
-                            <div class="form-group">
-                                <label>Habitación</label>
-                                <select class="select-border form-control">
-                                    <option>Seleccione una habitación</option>
-                                </select>
-                            </div>
+                        <div class="col-xs-12 col-md-3">
+                           <div class="form-group">
+                               <div class="form-group">
+                                   {{ data.form.habitacion.label() }}
+                                   {{ data.form.habitacion() }}
+                               </div>
+                           </div>
                         </div>
-                     </div>
-                     <div class="col-xs-12 col-md-3">
-                        <div class="form-group">
-                            <label>Fecha de ingreso</label>
-                            <input type="date" class="form-control" min="2022-07-24"/>
+                        <div class="col-xs-12 col-md-3">
+                           <div class="form-group">
+                               {{ data.form.fecha_ingreso.label() }}
+                               {{ data.form.fecha_ingreso() }}
+                           </div>
                         </div>
-                     </div>
-                     <div class="col-xs-12 col-md-3">
-                        <div class="form-group">
-                            <label>Fecha de salida</label>
-                            <input type="date" class="form-control" min="2022-07-25"/>
+                        <div class="col-xs-12 col-md-3">
+                           <div class="form-group">
+                               {{ data.form.fecha_salida.label() }}
+                               {{ data.form.fecha_salida() }}
+                           </div>
                         </div>
-                     </div>
-                     <div class="col-xs-12 col-md-3">
-                        <div class="form-group">
-                            <label>Precio</label>
-                            <input type="number" class="form-control" value="0"  readonly />
+                        <div class="col-xs-12 col-md-3">
+                           <div class="form-group">
+                               {{ data.form.precio.label() }}
+                               {{ data.form.precio() }}
+                           </div>
                         </div>
-                     </div>
+   
+                        <div class="col-xs-12 col-md-12 text-right">
+                           <button class="btn btn-primary" type="submit">
+                               <i class="ti-save"></i>
+                               Guardar
+                           </button>
+                        </div>
+                   </div>
 
-                     <div class="col-xs-12 col-md-12 text-right">
-                        <button class="btn btn-primary" type="button">
-                            <i class="ti-save"></i>
-                            Guardar
-                        </button>
-                     </div>
-                </div>
+                   {{ data.form.csrf_token }}
+                </form>
             </div>
         </div>
     </div>

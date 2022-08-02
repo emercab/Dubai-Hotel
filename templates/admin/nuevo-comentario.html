@@ -14,32 +14,36 @@
                 <b>Información del comentario</b>
             </div>
             <div class="card-block">
-                <div class="row">
-                     <div class="col-xs-12 col-md-6">
-                        <div class="form-group">
-                            <label>Cliente</label>
-                            <input type="text" name="txtApellido" class="form-control" value="######" readonly />
+                <form action="" method="post">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                           <div class="form-group">
+                               {{ data.form.cliente.label() }}
+                               {{ data.form.cliente() }}
+                           </div>
                         </div>
-                     </div>
-                     <div class="col-xs-12 col-md-6">
-                        <div class="form-group">
-                            <label>Habitación</label>
-                            <input type="text" name="txtApellido" class="form-control" value="######" readonly />
+                        <div class="col-xs-12 col-md-6">
+                           <div class="form-group">
+                               {{ data.form.habitacion.label() }}
+                               {{ data.form.habitacion() }}
+                           </div>
                         </div>
-                     </div>
-                     <div class="col-xs-12 col-md-12">
-                        <div class="form-group">
-                            <label>Comentario</label>
-                            <textarea rows="4" class="form-control"></textarea>
+                        <div class="col-xs-12 col-md-12">
+                           <div class="form-group">
+                               {{ data.form.comentario.label() }}
+                               {{ data.form.comentario() }}
+                           </div>
                         </div>
-                     </div>
-                     <div class="col-xs-12 col-md-12 text-right">
-                        <button class="btn btn-primary" type="button">
-                            <i class="ti-save"></i>
-                            Guardar
-                        </button>
-                     </div>
-                </div>
+                        <div class="col-xs-12 col-md-12 text-right">
+                           <button class="btn btn-primary" type="submit">
+                               <i class="ti-save"></i>
+                               Guardar
+                           </button>
+                        </div>
+                   </div>
+
+                   {{ data.form.csrf_token }}
+                </form>
             </div>
         </div>
     </div>

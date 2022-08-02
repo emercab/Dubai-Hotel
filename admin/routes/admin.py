@@ -1,5 +1,5 @@
 from flask import redirect, render_template, request, Blueprint, session, url_for
-from admin.forms import HabitacionForm, UsuarioForm
+from admin.forms import ComentarioForm, HabitacionForm, ReservaForm, UsuarioForm
 from decorators import admin_required
 
 
@@ -30,6 +30,8 @@ def usuarios_admin():
 @bp_admin.route('/admin/nuevo-usuario')
 def nuevo_usuario_admin():
     form = UsuarioForm(request.form)
+    form.tipo_usuario.choices = [form.tipo_usuario.choices[0], ("0", "Numero 1"), ("1", "Numero 2"), ("2", "Numero 3")]
+
     data = {
         "titulo_head": "Usuarios",
         "titulo_content": "Nuevo usuario",
@@ -80,9 +82,11 @@ def reservas_admin():
 
 @bp_admin.route('/admin/nueva-reserva', methods=['get', 'post'])
 def nueva_reserva_admin():
+    form = ReservaForm(request.form)
     data = {
         "titulo_head": "Reservas",
-        "titulo_content": "Nueva reserva"
+        "titulo_content": "Nueva reserva",
+        "form": form
     }
 
     return render_template('admin/nueva-reserva.html', data=data)
@@ -101,9 +105,11 @@ def comentarios_admin():
 
 @bp_admin.route('/admin/nuevo-comentario', methods=['get', 'post'])
 def nuevo_comentario_admin():
+    form = ComentarioForm(request.form)
     data = {
         "titulo_head": "Comentarios",
-        "titulo_content": "Nuevo comentario"
+        "titulo_content": "Nuevo comentario",
+        "form": form
     }
 
     return render_template('admin/nuevo-comentario.html', data=data)
