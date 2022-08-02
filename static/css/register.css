@@ -106,7 +106,7 @@
 .register-left .login {
   font-size: var(--sm);
   text-align: center;
-  margin-top: 14px;
+  margin: 14px 0;
 }
 .register-left button {
   display: block;
