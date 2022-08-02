@@ -1,0 +1,88 @@
+{% extends 'admin/layout-admin.html' %}
+{% block principal %}
+<div class="row">
+    <div class="col-xs-12 col-md-12 text-right mb-3">
+        <a class="btn btn-primary" href="usuarios.html">
+            <i class="ti-angle-left"></i>
+            Listado de usuarios
+        </a>
+    </div>
+    
+    <div class="col-xs-12 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <b>Información del usuario</b>
+            </div>
+            <div class="card-block">
+                <div class="row">
+                     <div class="col-xs-12 col-md-4 col-lg-3">
+                        <div class="form-group">
+                            {{ data.form.nombres.label() }}
+                            {{ data.form.nombres(class_="form-control", placeholder="") }}
+                        </div>
+                     </div>
+                     <div class="col-xs-12 col-md-4 col-lg-3">
+                        <div class="form-group">
+                            {{ data.form.apellidos.label() }}
+                            {{ data.form.apellidos(class_="form-control", placeholder="") }}
+                        </div>
+                     </div>
+                     <div class="col-xs-12 col-md-4 col-lg-3">
+                        <div class="form-group">
+                            {{ data.form.cedula.label() }}
+                            {{ data.form.cedula(class_="form-control", placeholder="") }}
+                        </div>
+                     </div>
+                     <div class="col-xs-12 col-md-4 col-lg-3">
+                        <div class="form-group">
+                            {{ data.form.celular.label() }}
+                            {{ data.form.celular(class_="form-control", placeholder="") }}
+                        </div>
+                     </div>
+                     <div class="col-xs-12 col-md-4 col-lg-3">
+                        <div class="form-group">
+                            {{ data.form.email.label() }}
+                            {{ data.form.email(class_="form-control", placeholder="") }}
+                        </div>
+                     </div>
+                     <div class="col-xs-12 col-md-4 col-lg-3">
+                        <div class="form-group">
+                            {{ data.form.tipoUsuario.label() }}
+                            {{ data.form.tipoUsuario() }}
+                            <!-- <select class="form-control select-border">
+                                <option value="1">Cliente</option>
+                                <option value="2">Administrador</option>
+                                <option value="3">Super administrador</option>
+                            </select> -->
+                        </div>
+                     </div>
+                     <!-- <div class="col-xs-12 col-md-4 col-lg-3">
+                        <div class="form-group">
+                            <label>Usuario</label>
+                            <input type="text" name="txtUsuario" class="form-control" />
+                        </div>
+                     </div> -->
+                     <div class="col-xs-12 col-md-4 col-lg-3">
+                        <div class="form-group">
+                            {{ data.form.password.label() }}
+                            {{ data.form.password(class_="form-control", placeholder="") }}
+                        </div>
+                     </div>
+                     <div class="col-xs-12 col-md-12">
+                        <div class="form-group">
+                            {{ data.form.direccion.label() }}
+                            {{ data.form.direccion(class_="form-control", placeholder="") }}
+                        </div>
+                     </div>
+                     <div class="col-xs-12 col-md-12 text-right">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="ti-save"></i>
+                            Guardar
+                        </button>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

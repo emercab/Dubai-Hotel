@@ -26,8 +26,10 @@ class LoginForm(FlaskForm):
         ],
         id="password",
         name="txtPassword",
-        render_kw= {
-            "autocomplete": "off"
+        render_kw={
+            "autocomplete": "off",
+            "placeholder": "Ingrese su clave...",
+            "class": "form-control",
         }
     )
     

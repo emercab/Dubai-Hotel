@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from admin.routes.admin import bp_admin
 from routes.habitaciones import bp_habitaciones
 from routes.contacto import bp_contacto
@@ -8,7 +8,6 @@ from settings.config import Configuration
 app = Flask(__name__)
 # Cargo las opciones de configuración de la app
 app.config.from_object(Configuration)
-
 
 # Me vinculo con el route de los endpoints de /admin
 app.register_blueprint(bp_admin)
