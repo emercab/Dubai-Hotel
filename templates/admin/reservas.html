@@ -1,0 +1,49 @@
+{% extends 'admin/layout-admin.html' %}
+{% block principal %}
+<div class="row">
+    <div class="col-xs-12 col-md-12 text-right mb-3">
+        <a class="btn btn-primary" href="{{ url_for('bp_admin.nueva_reserva_admin') }}">
+            <i class="ti-plus"></i>
+            Nueva reserva
+        </a>
+    </div>
+
+    <div class="col-xs-12 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <b>Listado de reservas</b>
+            </div>
+            <div class="card-block table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Cliente</th>
+                            <th>Habitación</th>
+                            <th>Fecha de llegada</th>
+                            <th>Fecha de salida</th>
+                            <th>Precio</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>#</td>
+                        <td>####</td>
+                        <td>####</td>
+                        <td>####</td>
+                        <td>####</td>
+                        <td>####</td>
+                        <td class="text-right">
+                            <a class="btn-accion" href="{{ url_for('bp_admin.nueva_reserva_admin') }}">
+                                <i class="ti-pencil-alt" data-toggle="tooltip" data-placement="top" data-original-title="editar"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

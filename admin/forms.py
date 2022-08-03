@@ -177,6 +177,15 @@ class ComentarioForm(FlaskForm):
         }
     )
 
+    comentario = TextAreaField(
+        "Comentario",
+        validators=[DataRequired("Debe ingresar un comentario.")],
+        render_kw = {
+            "class": "form-control",
+            "rows": "4"
+        }
+    )
+
 class HabitacionForm(FlaskForm):
     numero = StringField(
         "Habitación",
