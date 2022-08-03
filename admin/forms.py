@@ -1,3 +1,5 @@
+from multiprocessing import Value
+from wsgiref.validate import validator
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SelectField, DateField, TextAreaField, SubmitField, PasswordField, EmailField
 from wtforms.validators import DataRequired, NumberRange, Email
@@ -189,11 +191,30 @@ class ComentarioForm(FlaskForm):
 class HabitacionForm(FlaskForm):
     numero = StringField(
         "Habitación",
+        render_kw={
+            "readonly": "",
+            "class": "form-control"
+        }
+    )
+
+    comentario = TextAreaField(
+        "Comentario",
+        validators=[DataRequired("Debe ingresar un comentario.")],
+        render_kw = {
+            "class": "form-control",
+            "rows": "4"
+        }
+    )
+
+
+class HabitacionForm(FlaskForm):
+    numero = StringField(
+        "Número",
         validators=[
             DataRequired("Ingresar el número de la habitación.")
         ],
-        id="txtNombre",
-        name="txtNombre",
+        id="txtNumero",
+        name="txtNumero",
         render_kw={
             "class": "form-control"
         }
@@ -205,6 +226,8 @@ class HabitacionForm(FlaskForm):
             DataRequired("Ingresar el precio para la habitación."),
             NumberRange(min=0, message="El precio no puede ser menor a 0.")
         ],
+        id="txtPrecio",
+        name="txtPrecio",
         render_kw={
             "class": "form-control"
         }

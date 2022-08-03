@@ -15,71 +15,70 @@
             </div>
             <div class="card-block">
                 <div class="row">
-                     <div class="col-xs-12 col-md-4 col-lg-3">
+                    <div class="col-xs-12 col-md-4 col-lg-3">
                         <div class="form-group">
                             {{ data.form.nombres.label() }}
                             {{ data.form.nombres(class_="form-control", placeholder="") }}
                         </div>
-                     </div>
-                     <div class="col-xs-12 col-md-4 col-lg-3">
+                    </div>
+                    <div class="col-xs-12 col-md-4 col-lg-3">
                         <div class="form-group">
                             {{ data.form.apellidos.label() }}
                             {{ data.form.apellidos(class_="form-control", placeholder="") }}
                         </div>
-                     </div>
-                     <div class="col-xs-12 col-md-4 col-lg-3">
+                    </div>
+                    <div class="col-xs-12 col-md-4 col-lg-3">
                         <div class="form-group">
                             {{ data.form.cedula.label() }}
                             {{ data.form.cedula(class_="form-control", placeholder="") }}
                         </div>
-                     </div>
-                     <div class="col-xs-12 col-md-4 col-lg-3">
+                    </div>
+                    <div class="col-xs-12 col-md-4 col-lg-3">
                         <div class="form-group">
                             {{ data.form.celular.label() }}
                             {{ data.form.celular(class_="form-control", placeholder="") }}
                         </div>
-                     </div>
-                     <div class="col-xs-12 col-md-4 col-lg-3">
+                    </div>
+                    <div class="col-xs-12 col-md-4 col-lg-3">
                         <div class="form-group">
                             {{ data.form.email.label() }}
                             {{ data.form.email(class_="form-control", placeholder="") }}
                         </div>
                     </div>  
-                        <div class="col-xs-12 col-md-4 col-lg-3">
-                           <div class="form-group">
-                               {{ data.form.tipo_usuario.label() }}
-                               {{ data.form.tipo_usuario() }}
-                           </div>
+                    <div class="col-xs-12 col-md-4 col-lg-3">
+                        <div class="form-group">
+                            {{ data.form.tipo_usuario.label() }}
+                            {{ data.form.tipo_usuario() }}
                         </div>
+                    </div>
                         <!-- <div class="col-xs-12 col-md-4 col-lg-3">
-                           <div class="form-group">
-                               <label>Usuario</label>
-                               <input type="text" name="txtUsuario" class="form-control" />
-                           </div>
-                        </div> -->
-                        <div class="col-xs-12 col-md-4 col-lg-3">
                             <div class="form-group">
-                                {{ data.form.password.label() }}
-                                {{ data.form.password(class_="form-control", placeholder="") }}
+                                <label>Usuario</label>
+                                <input type="text" name="txtUsuario" class="form-control" />
                             </div>
-                         </div>
-                         <div class="col-xs-12 col-md-12">
+                        </div> -->
+                    <div class="col-xs-12 col-md-4 col-lg-3">
+                        <div class="form-group">
+                            {{ data.form.password.label() }}
+                            {{ data.form.password(class_="form-control", placeholder="") }}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12">
                             <div class="form-group">
                                 {{ data.form.direccion.label() }}
                                 {{ data.form.direccion(class_="form-control", placeholder="") }}
                             </div>
-                         </div>
-                        <div class="col-xs-12 col-md-12 text-right">
-                           <button class="btn btn-primary" type="submit">
-                               <i class="ti-save"></i>
-                               Guardar
-                           </button>
-                        </div>
-                     </div>
-                     </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12 text-right">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="ti-save"></i>
+                            Guardar
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    </div>
 {% endblock %}

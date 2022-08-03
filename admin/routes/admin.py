@@ -11,6 +11,12 @@ bp_admin = Blueprint("bp_admin", __name__)
     
 #     return "Estamos en el Admin"
 
+#session
+#session['key_session']="value session" - crear session
+#acceder_session = ['key_session']      - acceder a session
+#session.pop('key_session', None)       - eliminar session
+#session.clear()                        - eliminar todas las sessiones
+
 @bp_admin.route('/admin')
 @bp_admin.route('/admin/usuarios')
 def usuarios_admin():
@@ -23,6 +29,7 @@ def usuarios_admin():
     }
 
     return render_template("admin/usuarios.html", data=data)
+#fin usuarios
 
 
 @bp_admin.route('/admin/nuevo-usuario', methods=['get', 'post'])
@@ -51,6 +58,7 @@ def nuevo_usuario_admin(id_usuario=None):
     }
 
     return render_template("admin/nuevo-usuario.html", data=data)
+#fin nuevo usuario
 
 
 @bp_admin.route('/admin/habitaciones')
@@ -64,6 +72,8 @@ def habitaciones_admin():
     }
     
     return render_template("admin/habitaciones.html", data=data)
+#fin habitaciones
+
 
 @bp_admin.route('/admin/nueva-habitacion', methods=['get', 'post'])
 @bp_admin.route('/admin/nueva-habitacion/<id_habitacion>', methods=['get', 'post'])
