@@ -1,7 +1,5 @@
 
 
-<<<<<<< HEAD
-=======
 def buscar_tipo_usuario():
     tipo_usuario = [
         ('', 'Seleccionar una opción'),
@@ -30,4 +28,3 @@ def guardar_usuario(id_usuario, nombres, apellidos, cedula, celular, email, tipo
 def desactivar_usuario(id_usuario):
     pass
 
->>>>>>> experiment
