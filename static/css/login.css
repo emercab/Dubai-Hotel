@@ -77,10 +77,10 @@
 .login-left form .inline-form .form-icon {
    color: var(--dark);
    line-height: 0;
+   margin-right: 8px;
 }
 .login-left form .inline-form .form-control {
    width: 100%;
-   margin-left: 8px;
 }
 .login-left form .inline-form .form-control label {
    display: block;
