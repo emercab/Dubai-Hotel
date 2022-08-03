@@ -1,7 +1,8 @@
 # Acá van todas las rutas de la aplicación del endpoint mi-cuenta
 
-from flask import flash, render_template, request, Blueprint
+from flask import flash, redirect, render_template, request, Blueprint, url_for
 from forms import LoginForm, RegisterForm
+from markupsafe import escape
 import controllers.controller_micuenta as controller
 
 # Objeto de la clase Blueprint que vincula el main con este módulo
@@ -14,23 +15,30 @@ def login():
     # Creo un objeto de tipo formulario que le pasaré al template y
     # que se inicializa con los parámetros recibidos en la vista
     login_form = LoginForm(request.form)
-    
+
+    # Diccionario que prepara todo lo que se le enviará al template
     data = {
         "titulo": "Ingrese al Sistema",
         "form": login_form,
     }
+
+    # Se verifica que el form haya pasado la validación
     if login_form.validate_on_submit():
-        username = login_form.username.data
-        password = login_form.password.data
+        # Capturo las variables ingresadas por el usuario y 
+        # por seguridad aplico escape a todo lo ingresado
+        username = escape(login_form.username.data)
+        password = escape(login_form.password.data)
+        
+        # Llamo a la función del controller que revisa el login
         result_login = controller.check_login(username, password)
-        print(f"Login: {result_login}")
+        
+        # Reviso la respuesta del login obtenida por el controlador
         if result_login == 0:
             flash("Campo de usuario o contraseña incorrectos.")
         elif result_login == 2:
             flash("Contraseña incorrecta.")
         elif result_login == 1:
-            flash("Login correcto.")
-        # Diccionario que prepara todo lo que se le enviará al template
+            return redirect("/")
     return render_template("login.html", data=data)
 # Fin de la ruta del Login
 
@@ -75,5 +83,8 @@ def calificar_habitacion():
 # Ruta de Cerrar Sesión
 @bp_micuenta.route("/mi-cuenta/logout", methods=["GET"])
 def logout():
-    return "Cerrar sesión."
+    # Llamo a la función del controlador que destruye todas las
+    # variables de sesión
+    controller.destroy_session()
+    return redirect(url_for("index"))
 # Fin Ruta de Cerrar Sesión
