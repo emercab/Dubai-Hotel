@@ -10,7 +10,6 @@ app = Flask(__name__)
 # Cargo las opciones de configuración de la app
 app.config.from_object(Configuration)
 
-
 # Me vinculo con el route de los endpoints de /admin
 app.register_blueprint(bp_admin)
 
