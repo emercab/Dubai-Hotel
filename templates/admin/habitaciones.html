@@ -19,30 +19,32 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Nombre</th>
+                            <th>Número de habitación</th>
                             <th>Precio</th>
-                            <th>Estado</th>
-                            <th></th>
+                            <th>Calificación</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
+                    {% for habitacion in data.habitaciones %}
                     <tr>
-                        <td>#</td>
-                        <td>####</td>
-                        <td>####</td>
-                        <td>####</td>
+                        <td>{{ habitacion["Id"] }}</td>
+                        <td>{{ habitacion["Numero"] }}</td>
+                        <td>{{ habitacion["Precio"] }}</td>
+                        <td>{{ habitacion["Calificacion"] }}</td>
+                        <td></td>
                         <td class="text-right">
-                            <a class="btn-accion" href="{{ url_for('bp_admin.nueva_habitacion_admin') }}">
+                            <a class="btn-accion" href="{{ url_for('.nueva_habitacion_admin', id_habitacion=habitacion['Id']) }}">
                                 <i class="ti-pencil-alt" data-toggle="tooltip" data-placement="top" data-original-title="editar"></i>
                             </a>
-                            <a class="btn-accion" href="#"
+                            <a class="btn-accion" href="{{ url_for('.remover_habitacion_admin', id_habitacion=habitacion['Id']) }}"
                                 data-toggle="tooltip" data-placement="top" data-original-title="desactivar">
                                 <i class="ti-na"></i>
                             </a>
                         </td>
                     </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

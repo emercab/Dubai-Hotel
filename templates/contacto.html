@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+
+{% block estilos_propios %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/contacto.css') }}">
+{% endblock %}
+
+{% block principal %}
+<section class="section">
+   <div class="row section-contact">
+      <div class="map">
+         <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14442.177961849173!2d55.2922759!3d25.1848541!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x6758a23b6d0f15e0!2sSLS%20Dubai%20Hotel%20%26%20Residences!5e0!3m2!1ses-419!2sco!4v1658459651963!5m2!1ses-419!2sco" width="100%" height="450px" style="border:0;" allowfullscreen="True" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="map" id="info">
+         <hr>
+         </br>
+         <h2>Reservas</h2>
+         </br>
+         <p>¿Qué esperas para vivir una experiencia inolvidable?</p>
+         </br>
+         <a href="/habitaciones" class="btn btn-secondary text-primary">¡Reserve ahora!</a>
+         </br>
+         </br>
+         <hr>
+         </br>
+         <h2>Contacto</h2>
+         </br>
+         <p>¿Necesitas ayuda? Envíanos un mensaje con tu problema, nuestro equipo se pondra en contacto lo antes posible:</p>
+         </br>
+         <button class="btn btn-secondary text-primary" id="open">Contacto</button>
+      </div>            
+   </div>
+</section>
+<div class="modal-container" id="modal_container">
+   <div class="modal">
+      <h2> Contacto</h2>
+         <br/>
+         <form action="/contacto" method="post">
+            {{data.form.csrf_token}}
+            <div class="formulario">
+               <div class="formulario-input">
+                  {{data.form.name()}}
+               </div>
+               <div class="formulario-input">
+                  {{data.form.email()}}
+               </div>
+               <div class="formulario-input">
+                  {{data.form.comentario(rows="7")}}
+               </div>                     
+            </div>
+
+         <div class="actions">
+            <div class="actions-btn">
+               {{data.form.enviar()}}
+            </div>
+            
+         </form>
+         
+         
+            <div class="actions-btn" >
+               <button class="btn btn-secondary text-primary" id="close">Cerrar</button>
+            </div>
+            
+         
+      </div>
+   </div>
+</div>
+<script>
+   const open=document.getElementById("open");
+   const modal_container = document.getElementById("modal_container");
+   const close = document.getElementById("close");
+   const btn = document.getElementById('btnEnviar');
+   const name = document.getElementById('name');
+   const email = document.getElementById('email');
+   const coment = document.getElementById('contacto');
+   open.addEventListener('click', () =>{
+      modal_container.classList.add('show');
+   });
+   close.addEventListener('click', () =>{
+      
+
+      name.value = '';
+      email.value = '';
+      coment.value = '';
+
+      modal_container.classList.remove('show');
+   });
+
+
+</script>
+
+{% endblock %}

@@ -2,7 +2,11 @@
 {% block principal %}
 <div class="row">
     <div class="col-xs-12 col-md-12 text-right mb-3">
+<<<<<<< HEAD
         <a class="btn btn-primary" href="{{ url_for('bp_admin.usuarios_admin') }}">
+=======
+        <a class="btn btn-primary" href="{{ url_for('.usuarios_admin') }}">
+>>>>>>> experiment
             <i class="ti-angle-left"></i>
             Listado de usuarios
         </a>
@@ -46,10 +50,15 @@
                                {{ data.form.email(class_="form-control", placeholder="") }}
                            </div>
                         </div>
+<<<<<<< HEAD
+=======
+                    </div>  
+>>>>>>> experiment
                         <div class="col-xs-12 col-md-4 col-lg-3">
                            <div class="form-group">
                                {{ data.form.tipo_usuario.label() }}
                                {{ data.form.tipo_usuario() }}
+<<<<<<< HEAD
                                <!-- <select class="form-control select-border">
                                    <option value="1">Cliente</option>
                                    <option value="2">Administrador</option>
@@ -75,16 +84,44 @@
                                {{ data.form.direccion(class_="form-control", placeholder="") }}
                            </div>
                         </div>
+=======
+                           </div>
+                        </div>
+                        <!-- <div class="col-xs-12 col-md-4 col-lg-3">
+                           <div class="form-group">
+                               <label>Usuario</label>
+                               <input type="text" name="txtUsuario" class="form-control" />
+                           </div>
+                        </div> -->
+                        <div class="col-xs-12 col-md-4 col-lg-3">
+                            <div class="form-group">
+                                {{ data.form.password.label() }}
+                                {{ data.form.password(class_="form-control", placeholder="") }}
+                            </div>
+                         </div>
+                         <div class="col-xs-12 col-md-12">
+                            <div class="form-group">
+                                {{ data.form.direccion.label() }}
+                                {{ data.form.direccion(class_="form-control", placeholder="") }}
+                            </div>
+                         </div>
+>>>>>>> experiment
                         <div class="col-xs-12 col-md-12 text-right">
                            <button class="btn btn-primary" type="submit">
                                <i class="ti-save"></i>
                                Guardar
                            </button>
                         </div>
+<<<<<<< HEAD
                    </div>
 
                    {{ data.form.csrf_token }}
                 </form>
+=======
+                     </div>
+                     </div>
+                </div>
+>>>>>>> experiment
             </div>
         </div>
     </div>

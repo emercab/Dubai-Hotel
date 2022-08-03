@@ -34,7 +34,7 @@ class LoginForm(FlaskForm):
     )
     
     ingresar = SubmitField(
-        "Registrarme",
+        "Ingresar",
         render_kw= {
             "class": "btn btn-secondary text-primary"
         }
