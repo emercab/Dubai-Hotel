@@ -5,7 +5,7 @@
 #   - superadmin_required: comprobará que se tenga el rol de super admnin.
 
 from functools import wraps
-from flask import redirect, url_for
+from flask import redirect, url_for, session
 
 
 # login_required
@@ -13,11 +13,9 @@ def login_required(function):
     @wraps(function)
     def decorator_function(*args, **kws):
         #codigo del decorador
-        if False:
-            return redirect(url_for('index'))
-
-        return function(*args, **kws)
-
+        if "user_login" in session:
+            return function(*args, **kws)
+        return redirect(url_for('index'))
     return decorator_function
 
 
