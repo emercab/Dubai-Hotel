@@ -7,6 +7,7 @@ from settings.config import Configuration
 import controllers.controller_micuenta as controller
 
 app = Flask(__name__)
+
 # Cargo las opciones de configuración de la app
 app.config.from_object(Configuration)
 

@@ -15,15 +15,15 @@ def send_data_contact(name,email,contact):
         cursor = conn.cursor()
         # Creo la sentencia SQL
         sentence = f"""
-            INSERT INTO contacto (nombre,email ,mensaje)
-            VALUES( '{name}',	'{email}' ,'{contact}');
+            INSERT INTO contacto (nombre, email, mensaje)
+            VALUES( '{name}', '{email}', '{contact}');
         """
         print(sentence)
         # Ejecuto la sentencia SQL
         cursor.execute(sentence)
         conn.commit()
     except Exception as error:
-        # Si hay un error, lo imprimo y retorno false
+        # Si hay un error, lo imprimo y retorno None
         print(f"Error: {error}")
         return None
     finally:

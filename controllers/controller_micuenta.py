@@ -62,5 +62,76 @@ def get_nombre_corto(nombre):
     if nombre.find(" ") != -1:
         return nombre[0:nombre.find(" ")]
     else:
-        return nombre
+        return nombre.capitalize()
 # Fin de get_nombre_corto()
+
+
+def crear_username(nombres, apellidos):
+    # Crea un nombre de usuario único a partir de los nombres y apellidos y lo retorna
+    
+    # Variables para separar nombres y apellidos
+    nombre1 = ""
+    nombre2 = ""
+    apellido1 = ""
+
+    #Verifico si vienen dos nombres para separarlos
+    if nombres.find(" ") == -1:
+        # Significa que viene un solo nombre
+        nombre1 = nombres
+    else:
+        # Significa que hay dos nombres y los separo
+        nombre1 = nombres[0:nombres.find(" ")]
+        nombre2 = nombres[nombres.find(" ") + 1:]
+
+    #Verifico si vienen dos apellidos para separarlos
+    if apellidos.find(" ") == -1:
+        # Significa que viene un solo nombre
+        apellido1 = apellidos
+    else:
+        # Significa que hay dos nombres y los separo
+        apellido1 = apellidos[0:apellidos.find(" ")]
+
+    # Armo username inicial a partir de primera letra mayúscula
+    # del nombre1, más primera letra minúscula del nombre 2 (si lo hay),
+    # más el apellido1 en minúsculas
+    if nombre2 == "":
+        username = nombre1[0].upper() + apellido1.lower()
+    else:
+        username = nombre1[0].upper() + nombre2[0].lower() + apellido1.lower()
+    
+    # Ahora verifico que no exista otro mismo username en la DB y en caso
+    # afirmativo se le añade un número consecutivo
+    n = 1
+    base = username
+    while model.ya_existe(username, "username", "usuarios"):
+        username = base + str(n)
+        n += 1
+    
+    return username
+# Fin de crear_username
+
+
+def register_user(data_user:dict):
+    # Registra los datos del usuario recibidos en el diccionario data_user
+    # y los registra en la DB. Retorna un diccionario con un indicador de
+    # registro exitoso (True o False) y un mensaje de error (si lo hubo)
+
+    # Inicializo los valores que retornaré
+    respuesta = {
+        "registro_exitoso": False,
+        "error": "",
+    }
+
+    # Antes de registrar la info del usuario se debe validar que no exista
+    # un registro duplicado en los campos claves para el login:
+    # username, cedula y email
+
+    if model.ya_existe(data_user["cedula"], "cedula", "usuarios"):
+        respuesta["error"] = "Ya existe un usuario con la cédula ingresada."
+    elif model.ya_existe(data_user["email"], "email", "usuarios"):
+        respuesta["error"] = "Ya existe un usuario con el email ingresado."
+    else:
+        # Significa que no hay registros duplicados y se puede guardar la info        
+        respuesta["registro_exitoso"] = model.save_data_user(data_user)
+    
+    return respuesta

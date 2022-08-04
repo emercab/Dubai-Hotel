@@ -1,9 +1,15 @@
 # Acá van todas las rutas de la aplicación del endpoint mi-cuenta
 
+from datetime import datetime
 from flask import flash, redirect, render_template, request, Blueprint, url_for
 from forms import LoginForm, RegisterForm
 from markupsafe import escape
+from flask_bcrypt import Bcrypt
 import controllers.controller_micuenta as controller
+
+
+# Creo el objeto my_bcrypt para crear y comparar los hash de passwords
+my_bcrypt = Bcrypt()
 
 # Objeto de la clase Blueprint que vincula el main con este módulo
 bp_micuenta = Blueprint("bp_micuenta", __name__)
@@ -55,6 +61,45 @@ def register():
         "titulo": "Ingrese al Sistema",
         "form": register_form,
     }
+
+    # Se verifica que el form haya pasado la validación
+    if register_form.validate_on_submit():
+        # Capturo las variables ingresadas por el usuario en un diccionario
+        # y por seguridad aplico escape a todo lo ingresado, borro espacios
+        # en blanco y convierto la primera letra a mayúsculas en nombres y apellidos,
+        # También envío los demás valores por defecto
+        print("Passed")
+        data_user = {
+            "nombres": escape(register_form.nombres.data).strip().upper(),
+            "apellidos": escape(register_form.apellidos.data).strip().upper(),
+            "cedula": escape(register_form.cedula.data).strip(),
+            "email": escape(register_form.email.data).strip().lower(),
+            "direccion": escape(register_form.direccion.data).strip().capitalize(),
+            "ciudad": escape(register_form.ciudad.data).strip().capitalize(),
+            "celular": escape(register_form.celular.data).strip(),
+            # Creo el hash del password
+            "password": my_bcrypt.generate_password_hash(
+                escape(register_form.password.data).strip()
+            ).decode("utf-8"),
+            # Creo el username desde la función del controlador
+            # y le mando nombres y apellidos
+            "username": controller.crear_username(
+                escape(register_form.nombres.data).strip().upper(),
+                escape(register_form.apellidos.data).strip().upper(),
+            ),
+            "tipo_usuario": 3, # Cliente
+            "fecha_registro": datetime.today(),
+            "activo": True,
+        }
+        # Llamo a la función del controller que registra al usuario
+        result_register = controller.register_user(data_user)
+        
+        # Reviso la respuesta del controlador para ver si el registro fue exitoso
+        if result_register["registro_exitoso"]:
+            # Significa que se creó el registro con éxito.
+            return redirect("/mi-cuenta/login")
+        else:
+            flash("Error. " + result_register["error"])
     return render_template("register.html", data=data)
 # Fin de Ruta del formulario de registro
 

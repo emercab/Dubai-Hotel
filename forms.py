@@ -100,6 +100,17 @@ class RegisterForm(FlaskForm):
             "placeholder": "Ingrese su dirección",
         }
     )
+    ciudad = StringField(
+        "Ciudad:",
+        validators=[
+            DataRequired(message="Ingrese su ciudad.")
+        ],
+        id="ciudad",
+        name="txtCiudad",
+        render_kw={
+            "placeholder": "Ingrese su ciudad",
+        }
+    )
     celular = IntegerField(
         "Celular:",
         validators=[
@@ -114,7 +125,8 @@ class RegisterForm(FlaskForm):
     password = PasswordField(
         "Contraseña:",
         validators=[
-            DataRequired(message="Ingrese su contraseña.")
+            DataRequired(message="Ingrese su contraseña."),
+            EqualTo("confirm_password", message="Las contraseñas ingresadas no coinciden.")
         ],
         id="password",
         name="txtPassword",
@@ -127,7 +139,6 @@ class RegisterForm(FlaskForm):
         "Confirme su Contraseña:",
         validators=[
             DataRequired(message="Debe confirmar su contraseña."),
-            EqualTo(password, message="Las contraseñas ingresadas no coinciden.")
         ],
         id="confirm_password",
         name="txtConfirmPassword",
