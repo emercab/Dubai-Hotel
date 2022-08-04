@@ -1,5 +1,5 @@
 from unittest import result
-from admin.models.habitacion_model import create_habitacion, remove_habitacion, select_habitacion
+from admin.models.habitacion_model import create_habitacion, update_estado_habitacion, select_habitacion
 import re
 
 
@@ -24,6 +24,7 @@ def guardar_habitacion(id_habitacion, numero, precio):
     return nuevo_id
 
 
-def desactivar_habitacion(id_habitacion):
-    return remove_habitacion(id_habitacion)
+def desactivar_habitacion(id_habitacion, estado):
+    
+    return update_estado_habitacion(id_habitacion, estado)
 

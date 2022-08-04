@@ -1,6 +1,6 @@
 # Acá van todas las rutas de la aplicación del endpoint mi-cuenta
 
-from flask import flash, redirect, render_template, request, Blueprint, url_for
+from flask import flash, redirect, render_template, request, Blueprint, url_for, session
 from forms import LoginForm, RegisterForm
 from markupsafe import escape
 import controllers.controller_micuenta as controller
@@ -38,7 +38,10 @@ def login():
         elif result_login == 2:
             flash("Contraseña incorrecta.")
         elif result_login == 1:
-            return redirect("/")
+            if "tipo_usuario" in session and session["tipo_usuario"] == 1 or session["tipo_usuario"] == 2:
+                    return redirect('/admin')
+            else:
+                return redirect("/")
     return render_template("login.html", data=data)
 # Fin de la ruta del Login
 

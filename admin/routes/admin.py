@@ -1,7 +1,7 @@
-from flask import redirect, render_template, request, Blueprint, url_for
+from flask import redirect, render_template, request, Blueprint, url_for, escape, session
 from admin.forms import HabitacionForm, UsuarioForm, ComentarioForm, ReservaForm
-from decorators import admin_required
-from admin.controllers.usuario_controller import buscar_tipo_usuario, consultar_usuarios, guardar_usuario,  consultar_usuario
+from decorators import is_administrativo, login_required, superadmin_required
+from admin.controllers.usuario_controller import buscar_tipo_usuario, guardar_usuario,  consultar_usuario, cambiar_estado_usuario
 from admin.controllers.habitacion_controller import consultar_habitacion, desactivar_habitacion, guardar_habitacion
 
 bp_admin = Blueprint("bp_admin", __name__)
@@ -19,9 +19,11 @@ bp_admin = Blueprint("bp_admin", __name__)
 
 @bp_admin.route('/admin')
 @bp_admin.route('/admin/usuarios')
+@login_required
+@is_administrativo
 def usuarios_admin():
-    tipo_usuario = 0 #este valor viene de la session
-    usuarios = consultar_usuarios(tipo_usuario)
+    tipo_usuario_admin = session["tipo_usuario"] #este valor viene de la session
+    usuarios = consultar_usuario(tipo_usuario_admin)
 
     data = {
         "titulo_head": "Usuarios",
@@ -34,26 +36,53 @@ def usuarios_admin():
 
 @bp_admin.route('/admin/nuevo-usuario', methods=['get', 'post'])
 @bp_admin.route('/admin/nuevo-usuario/<id_usuario>', methods=['get', 'post'])
+@login_required
+@is_administrativo
 def nuevo_usuario_admin(id_usuario=None):
-    titulo_head = "Nuevo usuario"
-
+    titulo_content = "Nuevo usuario"
     form = UsuarioForm(request.form)
-    form.tipo_usuario.choices = buscar_tipo_usuario() #carga los tipos de usuario. funcion retorna un array de tupla
-    
-    #para llenar los inputs al modificar.
-    if id_usuario != None:
-            titulo_head = "Modificar usuario"
-            #busco al usuario y luego almaceno sus datos en los inputs.
-            #usuario = consultar_usuario(id_usuario)
-            #form.nombres.data = usuario["Nombres"]
-    
+     #carga los tipos de usuario. funcion retorna un array de tupla
+    form.tipo_usuario.choices = buscar_tipo_usuario(session["tipo_usuario"])
+
+    if request.method.lower() == 'get' and id_usuario != None:
+        #para llenar los inputs al modificar.
+        titulo_content = "Modificar usuario"
+        usuario = consultar_usuario(None, id_usuario)
+
+        if len(usuario) > 0:
+            form.nombres.data           = usuario["Nombres"]
+            form.apellidos.data         = usuario["Apellidos"]
+            form.cedula.data            = usuario["Cedula"]
+            form.celular.data           = usuario["Celular"]
+            form.email.data             = usuario["Email"]
+            form.password.data          = usuario["Password"]
+            form.direccion.data         = usuario["Direccion"]
+            form.usuario.data           = usuario["Username"]
+            form.ciudad.data            = usuario["Ciudad"]
+            form.tipo_usuario.process_data(usuario["TipoUsuarioId"])
+
     if form.validate_on_submit():
-        #result = guardar_usuario(id_usuario)
-        print("submit")
+        nombres         = escape(form.nombres.data)
+        apellidos       = escape(form.apellidos.data)
+        cedula          = escape(form.cedula.data)
+        celular         = escape(form.celular.data)
+        email           = escape(form.email.data)
+        tipo_usuario    = escape(form.tipo_usuario.data)
+        clave           = escape(form.password.data)
+        direccion       = escape(form.direccion.data)
+        usuario         = escape(form.usuario.data)
+        ciudad          = escape(form.ciudad.data)
+
+        print(id_usuario, usuario, nombres, apellidos, cedula, celular, email, tipo_usuario, clave, ciudad, direccion)
+        print('-------------------------')
+        nuevo_id = guardar_usuario(id_usuario, usuario, nombres, apellidos, cedula, celular, email, tipo_usuario, clave, ciudad, direccion)
+
+        if nuevo_id:
+            return redirect(url_for('.usuarios_admin'))
 
     data = {
         "titulo_head": "Usuarios",
-        "titulo_content": titulo_head,
+        "titulo_content": titulo_content,
         "form": form
     }
 
@@ -61,9 +90,21 @@ def nuevo_usuario_admin(id_usuario=None):
 #fin nuevo usuario
 
 
-@bp_admin.route('/admin/habitaciones')
-def habitaciones_admin():
+@bp_admin.route('/admin/estado-usuario/<id_usuario>')
+@login_required
+@is_administrativo
+def estado_usuario_admin(id_usuario):
+    estado = request.args["estado"] #obtenemos el estado de la url
+    cambiar_estado_usuario(id_usuario, estado)
 
+    return redirect(url_for('.usuarios_admin'))
+#fin estado usuario
+
+
+@bp_admin.route('/admin/habitaciones')
+@login_required
+@is_administrativo
+def habitaciones_admin():
     habitaciones = consultar_habitacion(None)
 
     data = {
@@ -77,19 +118,19 @@ def habitaciones_admin():
 
 @bp_admin.route('/admin/nueva-habitacion', methods=['get', 'post'])
 @bp_admin.route('/admin/nueva-habitacion/<id_habitacion>', methods=['get', 'post'])
+@login_required
+@is_administrativo
 def nueva_habitacion_admin(id_habitacion=None):
+    title_content = "Nueva habitación"
     form = HabitacionForm(request.form)
-    data = {
-        "titulo_head": "Habitaciones",
-        "titulo_content": "Nueva habitación",
-        "form": form
-    }
+    
 
     if request.method.lower() == 'get' and id_habitacion:
+        title_content= "Modificar habitación"
         habitacion = consultar_habitacion(id_habitacion)
         if len(habitacion) > 0:
-            form.numero.data = habitacion[0]["Numero"]
-            form.precio.data = habitacion[0]["Precio"]
+            form.numero.data = habitacion["Numero"]
+            form.precio.data = habitacion["Precio"]
 
     if form.validate_on_submit():
         numero = form.numero.data
@@ -100,19 +141,30 @@ def nueva_habitacion_admin(id_habitacion=None):
         if result:
             return redirect(url_for('.habitaciones_admin'))
     
+    data = {
+        "titulo_head": "Habitaciones",
+        "titulo_content": title_content,
+        "form": form
+    }
+
     return render_template('admin/nueva-habitacion.html', data=data)
 #fin nueva habitacion
 
 
-@bp_admin.route('/admin/habitaciones/remove/<id_habitacion>')
-def remover_habitacion_admin(id_habitacion):
-    desactivar_habitacion(id_habitacion)
-
+@bp_admin.route('/admin/habitaciones/estado-habitacion/<id_habitacion>')
+@login_required
+@is_administrativo
+def estado_habitacion_admin(id_habitacion):
+    estado = request.args["estado"]
+    desactivar_habitacion(id_habitacion, estado)
     return redirect(url_for('.habitaciones_admin'))
 #fin reservas admin
 
 
 @bp_admin.route('/admin/reservas')
+@login_required
+@is_administrativo
+@superadmin_required
 def reservas_admin():
     data = {
         "titulo_head": "Reservas"
@@ -123,6 +175,9 @@ def reservas_admin():
 
 
 @bp_admin.route('/admin/nueva-reserva', methods=['get', 'post'])
+@login_required
+@is_administrativo
+@superadmin_required
 def nueva_reserva_admin():
     form = ReservaForm(request.form)
     data = {
@@ -136,6 +191,9 @@ def nueva_reserva_admin():
 
 
 @bp_admin.route('/admin/comentarios')
+@login_required
+@is_administrativo
+@superadmin_required
 def comentarios_admin():
     data = {
         "titulo_head": "Comentarios"
@@ -145,6 +203,9 @@ def comentarios_admin():
 #fin comentarios admin
 
 
+@login_required
+@is_administrativo
+@superadmin_required
 @bp_admin.route('/admin/nuevo-comentario', methods=['get', 'post'])
 def nuevo_comentario_admin():
     form = ComentarioForm(request.form)
