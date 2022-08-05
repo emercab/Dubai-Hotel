@@ -16,9 +16,12 @@ def get_data_login(login_field):
         cursor = conn.cursor()
         # Creo la sentencia SQL
         sentence = f"""
-            SELECT username, cedula, email, password, nombres, apellidos, tipoUsuarioId
+            SELECT username, cedula, email, password, nombres, apellidos, tipoUsuarioId,
+                ciudad, direccion, celular
             FROM usuarios
-            WHERE username='{login_field}' or cedula='{login_field}' or email='{login_field}' 
+            WHERE
+                activo=1 
+                AND (username='{login_field}' OR cedula='{login_field}' OR email='{login_field}'); 
         """
         # Ejecuto la sentencia SQL
         cursor.execute(sentence)

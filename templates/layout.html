@@ -71,6 +71,7 @@
                               <span>{{ data.nombre }}</span>
                            </div>
                         </li>
+                        {% if data.tipo_usuario == 3 %}
                         <li>
                             <a href="/mi-cuenta">Mi Cuenta</a>
                         </li>
@@ -80,6 +81,7 @@
                         <li>
                             <a href="/mi-cuenta/calificar-habitacion">Calificar Habitación</a>
                         </li>
+                        {% endif %}
                         <li>
                             <a href="/mi-cuenta/logout">Cerrar Sesión</a>
                         </li>
@@ -129,7 +131,7 @@
                   <li>
                      <i class="menu-icon">></i><a href="/contacto">Contacto</a>
                   </li>
-                  {% if data.user_login %}
+                  {% if data.user_login and data.tipo_usuario == 3 %}
                   <li>
                      <i class="menu-icon">></i><a href="/mi-cuenta">Mi cuenta</a>
                   </li>

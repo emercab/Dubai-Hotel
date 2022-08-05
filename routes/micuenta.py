@@ -2,10 +2,14 @@
 
 from datetime import datetime
 from flask import flash, redirect, render_template, request, Blueprint, url_for
+from decorators import login_required, only_clientes
 from forms import LoginForm, RegisterForm
 from markupsafe import escape
 from flask_bcrypt import Bcrypt
 import controllers.controller_micuenta as controller
+
+# Menú para admins
+# Mostrar errores del form
 
 
 # Creo el objeto my_bcrypt para crear y comparar los hash de passwords
@@ -22,11 +26,11 @@ def login():
     # que se inicializa con los parámetros recibidos en la vista
     login_form = LoginForm(request.form)
 
-    # Diccionario que prepara todo lo que se le enviará al template
-    data = {
-        "titulo": "Ingrese al Sistema",
-        "form": login_form,
-    }
+    # Preparo datos a enviar a la vista
+    data = controller.data_to_template("Ingrese al Sistema")
+    
+    # Agrego el formulario al diccionario de data que se enviará al template
+    data["form"] = login_form
 
     # Se verifica que el form haya pasado la validación
     if login_form.validate_on_submit():
@@ -56,19 +60,18 @@ def register():
     # que se inicializa con los parámetros recibidos en la vista
     register_form = RegisterForm(request.form)
     
-    # Diccionario que prepara todo lo que se le enviará al template
-    data = {
-        "titulo": "Ingrese al Sistema",
-        "form": register_form,
-    }
+    # Preparo datos a enviar a la vista
+    data = controller.data_to_template("Registro de usuario")
+    
+    # Agrego el formulario al diccionario de data que se enviará al template
+    data["form"] = register_form
 
     # Se verifica que el form haya pasado la validación
     if register_form.validate_on_submit():
         # Capturo las variables ingresadas por el usuario en un diccionario
         # y por seguridad aplico escape a todo lo ingresado, borro espacios
-        # en blanco y convierto la primera letra a mayúsculas en nombres y apellidos,
+        # en blanco y convierto a mayúsculas nombres y apellidos.
         # También envío los demás valores por defecto
-        print("Passed")
         data_user = {
             "nombres": escape(register_form.nombres.data).strip().upper(),
             "apellidos": escape(register_form.apellidos.data).strip().upper(),
@@ -89,7 +92,7 @@ def register():
             ),
             "tipo_usuario": 3, # Cliente
             "fecha_registro": datetime.today(),
-            "activo": True,
+            "activo": 1,
         }
         # Llamo a la función del controller que registra al usuario
         result_register = controller.register_user(data_user)
@@ -106,6 +109,8 @@ def register():
 
 # Ruta de Mi Cuenta
 @bp_micuenta.route("/mi-cuenta", methods=["GET"])
+@login_required
+@only_clientes
 def mi_cuenta():
     return "Estamos en Mi Cuenta."
 # Fin de Ruta de Mi Cuenta
@@ -113,6 +118,8 @@ def mi_cuenta():
 
 # Ruta de Mis Reservas
 @bp_micuenta.route("/mi-cuenta/reservas", methods=["GET"])
+@login_required
+@only_clientes
 def reservas():
     return "Estamos en Mis Reservas."
 # Fin Ruta de Mis Reservas
@@ -120,6 +127,8 @@ def reservas():
 
 # Ruta Calificar Habitaciones
 @bp_micuenta.route("/mi-cuenta/calificar-habitacion", methods=["GET"])
+@login_required
+@only_clientes
 def calificar_habitacion():
     return "Estamos en Calificar Habitación."
 # Fin Ruta Calificar Habitaciones
@@ -127,6 +136,7 @@ def calificar_habitacion():
 
 # Ruta de Cerrar Sesión
 @bp_micuenta.route("/mi-cuenta/logout", methods=["GET"])
+@login_required
 def logout():
     # Llamo a la función del controlador que destruye todas las
     # variables de sesión
