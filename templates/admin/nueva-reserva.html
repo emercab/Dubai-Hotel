@@ -1,0 +1,66 @@
+{% extends 'admin/layout-admin.html' %}
+{% block principal %}
+<div class="row">
+    <div class="col-xs-12 col-md-12 text-right mb-3">
+        <a class="btn btn-primary" href="{{ url_for('bp_admin.reservas_admin') }}">
+            <i class="ti-angle-left"></i>
+            Listado de reservas
+        </a>
+    </div>
+
+    <div class="col-xs-12 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <b>Información de la reserva</b>
+            </div>
+            <div class="card-block">
+                <form action="{{ url_for('bp_admin.nueva_reserva_admin') }}" method="post">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                           <div class="form-group">
+                               {{ data.form.cliente.label() }}
+                               {{ data.form.cliente() }}
+                           </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                           <div class="form-group">
+                               <div class="form-group">
+                                   {{ data.form.habitacion.label() }}
+                                   {{ data.form.habitacion() }}
+                               </div>
+                           </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                           <div class="form-group">
+                               {{ data.form.fecha_ingreso.label() }}
+                               {{ data.form.fecha_ingreso() }}
+                           </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                           <div class="form-group">
+                               {{ data.form.fecha_salida.label() }}
+                               {{ data.form.fecha_salida() }}
+                           </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                           <div class="form-group">
+                               {{ data.form.precio.label() }}
+                               {{ data.form.precio() }}
+                           </div>
+                        </div>
+   
+                        <div class="col-xs-12 col-md-12 text-right">
+                           <button class="btn btn-primary" type="submit">
+                               <i class="ti-save"></i>
+                               Guardar
+                           </button>
+                        </div>
+                   </div>
+
+                   {{ data.form.csrf_token }}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

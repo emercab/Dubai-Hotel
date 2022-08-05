@@ -1,55 +1,44 @@
 {% extends 'admin/layout-admin.html' %}
 {% block principal %}
-
 <div class="row">
-    <div class="col-xs-12 col-md-12 text-right mb-3">
-        <a class="btn btn-primary" href="{{ url_for('bp_admin.nueva_habitacion_admin') }}">
-            <i class="ti-plus"></i>
-            Nueva habitación
-        </a>
-    </div>
-
     <div class="col-xs-12 col-md-12">
         <div class="card">
             <div class="card-header">
-                <b>Listado de habitaciones</b>
+                <b>Listado de comentarios</b>
             </div>
             <div class="card-block table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Número de habitación</th>
-                            <th>Precio</th>
-                            <th>Calificación</th>
-                            <th></th>
+                            <th>Cliente</th>
+                            <th>Habitación</th>
+                            <th>Comentario</th>
+                            <th>Fecha de creación</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                    {% for habitacion in data.habitaciones %}
                     <tr>
-                        <td>{{ habitacion["Id"] }}</td>
-                        <td>{{ habitacion["Numero"] }}</td>
-                        <td>{{ habitacion["Precio"] }}</td>
-                        <td>{{ habitacion["Calificacion"] }}</td>
-                        <td></td>
+                        <td>#</td>
+                        <td>####</td>
+                        <td>####</td>
+                        <td>####</td>
+                        <td>####</td>
                         <td class="text-right">
-                            <a class="btn-accion" href="{{ url_for('.nueva_habitacion_admin', id_habitacion=habitacion['Id']) }}">
+                            <a class="btn-accion" href="{{ url_for('bp_admin.nuevo_comentario_admin') }}">
                                 <i class="ti-pencil-alt" data-toggle="tooltip" data-placement="top" data-original-title="editar"></i>
                             </a>
-                            <a class="btn-accion" href="{{ url_for('.remover_habitacion_admin', id_habitacion=habitacion['Id']) }}"
+                            <a class="btn-accion" href="#"
                                 data-toggle="tooltip" data-placement="top" data-original-title="desactivar">
                                 <i class="ti-na"></i>
                             </a>
                         </td>
                     </tr>
-                    {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-
 {% endblock %}

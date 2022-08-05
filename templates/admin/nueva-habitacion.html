@@ -16,7 +16,7 @@
             <div class="card-block">
                 <form action="" method="post">
                     {% if data.form.errors != None and data.form.errors.values()|length > 0 %}
-                        <div class="error">
+                        <div class="box-message error">
                             <ul>
                                 {% for error in data.form.errors.values() %}
                                     <li>{{ error[0] }}</li>
@@ -27,8 +27,8 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-4">
                            <div class="form-group">
-                               {{ data.form.nombre.label() }}
-                               {{ data.form.nombre() }}
+                               {{ data.form.numero.label() }}
+                               {{ data.form.numero() }}
                            </div>
                         </div>
                         <div class="col-xs-12 col-md-4">
@@ -36,9 +36,10 @@
                                <label>
                                     {{ data.form.precio.label(class_="d-inline") }}
                                    <i class="ti-info-alt"  data-toggle="tooltip" data-placement="top" 
-                                       data-original-title="Al crear la primera habitación se le asigna el mismo precio a las nuevas habitaciones a registrar.">
+                                       data-original-title="El precio ingresado se asigna a todas las habitaciones.">
                                    </i>
                                </label>
+                               
                                {{ data.form.precio() }}
                            </div>
                         </div>
