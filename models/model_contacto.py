@@ -18,7 +18,6 @@ def send_data_contact(name,email,contact):
             INSERT INTO contacto (nombre, email, mensaje)
             VALUES( '{name}', '{email}', '{contact}');
         """
-        print(sentence)
         # Ejecuto la sentencia SQL
         cursor.execute(sentence)
         conn.commit()
