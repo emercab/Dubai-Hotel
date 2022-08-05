@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block estilos_propios %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/reserva.css') }}">
+{% endblock %}
+
+{% block banner %}
+    <!-- Título en el contenido de la página -->
+    <section class="section section-title">
+        <h1>Habitación Estandar</h1>
+    </section>
+{% endblock %}
+
+{% block principal %}
+<section class="section section-form">
+    <form action="/habitaciones/reservar" method="post" class="form-register">
+       <h2>Ingrese sus Datos</h2>
+       <input class="controls" type="text" name="nombres" id="nombres" placeholder="Ingrese su Nombre">
+       <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su Apellido">
+       <input class="controls" type="email" name="correo" id="correo" placeholder="Ingrese su Correo">
+       <input class="controls" type="text" name="cedula" id="cedula" placeholder="Ingrese su Cedula">
+       <input class="controls" type="text" name="direccion" id="direccion" placeholder="Ingrese su Dirección">
+       <input class="controls" type="text" name="celular" id="celular" placeholder="Ingrese su Celular">
+       <label for="fecha_inicio"> Fecha de Inicio: </label>
+       <input class="controls" type="date" name="Fecha Ingreso" id="fecha_inicio" placeholder="Ingrese la Fecha Inicial">
+       <label for="fecha_final"> Fecha Final: </label>
+       <input class="controls" type="date" name="Fecha Ingreso" id="fecha_final" placeholder="Ingrese la Fecha Final">
+       <select class="controls" name="Habitaciones Disponibles" id="habitaciones_disponibles">
+       <option value="108A">Habitación 108A</option>
+       <option value="109A">Habitación 109A</option>
+       </select>
+       
+       <p class="text-primary total">Valor Total: $350.000</p>
+       <input class="btn btn-primary text-dark" type="submit" value="Realizar Reserva">
+       <p><a href="/mi-cuenta/login">Ingrese a su Cuenta</a></p>
+       <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
+    </form>
+</section>
+
+{% endblock %}
