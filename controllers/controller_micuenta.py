@@ -27,13 +27,16 @@ def check_login(username, password):
 
             # Creo las variables de sesión con los datos del usuario
             # obtenidos de la DB
+            session["user_login"] = True
             session["username"] = data[0]
             session["cedula"] = data[1]
             session["email"] = data[2]
             session["nombres"] = data[4]
             session["apellidos"] = data[5]
             session["tipo_usuario"] = data[6]
-            session["user_login"] = True
+            session["ciudad"] = data[7]
+            session["direccion"] = data[8]
+            session["celular"] = data[9]
             return 1
         else:
             # Significa que la clave ingresada no coincide con la del usuario
@@ -49,10 +52,13 @@ def destroy_session():
     session.pop("username", None)
     session.pop("cedula", None)
     session.pop("email", None)
+    session.pop("user_login", None)
     session.pop("nombres", None)
     session.pop("apellidos", None)
     session.pop("tipo_usuario", None)
-    session.pop("user_login", None)
+    session.pop("ciudad", None)
+    session.pop("direccion", None)
+    session.pop("celular", None)
 # Fin de destroy_session()
 
 
@@ -64,6 +70,55 @@ def get_nombre_corto(nombre):
     else:
         return nombre.capitalize()
 # Fin de get_nombre_corto()
+
+
+def data_to_template(title:str):
+    # Inicializo variables con valores por default para pasar al template.
+    # Si el usuario hizo login cambio sus valores por los que están
+    # almacenados en las variables de sesión.
+    user_login = False
+    nombre = ""
+    tipo_usuario = 0
+    nombres = ""
+    apellidos = ""
+    email = ""
+    cedula = ""
+    ciudad = ""
+    direccion = ""
+    celular = ""
+    # Reviso si el usuario ha hecho login para enviar variables de sesión
+    if "user_login" in session:
+        # Significa que existe una variable de sesión user_login
+        # creada cuando el usuario hizo login. Guardo dicha variable
+        # y demás variables de sesión que le pasaré al template
+        user_login = True
+        nombre = get_nombre_corto(session["nombres"]).capitalize()
+        tipo_usuario = session["tipo_usuario"]
+        nombres = session["nombres"]
+        apellidos = session["apellidos"]
+        email = session["email"]
+        cedula = session["cedula"]
+        ciudad = session["ciudad"]
+        direccion = session["direccion"]
+        celular = session["celular"]
+    
+    # Preparo datos a enviar al template
+    data = {
+        "titulo_head": title,
+        "user_login": user_login,
+        "nombre": nombre,
+        "tipo_usuario": tipo_usuario,
+        "nombres": nombres,
+        "apellidos": apellidos,
+        "email": email,
+        "cedula": cedula,
+        "ciudad": ciudad,
+        "direccion": direccion,
+        "celular": celular,
+    }
+
+    return data
+# End of data_to_template()
 
 
 def crear_username(nombres, apellidos):

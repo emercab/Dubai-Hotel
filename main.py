@@ -3,8 +3,8 @@ from admin.routes.admin import bp_admin
 from routes.habitaciones import bp_habitaciones
 from routes.contacto import bp_contacto
 from routes.micuenta import bp_micuenta
-from settings.config import Configuration
 import controllers.controller_micuenta as controller
+from settings.config import Configuration
 
 app = Flask(__name__)
 
@@ -27,25 +27,8 @@ app.register_blueprint(bp_micuenta)
 # Cargamos la página principal (home)
 @app.route("/", methods=["GET"])
 def index():
-    # Inicializo variables con valores por default para pasar al template.
-    # Si el usuario hizo login cambio sus valores por los que están
-    # almacenados en las variables de sesión.
-    user_login = False
-    nombre = ""
-    # Reviso si el usuario ha hecho login para enviar variables de sesión
-    if "user_login" in session:
-        # Significa que existe una variable de sesión user_login
-        # creada cuando el usuario hizo login. Guardo dicha variable
-        # en otra variable del mismo nombre que le pasaré al template
-        user_login = True
-        nombre = controller.get_nombre_corto(session["nombres"])
-    
-    # Preparo datos a enviar al template
-    data = {
-        "titulo_head": "Home",
-        "user_login": user_login,
-        "nombre": nombre,
-    }
+    # Preparo datos a enviar a la vista
+    data = controller.data_to_template("Home")
     return render_template("index.html", data=data)
 
 
