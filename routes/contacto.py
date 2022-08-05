@@ -27,10 +27,8 @@ def index():
         result = controller.send_contacto(name, email, comentario)
 
         if result:
-            return redirect(('/contacto'))
+            return redirect('/contacto')
 
     return render_template('contacto.html', data=data)
 # Fin Ruta Contacto
-
-
 

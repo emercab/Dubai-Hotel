@@ -18,6 +18,7 @@ class ContactForm(FlaskForm):
         render_kw= {
             "autocomplete": "off",
             "placeholder" : "Nombre completo",
+            "class": "input",
         }
     )
     email = EmailField(
@@ -30,6 +31,7 @@ class ContactForm(FlaskForm):
         name="correo_persona",
         render_kw={
             "placeholder": "Correo electrónico",
+            "class": "input",
         }
     )
 
@@ -43,6 +45,7 @@ class ContactForm(FlaskForm):
         render_kw={
             "autocomplete": "off",
             "placeholder": "Cuentanos tu problema",
+            "class": "textarea"
         }
     )
     enviar = SubmitField(

@@ -38,13 +38,22 @@
             {{data.form.csrf_token}}
             <div class="formulario">
                <div class="formulario-input">
-                  {{data.form.name()}}
+                  {% if data.user_login %}
+                     {{ data.form.name(value=data.nombres+" "+data.apellidos) }}
+                  {% else %}
+                     {{ data.form.name() }}
+                  {% endif %}
+                  
                </div>
                <div class="formulario-input">
-                  {{data.form.email()}}
+                  {% if data.user_login %}
+                     {{ data.form.email(value=data.email) }}
+                  {% else %}
+                     {{ data.form.email() }}
+                  {% endif %}
                </div>
                <div class="formulario-input">
-                  {{data.form.comentario(rows="7")}}
+                  {{data.form.comentario(rows="7")}}  
                </div>                     
             </div>
 
@@ -72,16 +81,12 @@
    const name = document.getElementById('name');
    const email = document.getElementById('email');
    const coment = document.getElementById('contacto');
+   
    open.addEventListener('click', () =>{
       modal_container.classList.add('show');
    });
+
    close.addEventListener('click', () =>{
-      
-
-      name.value = '';
-      email.value = '';
-      coment.value = '';
-
       modal_container.classList.remove('show');
    });
 
