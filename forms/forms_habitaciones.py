@@ -2,7 +2,8 @@
 # todos los formularios del proyecto usando la librería WTForms
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, EmailField, IntegerField, SubmitField
+from wtforms import StringField, EmailField, IntegerField
+from wtforms import DateField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Email
 
 
@@ -91,6 +92,43 @@ class ReservaForm(FlaskForm):
         render_kw={
             "placeholder": "Ingrese su celular",
             "class": "controls",
+        }
+    )
+    fecha_inicio = DateField(
+        "Fecha de Inicio:",
+        validators=[
+            DataRequired(message="Ingrese fecha inicial de la reserva.")
+        ],
+        id="fecha_inicio",
+        name="txtFechaInicio",
+        render_kw={
+            "placeholder": "Ingrese fecha inicial de la reserva",
+            "class": "controls",
+        }
+    )
+    fecha_final = DateField(
+        "Fecha Final:",
+        validators=[
+            DataRequired(message="Ingrese fecha final de la reserva.")
+        ],
+        id="fecha_final",
+        name="txtFechaFinal",
+        render_kw={
+            "placeholder": "Ingrese fecha final de la reserva",
+            "class": "controls",
+        }
+    )
+    list_habitaciones = SelectField(
+        "Habitaciones Disponibles:",
+        choices=[
+            ("op1", "Opción 1"),
+            ("op2", "Opción 2"),
+            ("op3", "Opción 3"),
+        ],
+        name="selHabitacionesDisponibles",
+        id="selHabitacionesDisponibles",
+        render_kw = {
+            "class": "controls"
         }
     )
     reservar = SubmitField(

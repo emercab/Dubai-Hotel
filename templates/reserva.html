@@ -15,23 +15,99 @@
 <section class="section section-form">
     <form action="/habitaciones/reservar" method="post" class="form-register">
         <h2>Ingrese sus Datos</h2>
-        {{ data.form.nombres() }}
-        {{ data.form.apellidos() }}
-        {{ data.form.cedula() }}
-        {{ data.form.email() }}
-        {{ data.form.direccion() }}
-        {{ data.form.ciudad() }}
-        {{ data.form.celular() }}
+            <div class="form-row-inline">
+                <div class="label-container">
+                    {{ data.form.nombres.label() }}
+                </div>
+                {% if data.user_login %}
+                    {{ data.form.nombres(value=data.nombres) }}
+                {% else %}
+                    {{ data.form.nombres() }}
+                {% endif %}
+            </div>
 
-        <label for="fecha_inicio"> Fecha de Inicio: </label>
-        <input class="controls" type="date" name="Fecha Ingreso" id="fecha_inicio" placeholder="Ingrese la Fecha Inicial">
-        <label for="fecha_final"> Fecha Final: </label>
-        <input class="controls" type="date" name="Fecha Ingreso" id="fecha_final" placeholder="Ingrese la Fecha Final">
-        <select class="controls" name="Habitaciones Disponibles" id="habitaciones_disponibles">
-        <option value="108A">Habitación 108A</option>
-        <option value="109A">Habitación 109A</option>
-        </select>
+            <div class="form-row-inline">
+                <div class="label-container">
+                    {{ data.form.apellidos.label() }}
+                </div>
+                {% if data.user_login %}
+                    {{ data.form.apellidos(value=data.apellidos) }}
+                {% else %}
+                    {{ data.form.apellidos() }}
+                {% endif %}
+            </div>
+
+            <div class="form-row-inline">
+                <div class="label-container">
+                    {{ data.form.cedula.label() }}
+                </div>
+                {% if data.user_login %}
+                    {{ data.form.cedula(value=data.cedula) }}
+                {% else %}
+                    {{ data.form.cedula() }}
+                {% endif %}
+            </div>
+
+            <div class="form-row-inline">
+                <div class="label-container">
+                    {{ data.form.email.label() }}
+                </div>
+                {% if data.user_login %}
+                    {{ data.form.email(value=data.email) }}
+                {% else %}
+                    {{ data.form.email() }}
+                {% endif %}
+            </div>
+
+            <div class="form-row-inline">
+                <div class="label-container">
+                    {{ data.form.direccion.label() }}
+                </div>
+                {% if data.user_login %}
+                    {{ data.form.direccion(value=data.direccion) }}
+                {% else %}
+                    {{ data.form.direccion() }}
+                {% endif %}
+            </div>
+
+            <div class="form-row-inline">
+                <div class="label-container">
+                    {{ data.form.ciudad.label() }}
+                </div>
+                {% if data.user_login %}
+                    {{ data.form.ciudad(value=data.ciudad) }}
+                {% else %}
+                    {{ data.form.ciudad() }}
+                {% endif %}
+            </div>
+
+            <div class="form-row-inline">
+                <div class="label-container">
+                    {{ data.form.celular.label() }}
+                </div>
+                {% if data.user_login %}
+                    {{ data.form.celular(value=data.celular) }}
+                {% else %}
+                    {{ data.form.celular() }}
+                {% endif %}
+            </div>
         
+            <div class="container w-100">
+                <div class="date-container inline-block">
+                    {{ data.form.fecha_inicio.label() }}
+                    {{ data.form.fecha_inicio() }}
+                </div>
+                <div class="date-container inline-block">
+                    {{ data.form.fecha_final.label() }}
+                    {{ data.form.fecha_final() }}
+                </div>
+            </div>
+
+        <div class="form-row">
+            {{ data.form.list_habitaciones.label() }}
+            {{ data.form.list_habitaciones() }}
+        </div>
+
         <p class="text-primary total">Valor Total: $350.000</p>
         <input class="btn btn-primary text-dark" type="submit" value="Realizar Reserva">
         <p><a href="/mi-cuenta/login">Ingrese a su Cuenta</a></p>

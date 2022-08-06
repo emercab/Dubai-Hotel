@@ -22,27 +22,43 @@
     justify-content: center;
     width: 50%;
     background: #1A4D2E;
-    padding: 60px;
+    padding: 30px;
     margin: auto;
     margin-top: 0px;
     border-radius: 4px;
-    color: white;
+    color: var(--light);
     box-shadow: 7px 13px 37px #000;
     border-radius: 25px;
   }
   
   .form-register h2 {
+    color: var(--primary);
     margin-bottom: 30px;
     text-align: center;
+  }
 
+  .form-row-inline {
+    display: flex;
+    align-items: center;
+  }
+  
+  .form-row, .form-row-inline {    
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .form-row input, .form-row select,
+  .container input {
+    margin: 0;
   }
   
   .controls {
     width: 100%;
     background:var(--light);
-    padding: 10px;
+    height: 36px;
+    padding: 4px 8px;
+    margin-left: 8px;
     border-radius: 4px;
-    margin-bottom: 24px;
     border: 1px solid #F7BF4F;
     font-size:var(--md);
     color:var(--dark);
@@ -53,6 +69,24 @@
     text-align: center;
     font-size: 18px;
     line-height: 40px;
+  }
+  .form-register .label-container {
+    width: 17%;
+    min-width: 80px;
+    text-align: left;
+  }
+  .form-register label {
+    font-size: var(--md);
+  }
+  .form-register .container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    margin: 16px 0;
+  }
+  .form-register .container .date-container {
+    width: 49.5%;
   }
   
   .form-register a {
@@ -71,4 +105,11 @@
     margin-bottom: 20px;
   }
 
+  .inline-block {
+    display: inline-block;
+  }
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
   
