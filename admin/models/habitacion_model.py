@@ -50,7 +50,7 @@ def select_habitacion(id_habitacion=None):
             cursor.execute("select Row_Number() over (order by Id) as Row, Id, Numero, Precio, Calificacion, Activo from Habitaciones where Id = ?", [id_habitacion])
             resultado = cursor.fetchone()
         else:
-            cursor.execute("select Row_Number() over (order by Id) as Row, Id, Numero, Precio, Calificacion, Activo from Habitaciones")
+            cursor.execute("select Row_Number() over (order by Activo desc) as Row, Id, Numero, Precio, Calificacion, Activo from Habitaciones")
             resultado = cursor.fetchall()  
     except Exception as error:
         print(f'select_habitacion {error}')

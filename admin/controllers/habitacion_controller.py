@@ -13,9 +13,10 @@ def is_number(number):
 def consultar_habitacion(id_habitacion):
     habitaciones = select_habitacion(id_habitacion) #recive un array de tuplas
 
-    print(habitaciones)
+    if len(habitaciones) > 0:
+        return habitaciones
 
-    return habitaciones
+    return []
 
 def guardar_habitacion(id_habitacion, numero, precio):
     #se pueden agregar validaciones aqui. por ahora solo un crud simple

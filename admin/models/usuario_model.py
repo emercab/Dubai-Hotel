@@ -4,7 +4,7 @@ from datetime import datetime
 
 def select_tipo_usuario(tipo_usuario_session):
     try:
-        conn = conectar()
+        conn = conectar()  
         cursor = conn.cursor()
 
         if tipo_usuario_session:

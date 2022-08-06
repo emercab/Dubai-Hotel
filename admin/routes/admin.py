@@ -55,7 +55,7 @@ def nuevo_usuario_admin(id_usuario=None):
             form.cedula.data            = usuario["Cedula"]
             form.celular.data           = usuario["Celular"]
             form.email.data             = usuario["Email"]
-            form.password.data          = usuario["Password"]
+            form.password.data          = usuario["Password"].decode("utf8")
             form.direccion.data         = usuario["Direccion"]
             form.usuario.data           = usuario["Username"]
             form.ciudad.data            = usuario["Ciudad"]
@@ -73,8 +73,6 @@ def nuevo_usuario_admin(id_usuario=None):
         usuario         = escape(form.usuario.data)
         ciudad          = escape(form.ciudad.data)
 
-        print(id_usuario, usuario, nombres, apellidos, cedula, celular, email, tipo_usuario, clave, ciudad, direccion)
-        print('-------------------------')
         nuevo_id = guardar_usuario(id_usuario, usuario, nombres, apellidos, cedula, celular, email, tipo_usuario, clave, ciudad, direccion)
 
         if nuevo_id:
@@ -129,8 +127,8 @@ def nueva_habitacion_admin(id_habitacion=None):
         title_content= "Modificar habitación"
         habitacion = consultar_habitacion(id_habitacion)
         if len(habitacion) > 0:
-            form.numero.data = habitacion["Numero"]
-            form.precio.data = habitacion["Precio"]
+            form.numero.data = escape(habitacion["Numero"])
+            form.precio.data = escape(habitacion["Precio"])
 
     if form.validate_on_submit():
         numero = form.numero.data
