@@ -16,7 +16,8 @@ class LoginForm(FlaskForm):
         id="username",
         name="txtUsername",
         render_kw= {
-            "autocomplete": "off"
+            "autocomplete": "off",
+            "placeholder": "Usuario, cédula o email."
         }
     )
     password = PasswordField(

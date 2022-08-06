@@ -94,6 +94,9 @@
    border: 1px solid var(--primary);
    border-radius: 8px;
 }
+.login-left form input::placeholder {
+   font-size: var(--sm);
+}
 .login-left form input.btn {
    display: block;
    margin: 0 auto;

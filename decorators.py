@@ -43,3 +43,14 @@ def superadmin_required(function):
         return function(*args, **kws)
 
     return decorator_function
+
+
+# only_clientes
+def only_clientes(function):
+    @wraps(function)
+    def decorator_function(*args, **kws):
+        #codigo del decorador
+        if "tipo_usuario" in session and session["tipo_usuario"] == 3:
+            return function(*args, **kws)
+        return redirect(url_for('index'))
+    return decorator_function

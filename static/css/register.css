@@ -93,6 +93,9 @@
   border: 1px solid var(--primary);
   border-radius: 8px;
 }
+.register-left form input::placeholder {
+  font-size: var(--sm);
+}
 .register-left form input.btn {
   display: block;
   margin: 0 auto;
