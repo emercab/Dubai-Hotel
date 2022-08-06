@@ -3,6 +3,7 @@ from wsgiref.validate import validator
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SelectField, DateField, TextAreaField, SubmitField, PasswordField, EmailField
 from wtforms.validators import DataRequired, NumberRange, Email
+import wtforms.widgets
 from datetime import date, timedelta
 
 class UsuarioForm(FlaskForm):
@@ -18,16 +19,21 @@ class UsuarioForm(FlaskForm):
         id="selectTipoUsuario",
         name="selectTipoUsuario"
     )
+    usuario = StringField(
+        "Usuario",
+        validators=[
+            DataRequired(message="Ingrese el nombre de usuario.")
+        ],
+        id="txtUsuario",
+        name="txtUsuario"
+    )
     nombres = StringField(
         "Nombres",
         validators=[
             DataRequired(message="Ingrese sus nombres.")
         ],
         id="txtNombre",
-        name="txtNombre",
-        render_kw={
-            "placeholder": "Ingrese sus nombres",
-        }
+        name="txtNombre"
     )
     apellidos = StringField(
         "Apellidos",
@@ -35,10 +41,7 @@ class UsuarioForm(FlaskForm):
             DataRequired(message="Ingrese sus apellidos.")
         ],
         id="txtApellido",
-        name="txtApellido",
-        render_kw={
-            "placeholder": "Ingrese sus apellidos",
-        }
+        name="txtApellido"
     )
     cedula = IntegerField(
         "Cédula",
@@ -46,10 +49,7 @@ class UsuarioForm(FlaskForm):
             DataRequired(message="Ingrese su cédula.")
         ],
         id="txtCedula",
-        name="txtCedula",
-        render_kw={
-            "placeholder": "Sin puntos ni espacios",
-        }
+        name="txtCedula"
     )
     email = EmailField(
         "Email",
@@ -58,10 +58,7 @@ class UsuarioForm(FlaskForm):
             Email(message="Ingrese un email válido.")
         ],
         id="txtEmail",
-        name="txtEmail",
-        render_kw={
-            "placeholder": "Ingrese su correo electrónico",
-        }
+        name="txtEmail"
     )
     direccion = StringField(
         "Dirección",
@@ -69,10 +66,15 @@ class UsuarioForm(FlaskForm):
             DataRequired(message="Ingrese su dirección.")
         ],
         id="txtDireccion",
-        name="txtDireccion",
-        render_kw={
-            "placeholder": "Ingrese su dirección",
-        }
+        name="txtDireccion"
+    )
+    ciudad = StringField(
+        "Ciudad",
+        validators=[
+            DataRequired(message="Ingrese la ciudad.")
+        ],
+        id="txtCiudad",
+        name="txtCiudad"
     )
     celular = IntegerField(
         "Celular",
@@ -80,25 +82,19 @@ class UsuarioForm(FlaskForm):
             DataRequired(message="Ingrese su número de celular.")
         ],
         id="txtCelular",
-        name="txtCelular",
-        render_kw={
-            "placeholder": "Ingrese su celular",
-        }
+        name="txtCelular"
     )
-    password = PasswordField(
+    password = StringField(
         "Contraseña",
         validators=[
             DataRequired(message="Ingrese su contraseña.")
         ],
         id="txtPassword",
         name="txtPassword",
-        render_kw={
-            "placeholder": "Ingrese su contraseña",
-            "autocomplete": "off"
-        }
+        widget=wtforms.widgets.PasswordInput(hide_value=False)
     )
 
-    btn_guardar = SubmitField("Guardar")
+    #btn_guardar = SubmitField("Guardar")
 #fin usuario form
 
 
@@ -172,24 +168,6 @@ class ComentarioForm(FlaskForm):
     )
 
     habitacion = StringField(
-        "Habitación",
-        render_kw={
-            "readonly": "",
-            "class": "form-control"
-        }
-    )
-
-    comentario = TextAreaField(
-        "Comentario",
-        validators=[DataRequired("Debe ingresar un comentario.")],
-        render_kw = {
-            "class": "form-control",
-            "rows": "4"
-        }
-    )
-
-class HabitacionForm(FlaskForm):
-    numero = StringField(
         "Habitación",
         render_kw={
             "readonly": "",

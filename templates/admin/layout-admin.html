@@ -37,7 +37,7 @@
                         <a class="mobile-menu waves-effect waves-light" id="mobile-collapse">
                             <i class="ti-menu"></i>
                         </a>
-                        <a href="usuario.html" class="logo">
+                        <a href="/admin" class="logo">
                             <img class="img-fluid" src="https://i.ibb.co/2P0J6qT/logo-transparent-dark.png" alt="Theme-Logo" />
                         </a>
                         <a class="mobile-options waves-effect waves-light">
@@ -60,12 +60,12 @@
                             <li class="user-profile header-notification">
                                 <a class="waves-effect waves-light">
                                     <img src="https://icon-library.com/images/generic-user-icon/generic-user-icon-19.jpg" class="img-radius" alt="User-Profile-Image">
-                                    <span>John Doe</span>
+                                    <span>{{ session["nombres"]  }} {{ session["apellidos"] }}</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
                                     <li class="waves-effect waves-light">
-                                        <a href="index.html">
+                                        <a href="/mi-cuenta/logout">
                                             <i class="ti-layout-sidebar-left"></i> Cerrar sesión
                                         </a>
                                     </li>
@@ -86,7 +86,7 @@
                                 <div class="main-menu-header">
                                     <img class="img-80 img-radius" src="https://icon-library.com/images/generic-user-icon/generic-user-icon-19.jpg" alt="User-Profile-Image">
                                     <div class="user-details">
-                                        <span id="more-details">John Doe</span>
+                                        <span id="more-details">{{ session["nombres"]  }} {{ session["apellidos"] }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -105,19 +105,21 @@
                                       <span class="pcoded-mtext">Habitaciones</span>
                                   </a>
                                 </li>
-                                <li>
-                                  <a href="/admin/reservas" class="waves-effect waves-dark">
-                                      <span class="pcoded-micon"><i class="ti-calendar"></i></span>
-                                      <span class="pcoded-mtext">Reservas</span>
-                                      <span class="pcoded-mcaret"></span>
-                                  </a>
-                                </li>
-                                <li>
-                                    <a href="/admin/comentarios" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti-comments"></i></span>
-                                        <span class="pcoded-mtext">Comentarios</span>
-                                    </a>
-                                </li>
+                                {% if session["tipo_usuario"] == 1 %}
+                                    <li>
+                                        <a href="/admin/reservas" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="ti-calendar"></i></span>
+                                            <span class="pcoded-mtext">Reservas</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/admin/comentarios" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="ti-comments"></i></span>
+                                            <span class="pcoded-mtext">Comentarios</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
                                 <li>
                                     <a href="/mi-cuenta/logout" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-back-left"></i></span>

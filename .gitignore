@@ -1,4 +1,4 @@
 /.vscode/
 /venv/
 __pycache__
-models/db_dubai_hotel.db
+*.db
