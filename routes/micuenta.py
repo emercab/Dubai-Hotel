@@ -3,7 +3,7 @@
 from datetime import datetime
 from flask import flash, redirect, render_template, request, Blueprint, url_for, session
 from decorators import login_required, only_clientes
-from forms import LoginForm, RegisterForm
+from forms.forms_micuenta import LoginForm, RegisterForm
 from markupsafe import escape
 from flask_bcrypt import Bcrypt
 import controllers.controller_micuenta as controller
