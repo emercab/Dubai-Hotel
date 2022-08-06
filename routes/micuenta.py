@@ -1,7 +1,7 @@
 # Acá van todas las rutas de la aplicación del endpoint mi-cuenta
 
 from datetime import datetime
-from flask import flash, redirect, render_template, request, Blueprint, url_for
+from flask import flash, redirect, render_template, request, Blueprint, url_for, session
 from forms import LoginForm, RegisterForm
 from markupsafe import escape
 from flask_bcrypt import Bcrypt
@@ -107,21 +107,69 @@ def register():
 # Ruta de Mi Cuenta
 @bp_micuenta.route("/mi-cuenta", methods=["GET"])
 def mi_cuenta():
-    return "Estamos en Mi Cuenta."
+    user_login = False
+    nombre = ""
+    # Reviso si el usuario ha hecho login para enviar variables de sesión
+    if "user_login" in session:
+        # Significa que existe una variable de sesión user_login
+        # creada cuando el usuario hizo login. Guardo dicha variable
+        # en otra variable del mismo nombre que le pasaré al template
+        user_login = True
+        nombre = controller.get_nombre_corto(session["nombres"])
+    
+    # Preparo datos a enviar al template
+    data = {
+        "titulo_head": "Mi Cuenta",
+        "user_login": user_login,
+        "nombre": nombre,
+    }
+    return render_template("mi-cuenta.html", data=data)
 # Fin de Ruta de Mi Cuenta
 
 
 # Ruta de Mis Reservas
 @bp_micuenta.route("/mi-cuenta/reservas", methods=["GET"])
 def reservas():
-    return "Estamos en Mis Reservas."
+    user_login = False
+    nombre = ""
+    # Reviso si el usuario ha hecho login para enviar variables de sesión
+    if "user_login" in session:
+        # Significa que existe una variable de sesión user_login
+        # creada cuando el usuario hizo login. Guardo dicha variable
+        # en otra variable del mismo nombre que le pasaré al template
+        user_login = True
+        nombre = controller.get_nombre_corto(session["nombres"])
+    
+    # Preparo datos a enviar al template
+    data = {
+        "titulo_head": "Home",
+        "user_login": user_login,
+        "nombre": nombre,
+    }
+    return render_template("mis-reservas.html", data=data)
 # Fin Ruta de Mis Reservas
 
 
 # Ruta Calificar Habitaciones
 @bp_micuenta.route("/mi-cuenta/calificar-habitacion", methods=["GET"])
 def calificar_habitacion():
-    return "Estamos en Calificar Habitación."
+    user_login = False
+    nombre = ""
+    # Reviso si el usuario ha hecho login para enviar variables de sesión
+    if "user_login" in session:
+        # Significa que existe una variable de sesión user_login
+        # creada cuando el usuario hizo login. Guardo dicha variable
+        # en otra variable del mismo nombre que le pasaré al template
+        user_login = True
+        nombre = controller.get_nombre_corto(session["nombres"])
+    
+    # Preparo datos a enviar al template
+    data = {
+        "titulo_head": "Home",
+        "user_login": user_login,
+        "nombre": nombre,
+    }
+    return render_template("calificar-habitacion.html", data=data)
 # Fin Ruta Calificar Habitaciones
 
 
