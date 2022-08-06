@@ -1,8 +1,4 @@
 /.vscode/
 /venv/
 __pycache__
-<<<<<<< HEAD
-models/db_dubai_hotel.db
-=======
 *.db
->>>>>>> gabriela
