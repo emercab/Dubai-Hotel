@@ -1,6 +1,6 @@
 import sqlite3
 from models.db import conectar
-from datetime import datetime
+
 
 def select_tipo_usuario(tipo_usuario_session):
     try:
@@ -115,9 +115,9 @@ def create_usuario(id_usuario, usuario, nombres, apellidos, cedula, celular, ema
             query = """
                 insert into Usuarios (username, nombres, apellidos, cedula, ciudad, direccion, celular, tipoUsuarioId, email, 
                     password, fechaRegistro, activo)
-                values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
+                values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DateTime('now'), 1)
             """
-            datos = (usuario, nombres, apellidos, cedula, ciudad, direccion, celular, tipo_usuario, email, clave_encryp, datetime.today())
+            datos = (usuario, nombres, apellidos, cedula, ciudad, direccion, celular, tipo_usuario, email, clave_encryp)
 
         cursor.execute(query, datos)
         conn.commit()
@@ -157,3 +157,31 @@ def update_estado_usuario(id_usuario, estado):
         cursor.close()
         conn.close()
     return None
+
+
+def select_existe_usuario(id_usuario, username, cedula, email):
+    try:
+        conn = conectar()
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        sentence = """
+            select Id, Username, Cedula, Email
+            from Usuarios
+            where Id <> ? and (Username = ? or Cedula = ? or Email = ?)
+        """
+
+        id_usuario = 0 if id_usuario == None else id_usuario
+
+        print((id_usuario, username, cedula, email))
+
+        cursor.execute(sentence, (id_usuario, username, cedula, email))
+        result = cursor.fetchone()
+    except Exception as error:
+        # Si hay un error, lo imprimo y retorno None
+        print(f"Error: {error}")
+        return None
+    finally:
+        # Pase lo que pase, cierro la conexión
+        conn.close()
+    
+    return result

@@ -1,4 +1,4 @@
-from flask import redirect, render_template, request, Blueprint, url_for, escape, session
+from flask import flash, redirect, render_template, request, Blueprint, url_for, escape, session
 from admin.forms import HabitacionForm, UsuarioForm, ComentarioForm, ReservaForm
 from decorators import is_administrativo, login_required, superadmin_required
 from admin.controllers.usuario_controller import buscar_tipo_usuario, guardar_usuario,  consultar_usuario, cambiar_estado_usuario
@@ -67,27 +67,32 @@ def nuevo_usuario_admin(id_usuario=None):
                 form.password.data      = usuario["Password"]
 
     if form.validate_on_submit():
-        nombres         = escape(form.nombres.data)
-        apellidos       = escape(form.apellidos.data)
-        cedula          = escape(form.cedula.data)
-        celular         = escape(form.celular.data)
-        email           = escape(form.email.data)
-        tipo_usuario    = escape(form.tipo_usuario.data)
-        clave           = escape(form.password.data)
-        direccion       = escape(form.direccion.data)
-        usuario         = escape(form.usuario.data)
-        ciudad          = escape(form.ciudad.data)
+        nombres         = form.nombres.data
+        apellidos       = form.apellidos.data
+        cedula          = form.cedula.data
+        celular         = form.celular.data
+        email           = form.email.data
+        tipo_usuario    = form.tipo_usuario.data
+        clave           = form.password.data
+        direccion       = form.direccion.data
+        usuario         = form.usuario.data
+        ciudad          = form.ciudad.data
 
-        nuevo_id = guardar_usuario(id_usuario, usuario, nombres, apellidos, cedula, celular, email, tipo_usuario, clave, ciudad, direccion)
+        response = guardar_usuario(id_usuario, usuario, nombres, apellidos, cedula, celular, email, tipo_usuario, clave, ciudad, direccion)
 
-        if nuevo_id:
+        if response["type"] == "ok":
             return redirect(url_for('.usuarios_admin'))
+        else:
+            flash(response["message"], "error")
 
     data = {
         "titulo_head": "Usuarios",
         "titulo_content": titulo_content,
         "form": form
     }
+
+    if (form.errors and len(form.errors) > 0):
+        flash([error[0] for error in form.errors.values()], "error")
 
     return render_template("admin/nuevo-usuario.html", data=data)
 #fin nuevo usuario
