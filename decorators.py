@@ -19,29 +19,39 @@ def login_required(function):
     return decorator_function
 
 
+#valida si la persona es admin o superadmin
+def is_administrativo(function):
+    @wraps(function)
+    def decorator(*args, **kws):
+        if "tipo_usuario" in session and session["tipo_usuario"] == 1 or session["tipo_usuario"] == 2:
+            return function(*args, **kws)
+
+        #si no es un admin o super admin, retorna al index
+        return redirect(url_for('index'))
+    return decorator
+
+
 # admin_required
 def admin_required(function):
     @wraps(function)
     def decorator_function(*args, **kws):
         #codigo del decorador
-        if False:
-            return redirect(url_for('index'))
-
-        return function(*args, **kws)
-
+        if "tipo_usuario" in session and session["tipo_usuario"] == 2:
+            return function(*args, **kws)
+        return redirect(url_for('index'))
     return decorator_function
 
 
-# superadmin_required
+# superadmin_required. se llama siempre del @is_administrativo
+# solo el superadmin puede acceder a ciertas rutas.
 def superadmin_required(function):
     @wraps(function)
     def decorator_function(*args, **kws):
-        #codigo del decorador
-        if False:
-            return redirect(url_for('index'))
+        #si es superadmin
+        if session["tipo_usuario"] == 1:
+            return function(*args, **kws)
 
-        return function(*args, **kws)
-
+        return redirect('/admin') 
     return decorator_function
 
 

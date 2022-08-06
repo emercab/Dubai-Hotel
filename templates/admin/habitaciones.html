@@ -23,25 +23,30 @@
                             <th>Precio</th>
                             <th>Calificación</th>
                             <th></th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                     {% for habitacion in data.habitaciones %}
                     <tr>
-                        <td>{{ habitacion["Id"] }}</td>
+                        <td>{{ habitacion["Row"] }}</td>
                         <td>{{ habitacion["Numero"] }}</td>
                         <td>{{ habitacion["Precio"] }}</td>
                         <td>{{ habitacion["Calificacion"] }}</td>
-                        <td></td>
                         <td class="text-right">
-                            <a class="btn-accion" href="{{ url_for('.nueva_habitacion_admin', id_habitacion=habitacion['Id']) }}">
-                                <i class="ti-pencil-alt" data-toggle="tooltip" data-placement="top" data-original-title="editar"></i>
-                            </a>
-                            <a class="btn-accion" href="{{ url_for('.remover_habitacion_admin', id_habitacion=habitacion['Id']) }}"
-                                data-toggle="tooltip" data-placement="top" data-original-title="desactivar">
-                                <i class="ti-na"></i>
-                            </a>
+                            {% if habitacion["Activo"] == 1 %}
+                                <a class="btn-accion" href="{{ url_for('.nueva_habitacion_admin', id_habitacion=habitacion['Id']) }}">
+                                    <i class="ti-pencil-alt" data-toggle="tooltip" data-placement="top" data-original-title="editar"></i>
+                                </a>
+                                <a class="btn-accion" href="{{ url_for('.estado_habitacion_admin', id_habitacion=habitacion['Id'], estado=0) }}"
+                                    data-toggle="tooltip" data-placement="top" data-original-title="desactivar">
+                                    <i class="ti-na"></i>
+                                </a>
+                            {% else %}
+                                <a class="btn-accion" href="{{ url_for('.estado_habitacion_admin', id_habitacion=habitacion['Id'], estado=1) }}"
+                                    data-toggle="tooltip" data-placement="top" data-original-title="activar">
+                                    <i class="ti-check"></i>
+                                </a>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}

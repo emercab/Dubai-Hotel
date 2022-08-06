@@ -23,61 +23,38 @@
                             <th>Apellidos</th>
                             <th>Cédula</th>
                             <th>Email</th>
+                            <th>Fecha de registro</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>#</td>
-                        <td>####</td>
-                        <td>####</td>
-                        <td>####</td>
-                        <td>####</td>
-                        <td>####</td>
-                        <td class="text-right">
-                            <a class="btn-accion" href="/admin/agregar-usuario">
-                                <i class="ti-pencil-alt" data-toggle="tooltip" data-placement="top" data-original-title="editar"></i>
-                            </a>
-                            <a class="btn-accion" href="#"
-                                data-toggle="tooltip" data-placement="top" data-original-title="desactivar">
-                                <i class="ti-na"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#</td>
-                        <td>####</td>
-                        <td>####</td>
-                        <td>####</td>
-                        <td>####</td>
-                        <td>####</td>
-                        <td class="text-right">
-                            <a class="btn-accion" href="agregar_usuario.html">
-                                <i class="ti-pencil-alt" data-toggle="tooltip" data-placement="top" data-original-title="editar"></i>
-                            </a>
-                            <a class="btn-accion" href="#"
-                                data-toggle="tooltip" data-placement="top" data-original-title="desactivar">
-                                <i class="ti-na"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#</td>
-                        <td>####</td>
-                        <td>####</td>
-                        <td>####</td>
-                        <td>####</td>
-                        <td>####</td>
-                        <td class="text-right">
-                            <a class="btn-accion" href="agregar_usuario.html">
-                                <i class="ti-pencil-alt" data-toggle="tooltip" data-placement="top" data-original-title="editar"></i>
-                            </a>
-                            <a class="btn-accion" href="#"
-                                data-toggle="tooltip" data-placement="top" data-original-title="desactivar">
-                                <i class="ti-na"></i>
-                            </a>
-                        </td>
-                    </tr>
+                    {% for usuario in data.usuarios %}
+                        <tr>
+                            <td>{{ usuario["Row"] }}</td>
+                            <td>{{ usuario["NombreTipoUsuario"] }}</td>
+                            <td>{{ usuario["Nombres"] }}</td>
+                            <td>{{ usuario["Apellidos"] }}</td>
+                            <td>{{ usuario["Cedula"] }}</td>
+                            <td>{{ usuario["Email"] }}</td>
+                            <td>{{ usuario["FechaRegistro"] }}</td>
+                            <td class="text-right">
+                                {% if usuario["Activo"] == 1 %}
+                                    <a class="btn-accion" href="{{ url_for('.nuevo_usuario_admin', id_usuario=usuario['Id']) }}">
+                                        <i class="ti-pencil-alt" data-toggle="tooltip" data-placement="top" data-original-title="editar"></i>
+                                    </a>
+                                    <a class="btn-accion" href="/admin/estado-usuario/{{ usuario['Id'] }}?estado=0"
+                                        data-toggle="tooltip" data-placement="top" data-original-title="desactivar">
+                                        <i class="ti-na"></i>
+                                    </a>
+                                {% else %}
+                                    <a class="btn-accion" href="/admin/estado-usuario/{{ usuario['Id'] }}?estado=1"
+                                        data-toggle="tooltip" data-placement="top" data-original-title="activar">
+                                        <i class="ti-check"></i>
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

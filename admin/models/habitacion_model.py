@@ -1,5 +1,4 @@
 import sqlite3
-from flask import Flask
 from models.db import conectar
 
 
@@ -48,11 +47,11 @@ def select_habitacion(id_habitacion=None):
         cursor = conn.cursor()
 
         if id_habitacion:
-            cursor.execute("select Id, Numero, Precio, Calificacion, Activo from Habitaciones where Id = ?", [id_habitacion])
+            cursor.execute("select Row_Number() over (order by Id) as Row, Id, Numero, Precio, Calificacion, Activo from Habitaciones where Id = ?", [id_habitacion])
+            resultado = cursor.fetchone()
         else:
-            cursor.execute("select Id, Numero, Precio, Calificacion, Activo from Habitaciones where Activo = 1")
-
-        resultado = cursor.fetchall()
+            cursor.execute("select Row_Number() over (order by Activo desc) as Row, Id, Numero, Precio, Calificacion, Activo from Habitaciones")
+            resultado = cursor.fetchall()  
     except Exception as error:
         print(f'select_habitacion {error}')
         return None
@@ -64,7 +63,7 @@ def select_habitacion(id_habitacion=None):
 #fin consultar habitacion
 
 
-def remove_habitacion(id_habitacion):
+def update_estado_habitacion(id_habitacion, estado):
     try:
         conn = conectar()
         cursor = conn.cursor()
@@ -72,11 +71,11 @@ def remove_habitacion(id_habitacion):
         if id_habitacion:
             query = """
                 update Habitaciones
-                    set Activo = 0
+                    set Activo = ?
                 where Id = ?
             """
         
-        cursor.execute(query, [id_habitacion])
+        cursor.execute(query, (estado, id_habitacion))
         conn.commit()
     except Exception as error:
         print(f'insert habitacion {error}')
