@@ -29,7 +29,13 @@ def guardar_usuario(id_usuario, username, nombres, apellidos, cedula, celular, e
     if id_usuario != None and int(id_usuario) > 0:
         usuario_db = consultar_usuario(None, id_usuario)
 
-        if len(usuario_db) > 0 and clave == usuario_db["Password"].decode("utf8"):
+        if len(usuario_db) > 0:
+            clave_db = usuario_db["Password"]
+
+            if type(clave_db) == bytes:
+                clave_db = clave_db.decode("utf8")
+
+            if clave == clave_db:
                 clave_encryp = clave
 
     nuevo_id = create_usuario(id_usuario, username, nombres, apellidos, cedula, celular, email, tipo_usuario, clave_encryp, ciudad, direccion)

@@ -55,11 +55,16 @@ def nuevo_usuario_admin(id_usuario=None):
             form.cedula.data            = usuario["Cedula"]
             form.celular.data           = usuario["Celular"]
             form.email.data             = usuario["Email"]
-            form.password.data          = usuario["Password"].decode("utf8")
             form.direccion.data         = usuario["Direccion"]
             form.usuario.data           = usuario["Username"]
             form.ciudad.data            = usuario["Ciudad"]
             form.tipo_usuario.process_data(usuario["TipoUsuarioId"])
+
+            password = usuario["Password"]
+            if type(password) == bytes:
+                form.password.data      = usuario["Password"].decode('utf8')
+            else:
+                form.password.data      = usuario["Password"]
 
     if form.validate_on_submit():
         nombres         = escape(form.nombres.data)
