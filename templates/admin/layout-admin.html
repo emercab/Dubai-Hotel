@@ -60,7 +60,7 @@
                             <li class="user-profile header-notification">
                                 <a class="waves-effect waves-light">
                                     <img src="https://icon-library.com/images/generic-user-icon/generic-user-icon-19.jpg" class="img-radius" alt="User-Profile-Image">
-                                    <span>{{ session["nombres"]  }} {{ session["apellidos"] }}</span>
+                                    <span>{{ data.nombre|upper()  }} {{ data.apellidos }}</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
@@ -86,7 +86,7 @@
                                 <div class="main-menu-header">
                                     <img class="img-80 img-radius" src="https://icon-library.com/images/generic-user-icon/generic-user-icon-19.jpg" alt="User-Profile-Image">
                                     <div class="user-details">
-                                        <span id="more-details">{{ session["nombres"]  }} {{ session["apellidos"] }}</span>
+                                        <span id="more-details">{{ data.nombre|upper()  }} {{ data.apellidos }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +105,7 @@
                                       <span class="pcoded-mtext">Habitaciones</span>
                                   </a>
                                 </li>
-                                {% if session["tipo_usuario"] == 1 %}
+                                {% if data.tipo_usuario == 1 %}
                                     <li>
                                         <a href="/admin/reservas" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="ti-calendar"></i></span>
@@ -243,5 +243,7 @@
 
     <!-- custom js -->
     <script type="text/javascript" src="{{ url_for('static', filename='admin/assets-template/js/script.js') }} "></script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='admin/js/main.js') }} "></script>
   </body>
 </html>
