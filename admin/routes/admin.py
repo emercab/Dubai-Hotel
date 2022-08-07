@@ -1,5 +1,6 @@
 from flask import flash, redirect, render_template, request, Blueprint, url_for, escape, session
 from admin.forms import HabitacionForm, UsuarioForm, ComentarioForm, ReservaForm
+from controllers.controller_micuenta import data_to_template
 from decorators import is_administrativo, login_required, superadmin_required
 from admin.controllers.usuario_controller import buscar_tipo_usuario, guardar_usuario,  consultar_usuario, cambiar_estado_usuario
 from admin.controllers.habitacion_controller import consultar_habitacion, desactivar_habitacion, guardar_habitacion
@@ -25,10 +26,8 @@ def usuarios_admin():
     tipo_usuario_admin = session["tipo_usuario"] #este valor viene de la session
     usuarios = consultar_usuario(tipo_usuario_admin)
 
-    data = {
-        "titulo_head": "Usuarios",
-        "usuarios": usuarios
-    }
+    data = data_to_template("Usuarios")
+    data["usuarios"] = usuarios
 
     return render_template("admin/usuarios.html", data=data)
 #fin usuarios
@@ -85,11 +84,9 @@ def nuevo_usuario_admin(id_usuario=None):
         else:
             flash(response["message"], "error")
 
-    data = {
-        "titulo_head": "Usuarios",
-        "titulo_content": titulo_content,
-        "form": form
-    }
+    data = data_to_template("Usuarios")
+    data["form"] = form
+    data["titulo_content"] = titulo_content
 
     if (form.errors and len(form.errors) > 0):
         flash([error[0] for error in form.errors.values()], "error")
@@ -115,11 +112,9 @@ def estado_usuario_admin(id_usuario):
 def habitaciones_admin():
     habitaciones = consultar_habitacion(None)
 
-    data = {
-        "titulo_head": "Habitaciones",
-        "habitaciones": habitaciones
-    }
-    
+    data = data_to_template("Habitaciones")
+    data["habitaciones"] = habitaciones
+
     return render_template("admin/habitaciones.html", data=data)
 #fin habitaciones
 
@@ -132,10 +127,10 @@ def nueva_habitacion_admin(id_habitacion=None):
     title_content = "Nueva habitación"
     form = HabitacionForm(request.form)
     
-
     if request.method.lower() == 'get' and id_habitacion:
         title_content= "Modificar habitación"
         habitacion = consultar_habitacion(id_habitacion)
+        
         if len(habitacion) > 0:
             form.numero.data = escape(habitacion["Numero"])
             form.precio.data = escape(habitacion["Precio"])
@@ -149,11 +144,9 @@ def nueva_habitacion_admin(id_habitacion=None):
         if result:
             return redirect(url_for('.habitaciones_admin'))
     
-    data = {
-        "titulo_head": "Habitaciones",
-        "titulo_content": title_content,
-        "form": form
-    }
+    data = data_to_template("Habitaciones")
+    data["titulo_content"] = title_content
+    data["form"] = form
 
     return render_template('admin/nueva-habitacion.html', data=data)
 #fin nueva habitacion
@@ -174,9 +167,7 @@ def estado_habitacion_admin(id_habitacion):
 @is_administrativo
 @superadmin_required
 def reservas_admin():
-    data = {
-        "titulo_head": "Reservas"
-    }
+    data = data_to_template("Reservas")
 
     return render_template('admin/reservas.html', data=data)
 #fin reservas admin
@@ -188,12 +179,11 @@ def reservas_admin():
 @superadmin_required
 def nueva_reserva_admin():
     form = ReservaForm(request.form)
-    data = {
-        "titulo_head": "Reservas",
-        "titulo_content": "Nueva reserva",
-        "form": form
-    }
 
+    data = data_to_template("Reservas")
+    data["titulo_content"] = "Nueva reserva"
+    data["form"] = form
+    
     return render_template('admin/nueva-reserva.html', data=data)
 #fin nueva reserva admin
 

@@ -3,6 +3,7 @@ from admin.routes.admin import bp_admin
 from routes.habitaciones import bp_habitaciones
 from routes.contacto import bp_contacto
 from routes.micuenta import bp_micuenta
+from routes.api import bp_api
 import controllers.controller_micuenta as controller
 from settings.config import Configuration
 
@@ -23,6 +24,7 @@ app.register_blueprint(bp_contacto)
 # Me vinculo con el route de los endpoints de /mi-cuenta
 app.register_blueprint(bp_micuenta)
 
+app.register_blueprint(bp_api)
 
 # Cargamos la página principal (home)
 @app.route("/", methods=["GET"])

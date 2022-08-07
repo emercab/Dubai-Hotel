@@ -99,6 +99,17 @@ class UsuarioForm(FlaskForm):
 
 
 class ReservaForm(FlaskForm):
+    busqueda_cliente = StringField(
+        "Buscar cliente",
+        validators=[ DataRequired("Seleccionar a un cliente.") ],
+        render_kw = {
+            "class": "form-control",
+            "placeholder": "Ingresar usuario, cédula o email"
+        },
+        id="txtBusquedaCliente",
+        name="txtBusquedaCliente"
+    )
+
     cliente = SelectField(
         "Cliente", 
         validators=[ DataRequired("Seleccionar a un cliente.") ],
@@ -113,7 +124,7 @@ class ReservaForm(FlaskForm):
     habitacion = SelectField(
         "Habitación",
         validators=[ DataRequired("Seleccionar una habitación.") ],
-        choices = [(0, "Seleccione un habitación")],
+        choices = [(0, "Seleccione una habitación")],
         render_kw = {
             "class": "form-control select-border"
         },
@@ -150,11 +161,12 @@ class ReservaForm(FlaskForm):
     )
 
     precio = IntegerField(
-        "Precio",
+        "Total",
         render_kw={
             "class": "form-control",
             "readonly": ""
-        }
+        },
+        id="txtTotalReserva"
     )
 
 

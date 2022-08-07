@@ -134,3 +134,8 @@ nav .navbar-logo .logo img {
     margin-left: 10px;
     display: inline-block;
 }
+
+.input-group .input-group-append .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
