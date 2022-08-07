@@ -34,7 +34,7 @@ def reservar():
     if len(rooms) > 0:
         options = [(r[0], f"Habitación {r[1]}") for r in rooms]
     else:
-        options = ("0", "No hay habitaciones disponibles")
+        options = ("No hay habitaciones disponibles")
     reserva_form.list_habitaciones.choices = options
 
     # Preparo datos a enviar a la vista

@@ -115,22 +115,8 @@ def register():
 @login_required
 @only_clientes
 def mi_cuenta():
-    user_login = False
-    nombre = ""
-    # Reviso si el usuario ha hecho login para enviar variables de sesión
-    if "user_login" in session:
-        # Significa que existe una variable de sesión user_login
-        # creada cuando el usuario hizo login. Guardo dicha variable
-        # en otra variable del mismo nombre que le pasaré al template
-        user_login = True
-        nombre = controller.get_nombre_corto(session["nombres"])
-    
-    # Preparo datos a enviar al template
-    data = {
-        "titulo_head": "Mi Cuenta",
-        "user_login": user_login,
-        "nombre": nombre,
-    }
+    # Preparo datos a enviar a la vista
+    data = controller.data_to_template("Mi Cuenta")
     return render_template("mi-cuenta.html", data=data)
 # Fin de Ruta de Mi Cuenta
 
@@ -140,22 +126,8 @@ def mi_cuenta():
 @login_required
 @only_clientes
 def reservas():
-    user_login = False
-    nombre = ""
-    # Reviso si el usuario ha hecho login para enviar variables de sesión
-    if "user_login" in session:
-        # Significa que existe una variable de sesión user_login
-        # creada cuando el usuario hizo login. Guardo dicha variable
-        # en otra variable del mismo nombre que le pasaré al template
-        user_login = True
-        nombre = controller.get_nombre_corto(session["nombres"])
-    
-    # Preparo datos a enviar al template
-    data = {
-        "titulo_head": "Home",
-        "user_login": user_login,
-        "nombre": nombre,
-    }
+    # Preparo datos a enviar a la vista
+    data = controller.data_to_template("Mis Reservas")
     return render_template("mis-reservas.html", data=data)
 # Fin Ruta de Mis Reservas
 
@@ -165,22 +137,8 @@ def reservas():
 @login_required
 @only_clientes
 def calificar_habitacion():
-    user_login = False
-    nombre = ""
-    # Reviso si el usuario ha hecho login para enviar variables de sesión
-    if "user_login" in session:
-        # Significa que existe una variable de sesión user_login
-        # creada cuando el usuario hizo login. Guardo dicha variable
-        # en otra variable del mismo nombre que le pasaré al template
-        user_login = True
-        nombre = controller.get_nombre_corto(session["nombres"])
-    
-    # Preparo datos a enviar al template
-    data = {
-        "titulo_head": "Home",
-        "user_login": user_login,
-        "nombre": nombre,
-    }
+    # Preparo datos a enviar a la vista
+    data = controller.data_to_template("Calificar Habitaciones")
     return render_template("calificar-habitacion.html", data=data)
 # Fin Ruta Calificar Habitaciones
 

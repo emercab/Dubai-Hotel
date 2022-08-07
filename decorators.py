@@ -31,17 +31,6 @@ def is_administrativo(function):
     return decorator
 
 
-# admin_required
-def admin_required(function):
-    @wraps(function)
-    def decorator_function(*args, **kws):
-        #codigo del decorador
-        if "tipo_usuario" in session and session["tipo_usuario"] == 2:
-            return function(*args, **kws)
-        return redirect(url_for('index'))
-    return decorator_function
-
-
 # superadmin_required. se llama siempre del @is_administrativo
 # solo el superadmin puede acceder a ciertas rutas.
 def superadmin_required(function):
