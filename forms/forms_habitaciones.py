@@ -1,6 +1,8 @@
 # En este archivo irán todas las clases que van a representar
 # todos los formularios del proyecto usando la librería WTForms
 
+import datetime
+from email.policy import default
 from flask_wtf import FlaskForm
 from wtforms import StringField, EmailField, IntegerField
 from wtforms import DateField, SubmitField, SelectField
@@ -102,7 +104,6 @@ class ReservaForm(FlaskForm):
         id="fecha_inicio",
         name="txtFechaInicio",
         render_kw={
-            "placeholder": "Ingrese fecha inicial de la reserva",
             "class": "controls",
         }
     )
@@ -114,17 +115,12 @@ class ReservaForm(FlaskForm):
         id="fecha_final",
         name="txtFechaFinal",
         render_kw={
-            "placeholder": "Ingrese fecha final de la reserva",
             "class": "controls",
         }
     )
     list_habitaciones = SelectField(
         "Habitaciones Disponibles:",
-        choices=[
-            ("op1", "Opción 1"),
-            ("op2", "Opción 2"),
-            ("op3", "Opción 3"),
-        ],
+        coerce=int,
         name="selHabitacionesDisponibles",
         id="selHabitacionesDisponibles",
         render_kw = {

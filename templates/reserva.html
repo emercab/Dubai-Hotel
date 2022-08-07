@@ -15,6 +15,28 @@
 <section class="section section-form">
     <form action="/habitaciones/reservar" method="post" class="form-register">
         <h2>Ingrese sus Datos</h2>
+        <!-- Genero mi secret key para evitar ataques csrf -->
+        {{data.form.csrf_token}}
+
+        <!-- Mensajes -->
+        {% with mensajes = get_flashed_messages() %}
+            {% if mensajes or data.form.errors %}
+                <div class="container-mensajes">
+                    <div class="mensaje is-danger w-80">
+                        <!-- Mensajes flash -->
+                        {% for mensaje in mensajes %}
+                        {{ mensaje }}
+                        {% endfor %}
+                        
+                        <!-- Mensaje de error del form -->
+                        {% for field, errors in data.form.errors.items() %}
+                        {{ ', '.join(errors) }}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endwith %}
+
             <div class="form-row-inline">
                 <div class="label-container">
                     {{ data.form.nombres.label() }}

@@ -36,8 +36,8 @@ def login():
     if login_form.validate_on_submit():
         # Capturo las variables ingresadas por el usuario y 
         # por seguridad aplico escape a todo lo ingresado
-        username = escape(login_form.username.data)
-        password = escape(login_form.password.data)
+        username = escape(login_form.username.data).strip()
+        password = escape(login_form.password.data).strip()
         
         # Llamo a la función del controller que revisa el login
         result_login = controller.check_login(username, password)
@@ -48,10 +48,10 @@ def login():
         elif result_login == 2:
             flash("Contraseña incorrecta.")
         elif result_login == 1:
-            if "tipo_usuario" in session and session["tipo_usuario"] == 1 or session["tipo_usuario"] == 2:
+            if "tipo_usuario" in session and (session["tipo_usuario"] == 1 or session["tipo_usuario"] == 2):
                     return redirect('/admin')
             else:
-                return redirect("/")
+                return redirect("/mi-cuenta")
     return render_template("login.html", data=data)
 # Fin de la ruta del Login
 

@@ -78,6 +78,10 @@
   .form-register label {
     font-size: var(--md);
   }
+  .container-mensajes {
+    width: 100%;
+    margin-bottom: 24px;
+  }
   .form-register .container {
     display: flex;
     justify-content: center;
