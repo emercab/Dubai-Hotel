@@ -1,7 +1,7 @@
 from multiprocessing import Value
 from wsgiref.validate import validator
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SelectField, DateField, TextAreaField, SubmitField, PasswordField, EmailField
+from wtforms import StringField, IntegerField, SelectField, DateField, TextAreaField, SubmitField, PasswordField, EmailField,DecimalField
 from wtforms.validators import DataRequired, NumberRange, Email
 import wtforms.widgets
 from datetime import date, timedelta
@@ -185,6 +185,14 @@ class ComentarioForm(FlaskForm):
             "readonly": "",
             "class": "form-control"
         }
+    )
+
+    calificacion = DecimalField(
+        "Calificación",
+        render_kw={
+            "class": "form-control"
+        },
+        places=1
     )
 
     comentario = TextAreaField(
