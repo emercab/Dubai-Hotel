@@ -14,19 +14,22 @@
                             <th>Cliente</th>
                             <th>Habitación</th>
                             <th>Comentario</th>
+                            <th>Calificación</th>
                             <th>Fecha de creación</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
+                    {% for comentario in data.comentarios %}
                     <tr>
-                        <td>#</td>
-                        <td>####</td>
-                        <td>####</td>
-                        <td>####</td>
-                        <td>####</td>
+                        <td>{{ comentario["id"]}}</td>
+                        <td>{{ comentario["cliente"]}}</td>
+                        <td>{{ comentario["numero"]}}</td>
+                        <td>{{ comentario["comentario"]}}</td>
+                        <td>{{ comentario["calificacion"]}}</td>
+                        <td>{{ comentario["fecha"]}}</td>
                         <td class="text-right">
-                            <a class="btn-accion" href="{{ url_for('bp_admin.nuevo_comentario_admin') }}">
+                            <a class="btn-accion" href="{{ url_for('bp_admin.nuevo_comentario_admin' , id_comentario=comentario['id']) }}">
                                 <i class="ti-pencil-alt" data-toggle="tooltip" data-placement="top" data-original-title="editar"></i>
                             </a>
                             <a class="btn-accion" href="#"
@@ -35,6 +38,7 @@
                             </a>
                         </td>
                     </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

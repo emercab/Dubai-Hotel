@@ -1,9 +1,11 @@
+from unicodedata import decimal
 from flask import flash, redirect, render_template, request, Blueprint, url_for, escape, session
 from admin.forms import HabitacionForm, UsuarioForm, ComentarioForm, ReservaForm
 from controllers.controller_micuenta import data_to_template
 from decorators import is_administrativo, login_required, superadmin_required
 from admin.controllers.usuario_controller import buscar_tipo_usuario, guardar_usuario,  consultar_usuario, cambiar_estado_usuario
 from admin.controllers.habitacion_controller import consultar_habitacion, desactivar_habitacion, guardar_habitacion
+from admin.controllers.comentario_controller import consultar_comentario,guardar_comentario
 
 bp_admin = Blueprint("bp_admin", __name__)
 
@@ -193,9 +195,10 @@ def nueva_reserva_admin():
 @is_administrativo
 @superadmin_required
 def comentarios_admin():
-    data = {
-        "titulo_head": "Comentarios"
-    }
+    comentarios = consultar_comentario(None)
+
+    data = data_to_template("Comentarios")
+    data["comentarios"] = comentarios
 
     return render_template('admin/comentarios.html', data=data)
 #fin comentarios admin
@@ -205,13 +208,34 @@ def comentarios_admin():
 @is_administrativo
 @superadmin_required
 @bp_admin.route('/admin/nuevo-comentario', methods=['get', 'post'])
-def nuevo_comentario_admin():
+@bp_admin.route('/admin/nuevo-comentario/<id_comentario>', methods=['get', 'post'])
+def nuevo_comentario_admin(id_comentario=None):
+    title_content = "Nuevo comentario"
     form = ComentarioForm(request.form)
-    data = {
-        "titulo_head": "Comentarios",
-        "titulo_content": "Nuevo comentario",
-        "form": form
-    }
+
+    if request.method.lower() == 'get' and id_comentario:
+        title_content= "Modificar comentario"
+        comentario = consultar_comentario(id_comentario)
+        
+        if len(comentario) > 0:
+            form.cliente.data = escape(comentario["cliente"])
+            form.habitacion.data = (escape(comentario["numero"]))
+            form.calificacion.data = float(escape(comentario["calificacion"]))
+            form.comentario.data = escape(comentario["comentario"])
+    
+    if form.validate_on_submit():
+        comentario = form.comentario.data
+        calificacion = form.calificacion.data
+        print(calificacion)
+        result = guardar_comentario(id_comentario, comentario,calificacion)
+
+        if result:
+            return redirect(url_for('.comentarios_admin'))
+
+
+    data = data_to_template("Comentarios")
+    data["titulo_content"] = title_content
+    data["form"] = form
 
     return render_template('admin/nuevo-comentario.html', data=data)
 #fin nuevo comentario admin
