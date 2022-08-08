@@ -4,7 +4,7 @@
 from models.db import conectar
 
 
-def get_data_login(login_field):
+def get_data_login(login_field:str):
     # Retorna los campos usados para login: username, cedula o email
     # y password registrado en DB del campo usado para hacer login que 
     # recibe. En caso de que no exista, retorna None
@@ -15,16 +15,16 @@ def get_data_login(login_field):
         # Creo el cursor que me permitirá operar en la DB
         cursor = conn.cursor()
         # Creo la sentencia SQL
-        sentence = f"""
+        sentence = """
             SELECT username, cedula, email, password, nombres, apellidos, tipoUsuarioId,
-                ciudad, direccion, celular
+                ciudad, direccion, celular, id
             FROM usuarios
             WHERE
                 activo=1 
-                AND (username='{login_field}' OR cedula='{login_field}' OR email='{login_field}'); 
+                AND (username=? OR cedula=? OR email=?); 
         """
         # Ejecuto la sentencia SQL
-        cursor.execute(sentence)
+        cursor.execute(sentence, [login_field, login_field, login_field])
         # Guardo el primer resultado de la consulta
         result = cursor.fetchone()
     except Exception as error:
@@ -80,7 +80,7 @@ def save_data_user(data):
         # Creo el cursor que me permitirá operar en la DB
         cursor = conn.cursor()
         # Creo la sentencia SQL
-        sentence = f"""
+        sentence = """
             INSERT INTO usuarios (
                 username, nombres, apellidos, cedula,
                 ciudad, direccion, celular,
@@ -88,14 +88,20 @@ def save_data_user(data):
                 password, fechaRegistro, activo
             )
             VALUES (
-                '{data["username"]}', '{data["nombres"]}', '{data["apellidos"]}', '{data["cedula"]}',
-                '{data["ciudad"]}', '{data["direccion"]}', '{data["celular"]}',
-                '{data["tipo_usuario"]}', '{data["email"]}',
-                '{data["password"]}', '{data["fecha_registro"]}', '{data["activo"]}'
+                ?, ?, ?, ?,
+                ?, ?, ?,
+                ?, ?,
+                ?, ?, ?
             );
         """
+        valores = [
+            {data["username"]}, {data["nombres"]}, {data["apellidos"]}, {data["cedula"]},
+            {data["ciudad"]}, {data["direccion"]}, {data["celular"]},
+            {data["tipo_usuario"]}, {data["email"]},
+            {data["password"]}, {data["fecha_registro"]}, {data["activo"]}
+        ]
         # Ejecuto la sentencia SQL
-        cursor.execute(sentence)
+        cursor.execute(sentence, valores)
         # Confirmo y envío los cambios a la tabla
         conn.commit()
     except Exception as error:
@@ -109,4 +115,30 @@ def save_data_user(data):
     
     return True
 # Fin de save_data_user()
+
+
+def update_password(user_id, new_password_hash):
+    # Actualiza el password del usuario, retorna True o False si tuvo éxito
+    try:
+        # Me conecto a la DB
+        conn = conectar()
+        # Creo el cursor que me permitirá operar en la DB
+        cursor = conn.cursor()
+        # Creo la sentencia SQL
+        sentence = """
+            UPDATE usuarios SET password=? WHERE id=?
+        """
+        # Ejecuto la sentencia SQL
+        cursor.execute(sentence, [new_password_hash, user_id])
+        conn.commit()
+    except Exception as error:
+        # Si hay un error, lo imprimo y retorno False
+        print(f"Error: {error}")
+        return False
+    finally:
+        # Pase lo que pase, cierro la conexión
+        conn.close()
+    
+    return True
+# Fin de update_password()
 

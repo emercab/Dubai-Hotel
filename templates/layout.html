@@ -75,8 +75,19 @@
                         <li>
                             <a href="/mi-cuenta">Mi Cuenta</a>
                         </li>
+                        {% endif %}
                         <li>
-                            <a href="/mi-cuenta/reservas">Mis Reservas</a>
+                           <a href="/mi-cuenta/cambiar-password">Cambiar Contraseña</a>
+                       </li>
+                        {% if data.tipo_usuario == 1 or data.tipo_usuario == 2 %}
+                        <li>
+                           <a href="/admin">Administrar Sitio</a>
+                        </li>
+                        <li>
+                        {% endif %}
+                        {% if data.tipo_usuario == 3 %}
+                        <li>
+                              <a href="/mi-cuenta/reservas">Mis Reservas</a>
                         </li>
                         <li>
                             <a href="/mi-cuenta/calificar-habitacion">Calificar Habitación</a>

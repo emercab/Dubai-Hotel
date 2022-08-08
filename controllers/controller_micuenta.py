@@ -3,7 +3,7 @@
 # respuestas a las rutass
 
 from flask import session
-from flask_bcrypt import check_password_hash
+from flask_bcrypt import check_password_hash, generate_password_hash
 import models.model_micuenta as model
 
 
@@ -37,6 +37,7 @@ def check_login(username, password):
             session["ciudad"] = data[7]
             session["direccion"] = data[8]
             session["celular"] = data[9]
+            session["id"] = data[10]
             return 1
         else:
             # Significa que la clave ingresada no coincide con la del usuario
@@ -59,6 +60,7 @@ def destroy_session():
     session.pop("ciudad", None)
     session.pop("direccion", None)
     session.pop("celular", None)
+    session.pop("id", None)
 # Fin de destroy_session()
 
 
@@ -86,6 +88,7 @@ def data_to_template(title:str):
     ciudad = ""
     direccion = ""
     celular = ""
+    id = ""
     # Reviso si el usuario ha hecho login para enviar variables de sesión
     if "user_login" in session:
         # Significa que existe una variable de sesión user_login
@@ -101,6 +104,7 @@ def data_to_template(title:str):
         ciudad = session["ciudad"]
         direccion = session["direccion"]
         celular = session["celular"]
+        id = session["id"]
     
     # Preparo datos a enviar al template
     data = {
@@ -115,6 +119,7 @@ def data_to_template(title:str):
         "ciudad": ciudad,
         "direccion": direccion,
         "celular": celular,
+        "id": id,
     }
 
     return data
@@ -190,3 +195,36 @@ def register_user(data_user:dict):
         respuesta["registro_exitoso"] = model.save_data_user(data_user)
     
     return respuesta
+# Fin de register_user()
+
+
+def change_password(cedula, password, new_password):
+    # Cambia el password del usuario
+
+    # Inicializo los valores que retornaré
+    respuesta = {
+        "exito": False,
+        "error": "",
+    }
+
+    data_user = model.get_data_login(cedula)
+    if data_user == None:
+        respuesta["error"] = "No se pudo obtener datos del usuario."
+        return respuesta
+    else:
+        # Comparo password enviado con el guardado
+        user_password = data_user[3]
+        if not check_password_hash(user_password, password):
+            # Significa que el password actual no coincide con el del usuario,
+            # por tanto se anula el cambio de clave y se envía el mensaje de error.
+            respuesta["error"] = "La contraseña actual es incorrecta."
+        else:
+            # Significa que la contraseña actual es correcta y se hace el
+            # cambio de contraseña, mando id del usuario y nuevo password
+            new_password_hash = generate_password_hash(new_password)
+            respuesta["exito"] = model.update_password(data_user[10], new_password_hash)
+            if not respuesta["exito"]:
+                respuesta["error"] = "No se pudo actualizar la nueva contraseña."  
+        return respuesta
+# Fin de change_password()
+

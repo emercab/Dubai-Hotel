@@ -4,9 +4,7 @@
 from models.db import conectar
 
 def send_data_contact(name,email,contact):
-    # Retorna los campos usados para login: username, cedula o email
-    # y password registrado en DB del campo usado para hacer login que 
-    # recibe. En caso de que no exista, retorna None
+    # Guarda mensaje de contacto en la DB. En caso de no tener éxito retorna None
     
     try:
         # Me conecto a la DB
@@ -14,12 +12,13 @@ def send_data_contact(name,email,contact):
         # Creo el cursor que me permitirá operar en la DB
         cursor = conn.cursor()
         # Creo la sentencia SQL
-        sentence = f"""
+        sentence = """
             INSERT INTO contacto (nombre, email, mensaje)
-            VALUES( '{name}', '{email}', '{contact}');
+            VALUES(?, ?, ?);
         """
+        valores = [name, email, contact]
         # Ejecuto la sentencia SQL
-        cursor.execute(sentence)
+        cursor.execute(sentence, valores)
         conn.commit()
     except Exception as error:
         # Si hay un error, lo imprimo y retorno None

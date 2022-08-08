@@ -51,6 +51,11 @@ main {
     color: var(--secondary);
     margin-bottom: 20px;
 }
+.row-welcome .info h3 {
+    color: var(--black);
+    font-size: 20px;
+    margin-bottom: 10px;
+}
 .row-welcome .info p {
     margin-bottom: 20px;
     padding-left: 30px;
@@ -155,4 +160,36 @@ main {
     margin-left: 8px;
     line-height: 20px;
     color: var(--black);
+}
+
+/* Formulario de Cambio de Password */
+form {
+    width: 100%;
+    font-size: var(--md);
+    padding: 30px 30px;
+    background-color: var(--dark);
+    border-radius: 20px;
+    color: var(--white);
+}
+.form-control {
+    width: 100%;
+}
+.form-control label {
+    display: block;
+}
+.form-control input:not(.btn) {
+    display: block;
+    width: 100%;
+    height: 36px;
+    font-size: var(--md);
+    color: var(--dark);
+    border: 1px solid var(--other);
+    border-radius: 8px; 
+    margin-bottom: 16px;
+}
+.change-password-title {
+    font-size: 20px;
+}
+.container-mensajes {
+    margin-bottom: 16px;
 }

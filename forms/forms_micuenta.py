@@ -32,8 +32,7 @@ class LoginForm(FlaskForm):
             "placeholder": "Ingrese su clave...",
             "class": "form-control",
         }
-    )
-    
+    )    
     ingresar = SubmitField(
         "Ingresar",
         render_kw= {
@@ -155,3 +154,50 @@ class RegisterForm(FlaskForm):
         }
     )
 # Fin Formulario de Registro
+
+
+class ChangePassword(FlaskForm):
+    password = PasswordField(
+        "Contraseña Actual:",
+        validators=[
+            DataRequired(message="Ingrese su contraseña actual.")
+        ],
+        id="password",
+        name="txtPassword",
+        render_kw={
+            "autocomplete": "off",
+            "placeholder": "Ingrese su contraseña actual",
+        }
+    )
+    new_password = PasswordField(
+        "Nueva Contraseña:",
+        validators=[
+            DataRequired(message="Ingrese su nueva contraseña."),
+            EqualTo("new_password2", message="Las contraseñas nuevas no coinciden."),
+        ],
+        id="new_password",
+        name="txtNewPassword",
+        render_kw={
+            "autocomplete": "off",
+            "placeholder": "Ingrese su nueva contraseña",
+        }
+    )
+    new_password2 = PasswordField(
+        "Confirmar Nueva Contraseña:",
+        validators=[
+            DataRequired(message="Repita su nueva contraseña.")
+        ],
+        id="new_password2",
+        name="txtNewPassword2",
+        render_kw={
+            "autocomplete": "off",
+            "placeholder": "Repita su nueva contraseña",
+        }
+    )
+    btn_cambiar_password = SubmitField(
+        "Cambiar Contraseña",
+        render_kw= {
+            "class": "btn btn-primary text-secondary"
+        }
+    )
+

@@ -3,7 +3,7 @@
 from datetime import datetime
 from flask import flash, redirect, render_template, request, Blueprint, url_for, session
 from decorators import login_required, only_clientes
-from forms.forms_micuenta import LoginForm, RegisterForm
+from forms.forms_micuenta import LoginForm, RegisterForm, ChangePassword
 from markupsafe import escape
 from flask_bcrypt import Bcrypt
 import controllers.controller_micuenta as controller
@@ -108,6 +108,37 @@ def register():
             flash("Error. " + result_register["error"])
     return render_template("register.html", data=data)
 # Fin de Ruta del formulario de registro
+
+
+# Ruta de Cambiar Contraseña
+@bp_micuenta.route("/mi-cuenta/cambiar-password", methods=["GET", "POST"])
+@login_required
+def cambiar_password():
+    change_password_form = ChangePassword(request.form)
+    
+    # Preparo datos a enviar a la vista
+    data = controller.data_to_template("Cambiar Contraseña")
+    data["form"] = change_password_form
+
+    # Se verifica que el form haya pasado la validación
+    if change_password_form.validate_on_submit():
+        # Capturo las variables ingresadas por el usuario y 
+        # por seguridad aplico escape a todo lo ingresado
+        password = escape(change_password_form.password.data).strip()
+        new_password = escape(change_password_form.new_password.data).strip()
+        
+        # Llamo a la función del controller que realiza el cambio de password
+        result = controller.change_password(data["cedula"], password, new_password)
+        
+        # Reviso la respuesta obtenida por el controlador
+        if not result["exito"]:
+            flash(f"Error. {result['error']}")
+        else:
+            # Significa que se hizo el cambio de clave con éxito
+            return redirect("/mi-cuenta")
+
+    return render_template("cambiar-password.html", data=data)
+# Fin Ruta Cambiar Contraseña
 
 
 # Ruta de Mi Cuenta
