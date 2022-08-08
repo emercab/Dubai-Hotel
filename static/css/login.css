@@ -77,10 +77,10 @@
 .login-left form .inline-form .form-icon {
    color: var(--dark);
    line-height: 0;
+   margin-right: 8px;
 }
 .login-left form .inline-form .form-control {
    width: 100%;
-   margin-left: 8px;
 }
 .login-left form .inline-form .form-control label {
    display: block;
@@ -93,6 +93,9 @@
    color: var(--dark);
    border: 1px solid var(--primary);
    border-radius: 8px;
+}
+.login-left form input::placeholder {
+   font-size: var(--sm);
 }
 .login-left form input.btn {
    display: block;

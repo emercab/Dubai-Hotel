@@ -1,49 +1,16 @@
 # En este archivo irán todas las clases que van a representar
 # todos los formularios del proyecto usando la librería WTForms
 
+import datetime
+from email.policy import default
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, EmailField, IntegerField, SubmitField
-from wtforms.validators import DataRequired, Email, EqualTo
+from wtforms import StringField, EmailField, IntegerField
+from wtforms import DateField, SubmitField, SelectField
+from wtforms.validators import DataRequired, Email
 
 
-# Formulario del Login
-class LoginForm(FlaskForm):
-    username = StringField(
-        "Usuario, cédula o email:",
-        validators=[
-            DataRequired(message="Ingrese su Usuario, cédula o email.")
-        ],
-        id="username",
-        name="txtUsername",
-        render_kw= {
-            "autocomplete": "off"
-        }
-    )
-    password = PasswordField(
-        "Contraseña:",
-        validators=[
-            DataRequired(message="Ingrese su contraseña.")
-        ],
-        id="password",
-        name="txtPassword",
-        render_kw={
-            "autocomplete": "off",
-            "placeholder": "Ingrese su clave...",
-            "class": "form-control",
-        }
-    )
-    
-    ingresar = SubmitField(
-        "Registrarme",
-        render_kw= {
-            "class": "btn btn-secondary text-primary"
-        }
-    )
-# Fin Formulario del Login
-
-
-# Formulario de Registro
-class RegisterForm(FlaskForm):
+# Formulario de Reservar
+class ReservaForm(FlaskForm):
     nombres = StringField(
         "Nombres:",
         validators=[
@@ -53,6 +20,7 @@ class RegisterForm(FlaskForm):
         name="txtNombres",
         render_kw={
             "placeholder": "Ingrese sus nombres",
+            "class": "controls",
         }
     )
     apellidos = StringField(
@@ -64,6 +32,7 @@ class RegisterForm(FlaskForm):
         name="txtApellidos",
         render_kw={
             "placeholder": "Ingrese sus apellidos",
+            "class": "controls",
         }
     )
     cedula = IntegerField(
@@ -75,6 +44,7 @@ class RegisterForm(FlaskForm):
         name="txtCedula",
         render_kw={
             "placeholder": "Sin puntos ni espacios",
+            "class": "controls",
         }
     )
     email = EmailField(
@@ -87,6 +57,7 @@ class RegisterForm(FlaskForm):
         name="txtEmail",
         render_kw={
             "placeholder": "Ingrese su correo electrónico",
+            "class": "controls",
         }
     )
     direccion = StringField(
@@ -98,6 +69,19 @@ class RegisterForm(FlaskForm):
         name="txtDireccion",
         render_kw={
             "placeholder": "Ingrese su dirección",
+            "class": "controls",
+        }
+    )
+    ciudad = StringField(
+        "Ciudad:",
+        validators=[
+            DataRequired(message="Ingrese su ciudad.")
+        ],
+        id="ciudad",
+        name="txtCiudad",
+        render_kw={
+            "placeholder": "Ingrese su ciudad",
+            "class": "controls",
         }
     )
     celular = IntegerField(
@@ -109,37 +93,44 @@ class RegisterForm(FlaskForm):
         name="txtCelular",
         render_kw={
             "placeholder": "Ingrese su celular",
+            "class": "controls",
         }
     )
-    password = PasswordField(
-        "Contraseña:",
+    fecha_inicio = DateField(
+        "Fecha de Inicio:",
         validators=[
-            DataRequired(message="Ingrese su contraseña.")
+            DataRequired(message="Ingrese fecha inicial de la reserva.")
         ],
-        id="password",
-        name="txtPassword",
+        id="fecha_inicio",
+        name="txtFechaInicio",
         render_kw={
-            "placeholder": "Ingrese su contraseña",
-            "autocomplete": "off"
+            "class": "controls",
         }
     )
-    confirm_password = PasswordField(
-        "Confirme su Contraseña:",
+    fecha_final = DateField(
+        "Fecha Final:",
         validators=[
-            DataRequired(message="Debe confirmar su contraseña."),
-            EqualTo(password, message="Las contraseñas ingresadas no coinciden.")
+            DataRequired(message="Ingrese fecha final de la reserva.")
         ],
-        id="confirm_password",
-        name="txtConfirmPassword",
+        id="fecha_final",
+        name="txtFechaFinal",
         render_kw={
-            "placeholder": "Repita su contraseña",
-            "autocomplete": "off"
+            "class": "controls",
         }
     )
-    registrar = SubmitField(
-        "Registrarme",
+    list_habitaciones = SelectField(
+        "Habitaciones Disponibles:",
+        coerce=int,
+        name="selHabitacionesDisponibles",
+        id="selHabitacionesDisponibles",
+        render_kw = {
+            "class": "controls"
+        }
+    )
+    reservar = SubmitField(
+        "Realizar Reserva",
         render_kw= {
             "class": "btn btn-secondary text-primary"
         }
     )
-# Fin Formulario de Registro
+# Fin Formulario de Reservar

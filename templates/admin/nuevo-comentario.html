@@ -1,0 +1,51 @@
+{% extends 'admin/layout-admin.html' %}
+{% block principal %}
+<div class="row">
+    <div class="col-xs-12 col-md-12 text-right mb-3">
+        <a class="btn btn-primary" href="{{ url_for('bp_admin.comentarios_admin') }}">
+            <i class="ti-angle-left"></i>
+            Listado de comentarios
+        </a>
+    </div>
+    
+    <div class="col-xs-12 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <b>Información del comentario</b>
+            </div>
+            <div class="card-block">
+                <form action="" method="post">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                           <div class="form-group">
+                               {{ data.form.cliente.label() }}
+                               {{ data.form.cliente() }}
+                           </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                           <div class="form-group">
+                               {{ data.form.habitacion.label() }}
+                               {{ data.form.habitacion() }}
+                           </div>
+                        </div>
+                        <div class="col-xs-12 col-md-12">
+                           <div class="form-group">
+                               {{ data.form.comentario.label() }}
+                               {{ data.form.comentario() }}
+                           </div>
+                        </div>
+                        <div class="col-xs-12 col-md-12 text-right">
+                           <button class="btn btn-primary" type="submit">
+                               <i class="ti-save"></i>
+                               Guardar
+                           </button>
+                        </div>
+                   </div>
+
+                   {{ data.form.csrf_token }}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

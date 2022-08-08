@@ -3,13 +3,13 @@
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, EmailField, TextAreaField, SubmitField
-from wtforms.validators import DataRequired, Email, EqualTo
+from wtforms.validators import DataRequired, Email
 
 
 # Formulario del Login
-class contacto(FlaskForm):
+class ContactForm(FlaskForm):
     name = StringField(
-        "Usuario, cédula o email:",
+        "Nombre:",
         validators=[
             DataRequired(message="Ingrese su nombre.")
         ],
@@ -18,6 +18,7 @@ class contacto(FlaskForm):
         render_kw= {
             "autocomplete": "off",
             "placeholder" : "Nombre completo",
+            "class": "input",
         }
     )
     email = EmailField(
@@ -30,6 +31,7 @@ class contacto(FlaskForm):
         name="correo_persona",
         render_kw={
             "placeholder": "Correo electrónico",
+            "class": "input",
         }
     )
 
@@ -43,6 +45,7 @@ class contacto(FlaskForm):
         render_kw={
             "autocomplete": "off",
             "placeholder": "Cuentanos tu problema",
+            "class": "textarea"
         }
     )
     enviar = SubmitField(

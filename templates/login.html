@@ -26,15 +26,21 @@
 
             <!-- Mensajes -->
             {% with mensajes = get_flashed_messages() %}
-               {% if mensajes %}
+               {% if mensajes or data.form.errors %}
                   <div class="mensaje is-danger w-80">
+                     <!-- Mensajes flash -->
                      {% for mensaje in mensajes %}
                         {{ mensaje }}
+                     {% endfor %}
+                     
+                     <!-- Mensaje de error del form -->
+                     {% for field, errors in data.form.errors.items() %}
+                        {{ ', '.join(errors) }}
                      {% endfor %}
                   </div>
                {% endif %}
             {% endwith %}
-
+            
             <!-- Form Login -->
             <form action="/mi-cuenta/login" method="post">
                <!-- Genero mi secret key para evitar ataques csrf -->

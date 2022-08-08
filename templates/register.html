@@ -25,6 +25,23 @@
                 <!-- Línea -->
                 <p class="linea"></p>
 
+                <!-- Mensajes -->
+                {% with mensajes = get_flashed_messages() %}
+                    {% if mensajes or data.form.errors %}
+                        <div class="mensaje is-danger w-80">
+                            <!-- Mensajes flash -->
+                            {% for mensaje in mensajes %}
+                                {{ mensaje }}
+                            {% endfor %}
+                            
+                            <!-- Mensaje de error del form -->
+                            {% for field, errors in data.form.errors.items() %}
+                                {{ ', '.join(errors) }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+ 
                 <!-- Form Register -->
                 <form action="/mi-cuenta/register" method="post">
                     {{data.form.csrf_token}}
@@ -52,11 +69,15 @@
                     </div>
                     <!-- Tercera fila de controles -->
                     <div class="inline-form">
-                        <div class="form-control w-75">
+                        <div class="form-control w-50">
                             {{data.form.direccion.label()}}
                             {{data.form.direccion()}}
                         </div>
-                        <div class="form-control w-25">
+                        <div class="form-control w-30">
+                            {{data.form.ciudad.label()}}
+                            {{data.form.ciudad()}}
+                        </div>
+                        <div class="form-control w-20">
                             {{data.form.celular.label()}}
                             {{data.form.celular()}}
                         </div>

@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block estilos_propios %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/mi-cuenta.css') }}">
+{% endblock %}
+
+{% block banner %}
+   <!-- Título en el contenido de la página -->
+   <section class="section section-title">
+      <h1>Mi Cuenta</h1>
+   </section>   
+{% endblock %}
+
+{% block principal %}
+   <aside class="sidebar">
+      <a class="active" href="/mi-cuenta">Inicio</a>
+      <a href="/mi-cuenta/reservas">Mis Reservas</a>
+      <a href="/mi-cuenta/calificar-habitacion">Calificar Habitación</a>
+      <a href="/mi-cuenta/logout">Cerrar Sesión</a>
+   </aside>
+   <div class="content">
+      <section class="section">
+         <div class="row-welcome">
+            <div class="info-container">
+               <div class="info">
+                  <!-- Acá va el contenido de cada página -->
+                  <h2>Hola, {{ data.nombre }}:</h2>
+                  <p>Nos encanta tenerte en nuestra plataforma.</p>
+                  <p>
+                     Desde los menús ubicados en la parte superior e izquierda de esta página, podrás acceder a las opciones relacionadas con tu cuenta de usuario, tus reservas y comentarios.
+                  </p>
+                  <img src="https://i.ibb.co/YW7z6v7/logo-transparent-light.png" alt="Dubai Hotel">
+               </div>
+               <img src="https://i.ibb.co/YtzK8Vv/welcome.jpg" alt="SLS Dubai Hotel" class="img">
+            </div>
+         </div>
+      </section>
+   </div>
+{% endblock %}

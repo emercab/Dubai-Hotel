@@ -113,3 +113,29 @@ nav .navbar-logo .logo {
 nav .navbar-logo .logo img {
     height: 38px;
 }
+
+.box-message {
+    padding: 15px 10px;
+    background-color: #dfb1b1;
+    /* color: white; */
+    border-radius: 5px;
+    margin-bottom: 15px;
+    color: white;
+    font-weight: 500;
+}
+
+.box-message.error {
+    border: 1px solid darkred;
+    background-color: #f0aeae;
+    color: darkred;
+}
+
+.box-message li {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.input-group .input-group-append .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}

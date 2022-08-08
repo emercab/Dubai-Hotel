@@ -22,12 +22,12 @@
       <!-- Header -->
       <header class="header">
          <div class="topmenu">
-            <a href="./">
+            <a href="/">
                <img src="https://i.ibb.co/2P0J6qT/logo-transparent-dark.png" alt="Logo SLS Dubai Hotel">
             </a>
             <nav>
                <ul class="menu">
-                  <li class="item"><a href="./">Home</a></li>
+                  <li class="item"><a href="/">Home</a></li>
                   <li class="item dropdown">
                      <a href="/habitaciones">
                         <span>Habitaciones</span>
@@ -53,14 +53,25 @@
                         </svg>
                      </a>
                      <ul class="sub-menu">
-                    {% if not data.user_login %}
+                     {% if not data.user_login %}
                         <li>
                            <a href="/mi-cuenta/login">Login</a>
                         </li>
                         <li>
                            <a href="/mi-cuenta/register">Registrarse</a>
                         </li>
-                    {% else %}
+                     {% else %}
+                        <!-- Icono y nombre del usuario -->
+                        <li>
+                           <div class="user-info">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="text-black" viewBox="0 0 16 16">
+                                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                              </svg>
+                              <span>{{ data.nombre }}</span>
+                           </div>
+                        </li>
+                        {% if data.tipo_usuario == 3 %}
                         <li>
                             <a href="/mi-cuenta">Mi Cuenta</a>
                         </li>
@@ -70,10 +81,11 @@
                         <li>
                             <a href="/mi-cuenta/calificar-habitacion">Calificar Habitación</a>
                         </li>
+                        {% endif %}
                         <li>
                             <a href="/mi-cuenta/logout">Cerrar Sesión</a>
                         </li>
-                    {% endif %}
+                     {% endif %}
                      </ul>
                   </li>
                </ul>
@@ -119,7 +131,7 @@
                   <li>
                      <i class="menu-icon">></i><a href="/contacto">Contacto</a>
                   </li>
-                  {% if data.user_login %}
+                  {% if data.user_login and data.tipo_usuario == 3 %}
                   <li>
                      <i class="menu-icon">></i><a href="/mi-cuenta">Mi cuenta</a>
                   </li>
