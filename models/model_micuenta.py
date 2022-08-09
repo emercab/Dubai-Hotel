@@ -50,7 +50,7 @@ def ya_existe(valor, campo, tabla):
         cursor = conn.cursor()
         # Creo la sentencia SQL
         sentence = f"""
-            SELECT * FROM {tabla} WHERE {campo}={valor}
+            SELECT * FROM {tabla} WHERE {campo}='{valor}'
         """
         # Ejecuto la sentencia SQL
         cursor.execute(sentence)

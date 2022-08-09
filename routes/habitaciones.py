@@ -5,7 +5,7 @@ from forms.forms_habitaciones import ReservaForm
 from flask_bcrypt import Bcrypt
 import controllers.controller_habitaciones as controller
 import controllers.controller_micuenta as controller_micuenta
-from datetime import datetime
+from datetime import datetime, timedelta
 from markupsafe import escape
 
 # Objeto de la clase Blueprint que vincula el main con este módulo
@@ -42,6 +42,8 @@ def reservar():
 
     # Agrego el formulario al diccionario de data que se enviará al template
     data["form"] = reserva_form
+    data["today"] = datetime.strftime(datetime.today(), "%Y-%m-%d")
+    data["tomorrow"] = datetime.strftime(datetime.today() + timedelta(days=1), "%Y-%m-%d")
 
     # Se verifica que el form haya pasado la validación
     if reserva_form.validate_on_submit():

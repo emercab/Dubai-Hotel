@@ -40,11 +40,11 @@
         <div class="container w-100">
             <div class="date-container inline-block">
                 {{ data.form.fecha_inicio.label() }}
-                {{ data.form.fecha_inicio() }}
+                {{ data.form.fecha_inicio(value=data.today) }}
             </div>
             <div class="date-container inline-block">
                 {{ data.form.fecha_final.label() }}
-                {{ data.form.fecha_final() }}
+                {{ data.form.fecha_final(value=data.tomorrow) }}
             </div>
         </div>
 
@@ -52,6 +52,8 @@
             {{ data.form.list_habitaciones.label() }}
             {{ data.form.list_habitaciones() }}
         </div>
+
+        <p class="text-primary total" id="total">Precio: </p>
 
         <div class="form-row-inline">
             <div class="label-container">
@@ -130,10 +132,13 @@
             {% endif %}
         </div>
     
-        <p class="text-primary total">Valor Total: $350.000</p>
         <input class="btn btn-primary text-dark" type="submit" value="Realizar Reserva">
         <p><a href="/mi-cuenta/login">Ingrese a su Cuenta</a></p>
         <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
     </form>
 </section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='./js/reserva.js') }}"></script>
 {% endblock %}
