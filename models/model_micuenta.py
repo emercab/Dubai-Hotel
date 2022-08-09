@@ -1,6 +1,7 @@
 # Acá irán todas las clases y métodos que van a acceder a la DB cuando se
 # requiera en las rutas de Mi Cuenta
 
+import sqlite3
 from models.db import conectar
 
 
@@ -12,11 +13,12 @@ def get_data_login(login_field):
     try:
         # Me conecto a la DB
         conn = conectar()
+        conn.row_factory = sqlite3.Row
         # Creo el cursor que me permitirá operar en la DB
         cursor = conn.cursor()
         # Creo la sentencia SQL
         sentence = f"""
-            SELECT username, cedula, email, password, nombres, apellidos, tipoUsuarioId,
+            SELECT id, username, cedula, email, password, nombres, apellidos, tipoUsuarioId,
                 ciudad, direccion, celular
             FROM usuarios
             WHERE
