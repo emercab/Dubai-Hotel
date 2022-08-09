@@ -26,6 +26,11 @@
     transition: all ease-in 0.3s;
 }
 
+.btn-primary.disabled, .btn-primary:disabled {
+    background-color: var(--secondary);
+    border-color: var(--secondary);
+}
+
 /* pseudo class btn-primary */
 .btn-primary:hover, .sweet-alert button.confirm:hover, .wizard > .actions a:hover,
 .btn-primary:active, .sweet-alert button.confirm:active, .wizard > .actions a:active,
