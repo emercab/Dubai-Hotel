@@ -50,24 +50,23 @@ def ya_existe(valor, campo, tabla):
         cursor = conn.cursor()
         # Creo la sentencia SQL
         sentence = f"""
-            SELECT * FROM {tabla} WHERE {campo}='{valor}'
+            SELECT * FROM {tabla} WHERE {campo}={valor}
         """
         # Ejecuto la sentencia SQL
         cursor.execute(sentence)
         # Guardo el primer resultado de la consulta
         result = cursor.fetchone()
+        if result == None:
+            return False
+        else:
+            return True
     except Exception as error:
         # Si hay un error, lo imprimo y retorno  indicando
         # que no se pudo hacer la revisión
         print(f"Error: {error}")
     finally:
         # Pase lo que pase, cierro la conexión
-        conn.close()
-    
-    if result == None:
-        return False
-    else:
-        return True
+        conn.close()    
 # Fin de ya_existe()
 
 
@@ -95,10 +94,10 @@ def save_data_user(data):
             );
         """
         valores = [
-            {data["username"]}, {data["nombres"]}, {data["apellidos"]}, {data["cedula"]},
-            {data["ciudad"]}, {data["direccion"]}, {data["celular"]},
-            {data["tipo_usuario"]}, {data["email"]},
-            {data["password"]}, {data["fecha_registro"]}, {data["activo"]}
+            data["username"], data["nombres"], data["apellidos"], data["cedula"],
+            data["ciudad"], data["direccion"], data["celular"],
+            data["tipo_usuario"], data["email"],
+            data["password"], data["fecha_registro"], data["activo"]
         ]
         # Ejecuto la sentencia SQL
         cursor.execute(sentence, valores)

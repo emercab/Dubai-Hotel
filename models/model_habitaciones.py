@@ -101,11 +101,6 @@ def save_reserva(data:dict):
         # Creo el cursor que me permitirá operar en la DB
         cursor = conn.cursor()
         # Creo la sentencia SQL
-        print(data["habitacion"])
-        print(data["cliente_id"])
-        print(data["fecha_inicio"])
-        print(data["fecha_final"])
-        print(data["total"])
         sentence = """
             INSERT INTO reservas (
                 habitacionID, clienteID, fechaInicial,
