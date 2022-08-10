@@ -228,3 +228,9 @@ def change_password(cedula, password, new_password):
         return respuesta
 # Fin de change_password()
 
+def comentarios(usuario,id_comentario):
+    print(id_comentario)
+    comentarios=model.select_comentario(usuario,id_comentario)
+    if len(comentarios)>0:
+        return comentarios
+    return[]

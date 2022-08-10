@@ -170,6 +170,8 @@ def reservas():
 def calificar_habitacion():
     # Preparo datos a enviar a la vista
     data = controller.data_to_template("Calificar Habitaciones")
+    comentarios=controller.comentarios(data["id"],None)
+    data["comentarios"]=comentarios
     return render_template("calificar-habitacion.html", data=data)
 # Fin Ruta Calificar Habitaciones
 

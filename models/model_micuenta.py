@@ -143,3 +143,51 @@ def update_password(user_id, new_password_hash):
     return True
 # Fin de update_password()
 
+def select_comentario(usuario,id_comentario=None):
+    try:
+        # Me conecto a la DB
+        conn = conectar()
+        conn.row_factory = sqlite3.Row
+        # Creo el cursor que me permitirá operar en la DB
+        cursor = conn.cursor()
+        if id_comentario:
+            datos=(str(usuario),str(id_comentario))
+            # Creo la sentencia SQL
+            sentence = """
+                SELECT reservas.id, reservas.habitacionId, habitaciones.numero, comentarios.id AS comentarioId, comentarios.comentario, comentarios.calificacion FROM usuarios
+                LEFT JOIN reservas
+                ON usuarios.id=reservas.clienteID
+                LEFT JOIN habitaciones
+                ON habitaciones.id=reservas.habitacionId
+                LEFT JOIN comentarios
+                ON reservas.id=comentarios.reservaId
+                WHERE usuarios.id=? AND comentarios.id=?
+            """
+            # Ejecuto la sentencia SQL
+            cursor.execute(sentence, datos)
+            resultado=cursor.fetchone()  
+        else:
+            datos=(str(usuario))
+            sentence = """
+                SELECT reservas.id, reservas.habitacionId, habitaciones.numero, comentarios.id AS comentarioId, comentarios.comentario, comentarios.calificacion FROM usuarios
+                LEFT JOIN reservas
+                ON usuarios.id=reservas.clienteID
+                LEFT JOIN habitaciones
+                ON habitaciones.id=reservas.habitacionId
+                LEFT JOIN comentarios
+                ON reservas.id=comentarios.reservaId
+                WHERE usuarios.id=? 
+            """
+            # Ejecuto la sentencia SQL
+            cursor.execute(sentence,[str(usuario)])
+            resultado=cursor.fetchall() 
+
+    except Exception as error:
+        # Si hay un error, lo imprimo y retorno False
+        print(f"Error: {error}")
+        return False
+    finally:
+        # Pase lo que pase, cierro la conexión
+        conn.close()
+    print(resultado)
+    return resultado
