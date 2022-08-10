@@ -22,12 +22,28 @@ def get_clientes_api():
 
 
 # Retorna al frontend el precio de la reserva
-@bp_api.route('/api/calcular-total-reserva', methods=['get'])
-def calcular_total_reserva():
+@bp_api.route('/api/info-reserva', methods=['get'])
+def info_reserva():
     # Recojo los parámetros que recibe este endpoint
     params = request.args
     fecha1 = params["fecha1"]
     fecha2 = params["fecha2"]
     habitacion_id = params["habitacion_id"]
-    total = controller_habitaciones.calcular_total_reserva(fecha1, fecha2, habitacion_id)
-    return jsonify(total)
+
+    # Obtengo total a pagar y habitaciones disponibles para luego
+    # retornarlos como respuesta
+    total_a_pagar = controller_habitaciones.calcular_total_reserva(fecha1, fecha2, habitacion_id)
+    rooms = controller_habitaciones.available_rooms(fecha1, fecha2)
+    if rooms != None:
+        # Significa que encontró habitaciones disponibles y armo la lista de
+        # diccionarios que llenará el select de habitaciones disponibles en el template
+        list_rooms = [{"value": r[0], "info": f"Habitación {r[1]}"} for r in rooms]
+    else:
+        list_rooms = [{"value": -1, "info": "No hay habitaciones disponibles en esas fechas"}]
+    
+    # Armo la respuesta
+    data_reserva = {
+        "total": total_a_pagar,
+        "list_rooms": list_rooms
+    }
+    return jsonify(data_reserva)
