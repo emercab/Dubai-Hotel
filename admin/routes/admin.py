@@ -4,7 +4,7 @@ from admin.forms import HabitacionForm, UsuarioForm, ComentarioForm, ReservaForm
 from controllers.controller_micuenta import data_to_template
 from decorators import is_administrativo, login_required, superadmin_required
 from admin.controllers.usuario_controller import buscar_tipo_usuario, guardar_usuario,  consultar_usuario, cambiar_estado_usuario
-from admin.controllers.habitacion_controller import consultar_habitacion, desactivar_habitacion, guardar_habitacion
+from admin.controllers.habitacion_controller import consultar_habitacion, desactivar_habitacion, guardar_habitacion, ver_precio_habitacion
 from admin.controllers.comentario_controller import consultar_comentario,guardar_comentario
 
 bp_admin = Blueprint("bp_admin", __name__)
@@ -129,13 +129,18 @@ def nueva_habitacion_admin(id_habitacion=None):
     title_content = "Nueva habitación"
     form = HabitacionForm(request.form)
     
-    if request.method.lower() == 'get' and id_habitacion:
-        title_content= "Modificar habitación"
-        habitacion = consultar_habitacion(id_habitacion)
-        
-        if len(habitacion) > 0:
-            form.numero.data = escape(habitacion["Numero"])
-            form.precio.data = escape(habitacion["Precio"])
+    if request.method.lower() == 'get':
+        if id_habitacion:
+            title_content= "Modificar habitación"
+            habitacion = consultar_habitacion(id_habitacion)
+            
+            if len(habitacion) > 0:
+                form.numero.data = escape(habitacion["Numero"])
+                form.precio.data = escape(habitacion["Precio"])
+        else:
+            precio_habitacion = ver_precio_habitacion()
+            if precio_habitacion:
+                form.precio.data = precio_habitacion
 
     if form.validate_on_submit():
         numero = form.numero.data

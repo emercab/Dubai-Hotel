@@ -29,3 +29,11 @@ def desactivar_habitacion(id_habitacion, estado):
     
     return update_estado_habitacion(id_habitacion, estado)
 
+def ver_precio_habitacion():
+    habitaciones = select_habitacion() 
+    precio_habitacion = None
+
+    if habitaciones and len(habitaciones) > 0:
+        precio_habitacion = habitaciones[0]["Precio"]
+    return precio_habitacion
+    
