@@ -5,6 +5,8 @@
 from flask import session
 from flask_bcrypt import check_password_hash, generate_password_hash
 import models.model_micuenta as model
+from models.model_micuenta import select_reservas
+from routes.micuenta import reservas
 
 
 def check_login(username, password):
@@ -228,3 +230,9 @@ def change_password(cedula, password, new_password):
         return respuesta
 # Fin de change_password()
 
+def consulta_miReserva (userId):
+    data = model.select_reservas(userId)
+    if data==None: 
+        return[]
+    return data
+    
