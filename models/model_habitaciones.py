@@ -1,10 +1,11 @@
 # Acá irán todas las clases y métodos que van a acceder a la DB cuando se
 # requiera en las rutas de Habitaciones
 
+from datetime import datetime
 from models.db import conectar
 
 
-def get_rooms():
+def get_rooms(fecha_inicio: str, fecha_final: str):
     try:
         # Me conecto a la DB
         conn = conectar()
@@ -14,20 +15,15 @@ def get_rooms():
         sentence_de_nico = """
             SELECT habitaciones.* FROM habitaciones
             LEFT JOIN (
-            SELECT * FROM reservas
-            WHERE fechaInicial>='2022-08-10 00:00:00' AND fechaFinal <='2022-09-12 00:00:00') as B
+                SELECT * FROM reservas
+                WHERE fechaFinal >= ? AND fechaInicial <= ?
+            ) as B
             ON B.habitacionId = habitaciones.id
             WHERE B.id IS NULL AND habitaciones.activo = 1
         """
-        sentence = """
-            SELECT *
-            FROM habitaciones
-            WHERE
-                activo=1 
-                AND (1 = 1); 
-        """
+        valores = (fecha_inicio, fecha_final)
         # Ejecuto la sentencia SQL
-        cursor.execute(sentence)
+        cursor.execute(sentence_de_nico, valores)
         # Guardo el primer resultado de la consulta
         result = cursor.fetchall()
     except Exception as error:

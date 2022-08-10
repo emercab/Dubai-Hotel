@@ -1,7 +1,7 @@
-fecha_inicio = document.getElementById("fecha_inicio");
-fecha_final = document.getElementById("fecha_final");
-habitacion = document.getElementById("selHabitacionesDisponibles");
-total = document.getElementById("total");
+let fecha_inicio = document.getElementById("fecha_inicio");
+let fecha_final = document.getElementById("fecha_final");
+let selectHabitaciones = document.getElementById("selHabitacionesDisponibles");
+let total = document.getElementById("total");
 
 function input_vacio(input) {
     if (input.value.length == 0) {
@@ -12,8 +12,8 @@ function input_vacio(input) {
     }
 }
 
-function fechas_listas() {
-    if (input_vacio(fecha_inicio) && input_vacio(fecha_final)) {
+function datos_listos() {
+    if (input_vacio(fecha_inicio) && input_vacio(fecha_final) && selectHabitaciones.value != -1) {
         return false;
     }
     else {
@@ -21,7 +21,7 @@ function fechas_listas() {
     }
 }
 
-const URL_API = 'http://localhost:5005/api/calcular-total-reserva';
+const URL_API = 'http://localhost:5005/api/info-reserva';
 
 // Llamo a la función fetch de Node y le mando la url de mi API y
 // retorno los datos devueltos por la API
@@ -39,12 +39,12 @@ async function load_total() {
         // Armo la URL de la api con los parámetros que le permitirán
         // calcular el precio de la reserva
         const newUrlAPI = `
-            ${URL_API}?fecha1=${fecha_inicio.value}&fecha2=${fecha_final.value}&habitacion_id=${habitacion.value}
+            ${URL_API}?fecha1=${fecha_inicio.value}&fecha2=${fecha_final.value}&habitacion_id=${selectHabitaciones.value}
         `;
         // Llamo a la función asíncrona que pide los datos a la API
         const response = await fetchData(newUrlAPI);
         // Valido la respuesta de la API por si hubo error
-        if (response.total != 'error') {
+        if (response.total != 0) {
             // Significa que se recibió el total con éxito y lo muestro
             total.innerText = `Precio: \$ ${response.total.toLocaleString("es-CO")}`;
         }
@@ -57,12 +57,45 @@ async function load_total() {
     }
 }
 
+function clearSelect() {
+    while (selectHabitaciones.options.length > 0) {                
+        selectHabitaciones.remove(0);
+    }        
+}
+
+async function llenarSelect() {
+    try {
+        // Armo la URL de la api con los parámetros que le permitirán
+        // calcular el precio de la reserva
+        const newUrlAPI = `
+            ${URL_API}?fecha1=${fecha_inicio.value}&fecha2=${fecha_final.value}&habitacion_id=${selectHabitaciones.value}
+        `;
+        // Llamo a la función asíncrona que pide los datos a la API
+        const response = await fetchData(newUrlAPI);
+        // Valido que no haya error en la respuesta
+        if (response.list_rooms[0].value != -1) {
+            clearSelect();
+            response.list_rooms.forEach((item) => {
+                const option = document.createElement('option');
+                option.text = item.info;
+                option.value=item.value;
+                selectHabitaciones.appendChild(option);
+            });
+        }  
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+
 // Hago que se actualice el precio de la reserva cada vez que se haga
 // cambios en los controles de fecha y habitaciones
 fecha_inicio.addEventListener("blur", () => {
     // Cuando pierda el foco
-    if (fechas_listas()) {
+    if (datos_listos()) {
         load_total();
+        llenarSelect();
     }
     else {
         total.innerText = "Precio: No disponible.";
@@ -70,16 +103,17 @@ fecha_inicio.addEventListener("blur", () => {
 });
 
 fecha_final.addEventListener("blur", () => {
-    if (fechas_listas()) {
+    if (datos_listos()) {
         load_total();
+        llenarSelect();
     }
     else {
         total.innerText = "Precio: No disponible.";
     }
 });
 
-habitacion.addEventListener("change", () => {
-    if (fechas_listas()) {
+selectHabitaciones.addEventListener("change", () => {
+    if (datos_listos()) {
         load_total();
     }
     else {

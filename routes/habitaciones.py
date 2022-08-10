@@ -26,15 +26,18 @@ def habitaciones():
 # Ruta Reservar
 @bp_habitaciones.route("/habitaciones/reservar", methods=["GET", "POST"])
 def reservar():
-    # Ontengo las habitaciones disponibles
-    rooms = controller.get_available_rooms()
+    # Obtengo las habitaciones disponibles por defecto entre hoy y una semana más
+    today = datetime.strftime(datetime.today(), "%Y-%m-%d")
+    tomorrow = datetime.strftime(datetime.today() + timedelta(days=1), "%Y-%m-%d")
+    rooms = controller.available_rooms(today, tomorrow)
+
     # Inicializo el form y le paso las habitaciones al select
     reserva_form = ReservaForm(request.form)
     #Valido que haya habitaciones
     if len(rooms) > 0:
         options = [(r[0], f"Habitación {r[1]}") for r in rooms]
     else:
-        options = ("No hay habitaciones disponibles")
+        options = (-1, "No hay habitaciones disponibles")
     reserva_form.list_habitaciones.choices = options
 
     # Preparo datos a enviar a la vista
@@ -42,8 +45,8 @@ def reservar():
 
     # Agrego el formulario al diccionario de data que se enviará al template
     data["form"] = reserva_form
-    data["today"] = datetime.strftime(datetime.today(), "%Y-%m-%d")
-    data["tomorrow"] = datetime.strftime(datetime.today() + timedelta(days=1), "%Y-%m-%d")
+    data["today"] = today
+    data["tomorrow"] = tomorrow
 
     # Se verifica que el form haya pasado la validación
     if reserva_form.validate_on_submit():
