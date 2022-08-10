@@ -57,9 +57,15 @@ async function load_total() {
     }
 }
 
+// Hago que se actualice el precio de la reserva cada vez que se haga
+// cambios en los controles de fecha y habitaciones
 fecha_inicio.addEventListener("blur", () => {
+    // Cuando pierda el foco
     if (fechas_listas()) {
         load_total();
+    }
+    else {
+        total.innerText = "Precio: No disponible.";
     }
 });
 
@@ -67,12 +73,19 @@ fecha_final.addEventListener("blur", () => {
     if (fechas_listas()) {
         load_total();
     }
+    else {
+        total.innerText = "Precio: No disponible.";
+    }
 });
 
 habitacion.addEventListener("change", () => {
     if (fechas_listas()) {
         load_total();
     }
+    else {
+        total.innerText = "Precio: No disponible.";
+    }
 });
 
+// Cargo el total cuando se cargue la página
 load_total();

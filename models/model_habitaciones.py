@@ -11,6 +11,14 @@ def get_rooms():
         # Creo el cursor que me permitirá operar en la DB
         cursor = conn.cursor()
         # Creo la sentencia SQL
+        sentence_de_nico = """
+            SELECT habitaciones.* FROM habitaciones
+            LEFT JOIN (
+            SELECT * FROM reservas
+            WHERE fechaInicial>='2022-08-10 00:00:00' AND fechaFinal <='2022-09-12 00:00:00') as B
+            ON B.habitacionId = habitaciones.id
+            WHERE B.id IS NULL AND habitaciones.activo = 1
+        """
         sentence = """
             SELECT *
             FROM habitaciones
