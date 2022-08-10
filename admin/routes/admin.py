@@ -1,5 +1,6 @@
 from unicodedata import decimal
 from flask import flash, redirect, render_template, request, Blueprint, url_for, escape, session
+from admin.controllers.reserva_controller import consultar_reserva_admin, guardar_reserva_admin
 from admin.forms import HabitacionForm, UsuarioForm, ComentarioForm, ReservaForm
 from controllers.controller_micuenta import data_to_template
 from decorators import is_administrativo, login_required, superadmin_required
@@ -175,22 +176,41 @@ def estado_habitacion_admin(id_habitacion):
 @superadmin_required
 def reservas_admin():
     data = data_to_template("Reservas")
+    reservas = consultar_reserva_admin(None)
+    data["reservas"] = reservas
 
     return render_template('admin/reservas.html', data=data)
 #fin reservas admin
 
 
 @bp_admin.route('/admin/nueva-reserva', methods=['get', 'post'])
+@bp_admin.route('/admin/nueva-reserva/<id_reserva>', methods=['get', 'post'])
 @login_required
 @is_administrativo
 @superadmin_required
-def nueva_reserva_admin():
+def nueva_reserva_admin(id_reserva=None):
     form = ReservaForm(request.form)
 
     data = data_to_template("Reservas")
     data["titulo_content"] = "Nueva reserva"
     data["form"] = form
     
+    if form.validate_on_submit():
+        id_cliente      = form.reserva_hidden.data
+        fecha_ingreso   = form.fecha_ingreso.data
+        fecha_salida    = form.fecha_salida.data
+        id_habitacion   = form.habitacion.data
+
+        response = guardar_reserva_admin(id_reserva, id_cliente, fecha_ingreso, fecha_salida, id_habitacion)
+
+        if response["type"] == "ok":
+            return redirect(url_for('.reservas_admin'))
+        else:
+            flash(response["message"], "error")
+    
+    if (form.errors and len(form.errors) > 0):
+        flash([error[0] for error in form.errors.values()], "error")
+
     return render_template('admin/nueva-reserva.html', data=data)
 #fin nueva reserva admin
 
