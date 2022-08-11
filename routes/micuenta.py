@@ -163,7 +163,6 @@ def reservas():
     userId = data["id"]
     misReservas= controller.consulta_miReserva(userId)
     data["mis_reservas"] = misReservas
-    data=data.fechaInicial.s
     return render_template("mis-reservas.html", data=data)
 # Fin Ruta de Mis Reservas
 
