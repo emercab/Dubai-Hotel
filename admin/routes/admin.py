@@ -160,7 +160,7 @@ def nueva_habitacion_admin(id_habitacion=None):
 #fin nueva habitacion
 
 
-@bp_admin.route('/admin/habitaciones/estado-habitacion/<id_habitacion>')
+@bp_admin.route('/admin/estado-habitacion/<id_habitacion>')
 @login_required
 @is_administrativo
 def estado_habitacion_admin(id_habitacion):
