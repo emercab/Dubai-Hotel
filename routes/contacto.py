@@ -11,7 +11,7 @@ bp_contacto = Blueprint("bp_contacto", __name__)
 
 # Ruta Contacto# Preparo datos a enviar a la vist
 @bp_contacto.route("/contacto", methods=["GET","POST"])
-def index():
+def contacto():
     contacto_form = ContactForm(request.form)
     
     # Preparo datos a enviar a la vista

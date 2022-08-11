@@ -2,14 +2,14 @@
 # de las operaciones sobre las rutas de Habitaciones. Desde acá se enviará las
 # respuestas a las rutas
 
-from datetime import date, datetime
+from datetime import datetime
 import models.model_habitaciones as model
 import controllers.controller_micuenta as controller_micuenta
 from flask import session
 
 
-def get_available_rooms():
-    result = model.get_rooms()
+def available_rooms(fecha_inicio:datetime, fecha_final:datetime):
+    result = model.get_rooms(fecha_inicio, fecha_final)
     if result == None:
         return {}
     else:
@@ -21,6 +21,24 @@ def total_reserva(fecha_inicial:datetime, fecha_final:datetime, precio:int):
     # Calcula y retorna el total de la reserva
     return (fecha_final - fecha_inicial).days * precio
 # Fin de total_reserva
+
+
+def calcular_total_reserva(fecha_inicial:str, fecha_final:str, habitacion_id:int):
+    # Calcula el total de reserva a partir de las fechas y la id de la habitacion
+    # Esta funcion es llamada por la api
+    precio = model.get_precio(habitacion_id)
+    if precio != None:
+        # Significa que obtuvo elprecio dela habitación con éxito y calcula
+        #  el total a pagar de la reserva
+        total = total_reserva(
+            datetime.strptime(fecha_inicial, "%Y-%m-%d"),
+            datetime.strptime(fecha_final, "%Y-%m-%d"),
+            precio[0]
+        )
+        return total
+    else:
+        return 0
+# Fin de calcular_total_reserva()
 
 
 def reservar(data):

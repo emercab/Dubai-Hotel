@@ -18,7 +18,7 @@ def create_habitacion(id_habitacion, numero, precio):
         else:
             query = """
                 insert into Habitaciones (Numero, Precio, Calificacion, Activo)
-                values (?, ?, 0, 1)
+                values (?, ?, Null, 1)
             """
             datos = (numero, precio)
 
@@ -47,10 +47,10 @@ def select_habitacion(id_habitacion=None):
         cursor = conn.cursor()
 
         if id_habitacion:
-            cursor.execute("select Row_Number() over (order by Id) as Row, Id, Numero, Precio, Calificacion, Activo from Habitaciones where Id = ?", [id_habitacion])
+            cursor.execute("select Row_Number() over (order by Id) as Row, Id, Numero, Precio, IfNull(Calificacion, '') as Calificacion, Activo from Habitaciones where Id = ?", [id_habitacion])
             resultado = cursor.fetchone()
         else:
-            cursor.execute("select Row_Number() over (order by Activo desc) as Row, Id, Numero, Precio, Calificacion, Activo from Habitaciones")
+            cursor.execute("select Row_Number() over (order by Activo desc) as Row, Id, Numero, Precio, IfNull(Calificacion, '') as Calificacion, Activo from Habitaciones")
             resultado = cursor.fetchall()  
     except Exception as error:
         print(f'select_habitacion {error}')

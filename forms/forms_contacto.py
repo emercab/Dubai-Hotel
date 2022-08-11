@@ -34,7 +34,6 @@ class ContactForm(FlaskForm):
             "class": "input",
         }
     )
-
     comentario = TextAreaField(
         "comentario",
         validators=[

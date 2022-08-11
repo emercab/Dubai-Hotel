@@ -5,7 +5,7 @@ import datetime
 from email.policy import default
 from flask_wtf import FlaskForm
 from wtforms import StringField, EmailField, IntegerField
-from wtforms import DateField, SubmitField, SelectField
+from wtforms import DateField, SubmitField, SelectField, HiddenField
 from wtforms.validators import DataRequired, Email
 
 

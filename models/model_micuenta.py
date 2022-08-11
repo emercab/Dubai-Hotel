@@ -1,6 +1,7 @@
 # Acá irán todas las clases y métodos que van a acceder a la DB cuando se
 # requiera en las rutas de Mi Cuenta
 
+import sqlite3
 from models.db import conectar
 
 
@@ -12,6 +13,7 @@ def get_data_login(login_field:str):
     try:
         # Me conecto a la DB
         conn = conectar()
+        conn.row_factory = sqlite3.Row
         # Creo el cursor que me permitirá operar en la DB
         cursor = conn.cursor()
         # Creo la sentencia SQL
@@ -56,18 +58,17 @@ def ya_existe(valor, campo, tabla):
         cursor.execute(sentence)
         # Guardo el primer resultado de la consulta
         result = cursor.fetchone()
+        if result == None:
+            return False
+        else:
+            return True
     except Exception as error:
         # Si hay un error, lo imprimo y retorno  indicando
         # que no se pudo hacer la revisión
         print(f"Error: {error}")
     finally:
         # Pase lo que pase, cierro la conexión
-        conn.close()
-    
-    if result == None:
-        return False
-    else:
-        return True
+        conn.close()    
 # Fin de ya_existe()
 
 
@@ -95,10 +96,10 @@ def save_data_user(data):
             );
         """
         valores = [
-            {data["username"]}, {data["nombres"]}, {data["apellidos"]}, {data["cedula"]},
-            {data["ciudad"]}, {data["direccion"]}, {data["celular"]},
-            {data["tipo_usuario"]}, {data["email"]},
-            {data["password"]}, {data["fecha_registro"]}, {data["activo"]}
+            data["username"], data["nombres"], data["apellidos"], data["cedula"],
+            data["ciudad"], data["direccion"], data["celular"],
+            data["tipo_usuario"], data["email"],
+            data["password"], data["fecha_registro"], data["activo"]
         ]
         # Ejecuto la sentencia SQL
         cursor.execute(sentence, valores)
@@ -142,3 +143,51 @@ def update_password(user_id, new_password_hash):
     return True
 # Fin de update_password()
 
+def select_comentario(usuario,id_comentario=None):
+    try:
+        # Me conecto a la DB
+        conn = conectar()
+        conn.row_factory = sqlite3.Row
+        # Creo el cursor que me permitirá operar en la DB
+        cursor = conn.cursor()
+        if id_comentario:
+            datos=(str(usuario),str(id_comentario))
+            # Creo la sentencia SQL
+            sentence = """
+                SELECT reservas.id, reservas.habitacionId, habitaciones.numero, comentarios.id AS comentarioId, comentarios.comentario, comentarios.calificacion FROM usuarios
+                LEFT JOIN reservas
+                ON usuarios.id=reservas.clienteID
+                LEFT JOIN habitaciones
+                ON habitaciones.id=reservas.habitacionId
+                LEFT JOIN comentarios
+                ON reservas.id=comentarios.reservaId
+                WHERE usuarios.id=? AND comentarios.id=?
+            """
+            # Ejecuto la sentencia SQL
+            cursor.execute(sentence, datos)
+            resultado=cursor.fetchone()  
+        else:
+            datos=(str(usuario))
+            sentence = """
+                SELECT reservas.id, reservas.habitacionId, habitaciones.numero, comentarios.id AS comentarioId, comentarios.comentario, comentarios.calificacion FROM usuarios
+                LEFT JOIN reservas
+                ON usuarios.id=reservas.clienteID
+                LEFT JOIN habitaciones
+                ON habitaciones.id=reservas.habitacionId
+                LEFT JOIN comentarios
+                ON reservas.id=comentarios.reservaId
+                WHERE usuarios.id=? 
+            """
+            # Ejecuto la sentencia SQL
+            cursor.execute(sentence,[str(usuario)])
+            resultado=cursor.fetchall() 
+
+    except Exception as error:
+        # Si hay un error, lo imprimo y retorno False
+        print(f"Error: {error}")
+        return False
+    finally:
+        # Pase lo que pase, cierro la conexión
+        conn.close()
+    print(resultado)
+    return resultado

@@ -23,7 +23,7 @@
                                 <div class="input-group mb-3">
                                     {{ data.form.busqueda_cliente() }}
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button" id="button-addon2">
+                                        <button class="btn btn-primary" type="button" id="btnBusquedaCliente" disabled>
                                             <i class="ti-search m-0"></i>
                                         </button>
                                     </div>
@@ -72,7 +72,7 @@
                            </button>
                         </div>
                    </div>
-
+                   {{ data.form.reserva_hidden() }}
                    {{ data.form.csrf_token }}
                 </form>
             </div>

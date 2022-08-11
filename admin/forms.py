@@ -1,7 +1,7 @@
 from multiprocessing import Value
 from wsgiref.validate import validator
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SelectField, DateField, TextAreaField, SubmitField, PasswordField, EmailField,DecimalField
+from wtforms import StringField, IntegerField, SelectField, DateField, TextAreaField, HiddenField, EmailField,DecimalField
 from wtforms.validators import DataRequired, NumberRange, Email
 import wtforms.widgets
 from datetime import date, timedelta
@@ -99,26 +99,44 @@ class UsuarioForm(FlaskForm):
 
 
 class ReservaForm(FlaskForm):
+    reserva_hidden = HiddenField(
+        "",
+        id="hiddenReserva",
+        name="hiddenReserva"
+    )
+
     busqueda_cliente = StringField(
         "Buscar cliente",
-        validators=[ DataRequired("Seleccionar a un cliente.") ],
+        validators=[ DataRequired("Ingresar los datos requeridos para la busqueda del cliente.") ],
         render_kw = {
             "class": "form-control",
-            "placeholder": "Ingresar usuario, cédula o email"
+            "placeholder": "Ingresar usuario, cédula o email",
+            "autofocus": ""
         },
         id="txtBusquedaCliente",
         name="txtBusquedaCliente"
     )
 
-    cliente = SelectField(
+    # cliente = SelectField(
+    #     "Cliente", 
+    #     validators=[ DataRequired("Seleccionar a un cliente.") ],
+    #     choices = [(0, "Seleccione un cliente")],
+    #     render_kw = {
+    #         "class": "form-control select-border"
+    #     },
+    #     id="selectCliente",
+    #     name="selectCliente"
+    # )
+
+    cliente = StringField(
         "Cliente", 
-        validators=[ DataRequired("Seleccionar a un cliente.") ],
-        choices = [(0, "Seleccione un cliente")],
+        validators=[ DataRequired("No hay cliente relacionado.") ],
         render_kw = {
-            "class": "form-control select-border"
+            "class": "form-control",
+            "readonly": "readonly"
         },
-        id="selectCliente",
-        name="selectCliente"
+        id="txtCliente",
+        name="txtCliente"
     )
 
     habitacion = SelectField(
@@ -138,7 +156,8 @@ class ReservaForm(FlaskForm):
         "Fecha de ingreso",
         validators=[ DataRequired("Seleccionar fecha de ingreso.") ],
         render_kw = {
-            "class": "form-control",
+            "class": "form-control date-field",
+            "data-type": "llegada",
             "value": hoy,
             "min": hoy
         },
@@ -152,7 +171,8 @@ class ReservaForm(FlaskForm):
         "Fecha de salida",
         validators=[ DataRequired("Seleccionar fecha de salida.") ],
         render_kw = {
-            "class": "form-control",
+            "class": "form-control date-field",
+            "data-type": "salida",
             "value": tomorrow,
             "min": tomorrow
         },
