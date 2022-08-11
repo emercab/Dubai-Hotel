@@ -7,6 +7,7 @@ from forms.forms_micuenta import LoginForm, RegisterForm, ChangePassword
 from markupsafe import escape
 from flask_bcrypt import Bcrypt
 import controllers.controller_micuenta as controller
+import time
 
 # Menú para admins
 # Mostrar errores del form
@@ -162,7 +163,7 @@ def reservas():
     userId = data["id"]
     misReservas= controller.consulta_miReserva(userId)
     data["mis_reservas"] = misReservas
-    
+    data=data.fechaInicial.s
     return render_template("mis-reservas.html", data=data)
 # Fin Ruta de Mis Reservas
 
