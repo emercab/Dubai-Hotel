@@ -87,3 +87,44 @@ def select_comentario(id_comentario=None):
 
     return resultado
 #fin consultar comentario
+
+def delete_comentario(id_comentario):
+    try:
+        conn = conectar()
+        cursor = conn.cursor()
+
+        if id_comentario:
+            query = """
+                DELETE FROM comentarios
+                WHERE id=?;
+            """
+            datos = (id_comentario,)
+            query2 = """
+            UPDATE habitaciones
+            SET calificacion = (SELECT SUM(comentarios.calificacion)/COUNT(comentarios.calificacion) FROM comentarios
+            INNER JOIN reservas ON reservas.id= comentarios.reservaId
+            GROUP BY reservas.habitacionId
+            HAVING reservas.habitacionId=(SELECT reservas.habitacionId FROM comentarios
+            INNER JOIN reservas ON reservas.id= comentarios.reservaId
+            WHERE comentarios.id = ?))
+            WHERE id = (SELECT reservas.habitacionId FROM comentarios
+            INNER JOIN reservas ON reservas.id= comentarios.reservaId
+            WHERE comentarios.id = ?)
+            """
+            datos2 = (id_comentario,datos)
+            
+        else:
+            None
+
+        cursor.execute(query, datos)
+        #cursor.execute(query2, datos2)
+        conn.commit()
+
+
+        #.lasrowid  -retorna el id del registro insertado
+    except Exception as error:
+        print(f'insert comentarios {error}')
+        return None
+    finally:
+        cursor.close()
+        conn.close()

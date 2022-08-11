@@ -6,7 +6,7 @@ from controllers.controller_micuenta import data_to_template
 from decorators import is_administrativo, login_required, superadmin_required
 from admin.controllers.usuario_controller import buscar_tipo_usuario, guardar_usuario,  consultar_usuario, cambiar_estado_usuario
 from admin.controllers.habitacion_controller import consultar_habitacion, desactivar_habitacion, guardar_habitacion, ver_precio_habitacion
-from admin.controllers.comentario_controller import consultar_comentario,guardar_comentario
+from admin.controllers.comentario_controller import consultar_comentario,guardar_comentario, eliminar_comentario
 
 bp_admin = Blueprint("bp_admin", __name__)
 
@@ -251,7 +251,6 @@ def nuevo_comentario_admin(id_comentario=None):
     if form.validate_on_submit():
         comentario = form.comentario.data
         calificacion = form.calificacion.data
-        print(calificacion)
         result = guardar_comentario(id_comentario, comentario,calificacion)
 
         if result:
@@ -264,3 +263,17 @@ def nuevo_comentario_admin(id_comentario=None):
 
     return render_template('admin/nuevo-comentario.html', data=data)
 #fin nuevo comentario admin
+
+
+
+@login_required
+@is_administrativo
+@superadmin_required
+@bp_admin.route('/admin/desactivar-comentario/<id_comentario>', methods=['get', 'post'])
+def desactivar_comentario_admin(id_comentario=None):
+    title_content = "Desactivar comentario"
+    form = ComentarioForm(request.form)
+    
+    eliminar_comentario(id_comentario)
+
+    return redirect(url_for('.comentarios_admin'))

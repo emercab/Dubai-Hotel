@@ -3,6 +3,7 @@
 
 import sqlite3
 from models.db import conectar
+import datetime
 
 
 def get_data_login(login_field:str):
@@ -161,7 +162,7 @@ def select_comentario(usuario,id_comentario=None):
                 ON habitaciones.id=reservas.habitacionId
                 LEFT JOIN comentarios
                 ON reservas.id=comentarios.reservaId
-                WHERE usuarios.id=? AND comentarios.id=?
+                WHERE usuarios.id=? AND reservas.habitacionId=?
             """
             # Ejecuto la sentencia SQL
             cursor.execute(sentence, datos)
@@ -189,5 +190,51 @@ def select_comentario(usuario,id_comentario=None):
     finally:
         # Pase lo que pase, cierro la conexión
         conn.close()
-    print(resultado)
     return resultado
+
+def create_comment(reservaId, comentario, calificacion,comentarioId,habitacionId):
+    try:
+        conn = conectar()
+        cursor = conn.cursor()
+
+        if comentarioId:
+            query = """
+                UPDATE comentarios
+                SET comentario = ?,
+                    calificacion = ?
+                WHERE id =?;
+            """
+            datos = (comentario, str(calificacion), str(comentarioId))
+        else:
+            query = """
+                INSERT INTO comentarios (reservaId,comentario,calificacion,fecha)
+                VALUES( ?,	? ,?, ?);
+            """
+            datos = (str(reservaId), comentario,str(calificacion),datetime.datetime.now())
+        query2 ="""
+        UPDATE habitaciones
+        SET calificacion =(SELECT SUM(comentarios.calificacion)/COUNT(comentarios.calificacion) AS calificacion FROM habitaciones
+        INNER JOIN reservas
+        ON habitaciones.id = reservas.habitacionId
+        INNER JOIN comentarios
+        ON reservas.id = comentarios.reservaId
+        GROUP BY habitaciones.id
+        HAVING habitaciones.id=?)
+        WHERE habitaciones.id=?
+        """
+        datos2 = (str(habitacionId),str(habitacionId))
+        cursor.execute(query2, datos2)
+        cursor.execute(query, datos)
+        conn.commit()
+
+
+        #.lasrowid  -retorna el id del registro insertado
+        last_id = comentarioId if comentarioId else cursor.lastrowid 
+    except Exception as error:
+        print(f'insert habitacion {error}')
+        return None
+    finally:
+        cursor.close()
+        conn.close()
+
+    return last_id

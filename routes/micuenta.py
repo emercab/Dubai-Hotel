@@ -3,7 +3,7 @@
 from datetime import datetime
 from flask import flash, redirect, render_template, request, Blueprint, url_for, session
 from decorators import login_required, only_clientes
-from forms.forms_micuenta import LoginForm, RegisterForm, ChangePassword
+from forms.forms_micuenta import LoginForm, RegisterForm, ChangePassword,NuevaCalificacion
 from markupsafe import escape
 from flask_bcrypt import Bcrypt
 import controllers.controller_micuenta as controller
@@ -175,6 +175,42 @@ def calificar_habitacion():
     return render_template("calificar-habitacion.html", data=data)
 # Fin Ruta Calificar Habitaciones
 
+# Ruta Nueva Calificacion
+@bp_micuenta.route("/mi-cuenta/calificar-habitacion/nueva-calificacion", methods=["get","post"])
+@bp_micuenta.route("/mi-cuenta/calificar-habitacion/nueva-calificacion/<id_calificacion>", methods=["get","post"])
+@login_required
+@only_clientes
+def nueva_calificacion(id_calificacion=None):
+    # Preparo datos a enviar a la vista
+    calificar_form = NuevaCalificacion(request.form)
+    
+    data = controller.data_to_template("Calificar Habitaciones")
+    data["form"] = calificar_form
+    comentarios=controller.comentarios(data["id"],id_calificacion)
+    data["comentarios"]=comentarios
+    print(comentarios[3])
+    if calificar_form.validate_on_submit():
+        # Capturo las variables ingresadas por el usuario y 
+        # por seguridad aplico escape a todo lo ingresado
+        reservaId = comentarios[0]
+        comentario = escape(calificar_form.comentario.data)
+        calificacion = escape(calificar_form.calificacion.data)
+        comentarioId = comentarios[3]
+        habitacionId = comentarios[1]
+        
+        
+
+        # Llamo a la función del controller que realiza el cambio de password
+        result = controller.create_comment(reservaId, comentario, calificacion,comentarioId,habitacionId)
+        # Reviso la respuesta obtenida por el controlador
+        if result:
+            return redirect("/mi-cuenta/calificar-habitacion")
+            
+        else:
+            # Significa que se hizo el cambio de clave con éxito
+            flash(f"Error. {result}")
+    return render_template("nueva-calificacion.html", data=data)
+# Fin Ruta Calificar Habitaciones
 
 # Ruta de Cerrar Sesión
 @bp_micuenta.route("/mi-cuenta/logout", methods=["GET"])
