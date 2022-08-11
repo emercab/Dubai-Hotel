@@ -22,13 +22,19 @@ def get_clientes_api():
 
 
 # Retorna al frontend el precio de la reserva
-@bp_api.route('/api/info-reserva', methods=['get'])
+@bp_api.route('/api/info-reserva', methods=['get', 'post'])
 def info_reserva():
     # Recojo los parámetros que recibe este endpoint
-    params = request.args
-    fecha1 = params["fecha1"]
-    fecha2 = params["fecha2"]
-    habitacion_id = params["habitacion_id"]
+    if request.method.lower() == 'get':
+        params = request.args
+        fecha1 = params["fecha1"]
+        fecha2 = params["fecha2"]
+        habitacion_id = params["habitacion_id"]
+    else:   
+        params = request.json
+        fecha1 = params["fecha1"]
+        fecha2 = params["fecha2"]
+        habitacion_id = params["habitacion_id"]
 
     # Obtengo total a pagar y habitaciones disponibles para luego
     # retornarlos como respuesta

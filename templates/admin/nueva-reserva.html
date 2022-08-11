@@ -14,7 +14,16 @@
                 <b>Información de la reserva</b>
             </div>
             <div class="card-block">
-                <form action="{{ url_for('bp_admin.nueva_reserva_admin') }}" method="post">
+                <form action="" method="post">
+                    {% with errors = get_flashed_messages(category_filter=["error"]) %}
+                        {% if errors %}
+                            <div class="box-message error">
+                                {% for error in errors[0] %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
                     <div class="row">
                         <div class="col-xs-12 col-md-3">
                            <div class="form-group">
@@ -50,6 +59,26 @@
                                {{ data.form.fecha_salida() }}
                            </div>
                         </div>
+                        {% if session["total_reserva"] %}
+                            <div class="col-xs-12 col-md-3 container-habitacion-actual">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label>Habitación actual</label>
+                                        <select class="form-control select-border" readonly disabled>
+                                            <option value="{{session['valor_habitacion']}}">{{ session["numero_habitacion"] }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3 container-habitacion-actual">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label>Total habitación actual</label>
+                                        <input value="{{ session['total_reserva'] }}" class="form-control" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
                         <div class="col-xs-12 col-md-3">
                             <div class="form-group">
                                 <div class="form-group">

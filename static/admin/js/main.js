@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const txtBusquedaClienteHTML = document.getElementById('txtBusquedaCliente');
     const btnBusquedaClienteHTML = document.getElementById('btnBusquedaCliente');
+    const txtFechaIngreso = document.getElementById('txtFechaIngreso');
+    const txtFechaSalida = document.getElementById('txtFechaSalida');
 
     if (txtBusquedaClienteHTML) {
         txtBusquedaClienteHTML.addEventListener('keyup', function(e) {
@@ -48,11 +50,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    $(document).on('change', '.date-field', function() {
-        const txtFechaIngreso = document.getElementById('txtFechaIngreso');
-        const txtFechaSalida = document.getElementById('txtFechaSalida');
-        const hora = ' 00:00:00';
+    const selectHabitacionHTML = document.getElementById('selectHabitacion');
+    if (selectHabitacionHTML) {
+        selectHabitacionHTML.addEventListener('change', (e) => {
+            const target = e.target;
+            const valor = Number(target.value);
 
+            if (valor > 0) {
+                buscarHabitacion(txtFechaIngreso.value, txtFechaSalida.value, valor)
+                .then(response => { 
+                    if (response.type === 'ok') {
+                        document.getElementById('txtTotalReserva').value = response.response.total;
+                    } else {
+                        console.log(response.messaga)
+                    }
+                }).catch(err => {
+                    console.log(err);
+                });
+            }
+        });
+    }
+
+    $(document).on('change', '.date-field', function() {
+        const hora = ' 00:00:00';
+        console.log(hora);
         if (txtFechaIngreso && txtFechaSalida) {
             const fechaIngreso = new Date(txtFechaIngreso.value + hora);
             const fechaSalida = new Date(txtFechaSalida.value + hora);
@@ -65,12 +86,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (txtFechaIngreso.value !== '' && txtFechaSalida.value !== '' && fechaIngreso) {
-                busquedaHabitacion().then((response) => {
-
+                buscarHabitacion(txtFechaIngreso.value, txtFechaSalida.value, null).then((response) => {
+                    if (response.type == 'ok') {
+                        const list_rooms = response.response.list_rooms;
+                        cargarHabitacion(list_rooms);
+                        document.getElementById('txtTotalReserva').value = '';
+                    } else {
+                        console.log(response.messaga)
+                    }
                 }).catch((err) => {
                     console.log('No se encontro habitacion.')
                 });
             }
+
+            if (txtFechaIngreso.value === '' || txtFechaSalida.value === '') {
+                limpiarHabitacion();
+            }
+        } else {
+            limpiarHabitacion();
         }
     });
 
@@ -141,6 +174,59 @@ const cliente = async (valorBusqueda) => {
          });
 };
 
-const busquedaHabitacion = async () => {
+const cargarHabitacion = (rooms) => {
+    const selectHabitaciones = document.getElementById('selectHabitacion');
 
+    if (selectHabitaciones && rooms.length > 0) {
+        const options = rooms.map(room => `<option value="${room.value}">${room.info}</option>`).join('');
+        const optionfirst = '<option value="0">Seleccione una habitación</option>';
+
+        selectHabitaciones.innerHTML = null;
+        selectHabitaciones.insertAdjacentHTML('beforeend', optionfirst);
+        selectHabitaciones.insertAdjacentHTML('beforeend', options);
+    }
+};
+
+const limpiarHabitacion = () => {
+    const selectHabitaciones = document.getElementById('selectHabitacion');
+
+    if (selectHabitaciones) {
+        const optionfirst = '<option value="0">Seleccionar una habitación</option>';
+        selectHabitaciones.innerHTML = optionfirst;
+
+        document.getElementById('txtTotalReserva').value = '';
+    }
+};
+
+const buscarHabitacion = async (fecha1, fecha2, habitacionId) => {
+    try {
+        if (fecha1 && fecha2) {
+            console.log(9);
+            const data = {
+                'fecha1': fecha1,
+                'fecha2': fecha2,
+                'habitacion_id': habitacionId,
+            }
+        
+            const opciones = {
+                method: 'post',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'   
+                }
+            };
+        
+            const response = await fetch(`${window.location.origin}/api/info-reserva`, opciones).then(response => response.json())
+
+            return {
+                type: 'ok',
+                response: response
+            }
+        }
+    
+        return { type: 'err', message: 'No se pudo encontrar la habitación.' };
+    } catch (err) {
+        console.log(err);
+        return { type: 'err', message: 'No se pudo encontrar la habitación.' }
+    }
 };

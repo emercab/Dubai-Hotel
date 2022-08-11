@@ -18,6 +18,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Número de reserva</th>
                             <th>Cliente</th>
                             <th>Habitación</th>
                             <th>Fecha de llegada</th>
@@ -30,11 +31,12 @@
                         {% for reserva in data.reservas %}
                             <tr>
                                 <td>{{ reserva.Row }}</td>
+                                <td>{{ reserva.Id }}</td>
                                 <td>{{ reserva.NombreCompleto }}</td>
-                                <td>{{ reserva.NumeroHabitacion }}</td>
+                                <td>{{ reserva.Numero }}</td>
                                 <td>{{ reserva.FechaInicial }}</td>
                                 <td>{{ reserva.FechaFinal }}</td>
-                                <td>{{ reserva.Total }}<td>
+                                <td>{{ reserva.TotalFormat }}<td>
                                 <td class="text-right">
                                     <a class="btn-accion" href="{{ url_for('bp_admin.nueva_reserva_admin', id_reserva=reserva.Id) }}">
                                         <i class="ti-pencil-alt" data-toggle="tooltip" data-placement="top" data-original-title="editar"></i>

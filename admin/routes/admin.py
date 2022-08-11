@@ -1,6 +1,6 @@
-from unicodedata import decimal
-from flask import flash, redirect, render_template, request, Blueprint, url_for, escape, session
-from admin.controllers.reserva_controller import consultar_reserva_admin, guardar_reserva_admin
+from datetime import date, timedelta
+from flask import flash, redirect, render_template, request, Blueprint, url_for, escape, session, g
+from admin.controllers.reserva_controller import consultar_reserva_admin, guardar_reserva_admin, obtener_habitaciones_reserva, validar_fecha_reserva
 from admin.forms import HabitacionForm, UsuarioForm, ComentarioForm, ReservaForm
 from controllers.controller_micuenta import data_to_template
 from decorators import is_administrativo, login_required, superadmin_required
@@ -190,19 +190,66 @@ def reservas_admin():
 @superadmin_required
 def nueva_reserva_admin(id_reserva=None):
     form = ReservaForm(request.form)
-
     data = data_to_template("Reservas")
     data["titulo_content"] = "Nueva reserva"
-    data["form"] = form
-    
-    if form.validate_on_submit():
-        id_cliente      = form.reserva_hidden.data
+
+    if request.method.lower() == "get":
+        fecha_ingreso   = date.today()
+        fecha_salida    = fecha_ingreso + timedelta(days=1)
+        form.fecha_ingreso.render_kw = {
+            "min":   fecha_ingreso,
+            "value": fecha_ingreso,
+            "class": "form-control date-field",
+            "data-type": "llegada"
+        }
+        form.fecha_salida.render_kw = {
+            "min": fecha_salida,
+            "value": fecha_salida,
+            "class": "form-control date-field",
+            "data-type": "salida"
+        }
+
+        session.pop("numero_habitacion", None)
+        session.pop("valor_habitacion", None)
+        session.pop("total_reserva", None)
+
+        if id_reserva:
+            data["titulo_content"] = "Modificar reserva"
+            reserva = consultar_reserva_admin(id_reserva)
+
+            if reserva and len(reserva) > 0:
+                form.fecha_ingreso.render_kw["value"]           = reserva["FechaInicial"]
+                form.fecha_ingreso.render_kw["min"]             = validar_fecha_reserva(fecha_ingreso, reserva["FechaInicial"])
+                form.fecha_salida.render_kw["value"]            = reserva["FechaFinal"]
+                form.fecha_salida.render_kw["min"]              = validar_fecha_reserva(fecha_salida, reserva["FechaFinal"])
+                form.reserva_hidden.data                        = reserva["ClienteId"]
+                form.cliente.data                               = reserva["NombreCompleto"]
+                form.busqueda_cliente.data                      = reserva["Username"]
+                form.busqueda_cliente.render_kw["readonly"]     = "readonly"
+                form.precio.data                                = reserva["Total"]
+
+                session["numero_habitacion"]                    = reserva["Numero"]
+                session["valor_habitacion"]                     = reserva["HabitacionId"]
+                session["total_reserva"]                        = reserva["Total"]
+    else:
         fecha_ingreso   = form.fecha_ingreso.data
         fecha_salida    = form.fecha_salida.data
-        id_habitacion   = form.habitacion.data
 
-        response = guardar_reserva_admin(id_reserva, id_cliente, fecha_ingreso, fecha_salida, id_habitacion)
+    habitaciones = obtener_habitaciones_reserva(fecha_ingreso, fecha_salida)
+    form.habitacion.choices = habitaciones
 
+    if form.validate_on_submit():
+        id_cliente              = escape(form.reserva_hidden.data)
+        fecha_ingreso           = escape(form.fecha_ingreso.data)
+        fecha_salida            = escape(form.fecha_salida.data)
+        id_habitacion           = escape(form.habitacion.data)
+        id_habitacion_actual    = None
+
+        if "valor_habitacion" in session:
+            id_habitacion_actual = session["valor_habitacion"]
+
+        response = guardar_reserva_admin(id_reserva, id_cliente, fecha_ingreso, fecha_salida, id_habitacion, id_habitacion_actual)
+        
         if response["type"] == "ok":
             return redirect(url_for('.reservas_admin'))
         else:
@@ -210,6 +257,8 @@ def nueva_reserva_admin(id_reserva=None):
     
     if (form.errors and len(form.errors) > 0):
         flash([error[0] for error in form.errors.values()], "error")
+
+    data["form"] = form
 
     return render_template('admin/nueva-reserva.html', data=data)
 #fin nueva reserva admin

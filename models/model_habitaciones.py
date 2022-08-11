@@ -2,6 +2,7 @@
 # requiera en las rutas de Habitaciones
 
 from datetime import datetime
+import sqlite3
 from models.db import conectar
 
 
@@ -9,11 +10,12 @@ def get_rooms(fecha_inicio: str, fecha_final: str):
     try:
         # Me conecto a la DB
         conn = conectar()
+        conn.row_factory = sqlite3.Row #disponible desde python>=3
         # Creo el cursor que me permitirá operar en la DB
         cursor = conn.cursor()
         # Creo la sentencia SQL
         sentence_de_nico = """
-            SELECT habitaciones.* FROM habitaciones
+            SELECT habitaciones.*, 'Habitación ' || IFNull(habitaciones.numero, '') as NumeroHabitacion FROM habitaciones
             LEFT JOIN (
                 SELECT * FROM reservas
                 WHERE fechaFinal >= ? AND fechaInicial <= ?

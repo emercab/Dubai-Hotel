@@ -101,6 +101,7 @@ class UsuarioForm(FlaskForm):
 class ReservaForm(FlaskForm):
     reserva_hidden = HiddenField(
         "",
+        validators=[DataRequired("No hay cliente relacionado. Por favor volver a buscar.")],
         id="hiddenReserva",
         name="hiddenReserva"
     )
@@ -117,20 +118,8 @@ class ReservaForm(FlaskForm):
         name="txtBusquedaCliente"
     )
 
-    # cliente = SelectField(
-    #     "Cliente", 
-    #     validators=[ DataRequired("Seleccionar a un cliente.") ],
-    #     choices = [(0, "Seleccione un cliente")],
-    #     render_kw = {
-    #         "class": "form-control select-border"
-    #     },
-    #     id="selectCliente",
-    #     name="selectCliente"
-    # )
-
     cliente = StringField(
-        "Cliente", 
-        validators=[ DataRequired("No hay cliente relacionado.") ],
+        "Cliente",
         render_kw = {
             "class": "form-control",
             "readonly": "readonly"
@@ -141,40 +130,32 @@ class ReservaForm(FlaskForm):
 
     habitacion = SelectField(
         "Habitación",
-        validators=[ DataRequired("Seleccionar una habitación.") ],
-        choices = [(0, "Seleccione una habitación")],
+        choices = [],
         render_kw = {
             "class": "form-control select-border"
         },
         id="selectHabitacion",
-        name="selectHabitacion"
+        name="selectHabitacion",
+        coerce=int
     )
-
-    hoy = date.today()
 
     fecha_ingreso = DateField(
         "Fecha de ingreso",
         validators=[ DataRequired("Seleccionar fecha de ingreso.") ],
         render_kw = {
             "class": "form-control date-field",
-            "data-type": "llegada",
-            "value": hoy,
-            "min": hoy
+            "data-type": "llegada"
         },
         id="txtFechaIngreso",
         name="txtFechaIngreso"
     )
-
-    tomorrow = hoy + timedelta(days=1)
 
     fecha_salida = DateField(
         "Fecha de salida",
         validators=[ DataRequired("Seleccionar fecha de salida.") ],
         render_kw = {
             "class": "form-control date-field",
-            "data-type": "salida",
-            "value": tomorrow,
-            "min": tomorrow
+            "data-type": "salida"
         },
         id="txtFechaSalida",
         name="txtFechaSalida"
@@ -182,6 +163,7 @@ class ReservaForm(FlaskForm):
 
     precio = IntegerField(
         "Total",
+        validators=[DataRequired("No se hace envio del total.")],
         render_kw={
             "class": "form-control",
             "readonly": ""

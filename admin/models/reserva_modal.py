@@ -6,11 +6,11 @@ def create_reserva_admin(id_reserva, id_cliente, fecha_ingreso, fecha_salida, id
     try:
         conn = conectar()
         cursor = conn.cursor()
-
+        print(id_reserva)
         if id_reserva:
             query = """
                 update Reservas
-                    set HabitacionId = ?
+                    set HabitacionId = ?,
                         FechaInicial = ?,
                         FechaFinal = ?,
                         Total = ?
@@ -19,7 +19,7 @@ def create_reserva_admin(id_reserva, id_cliente, fecha_ingreso, fecha_salida, id
             datos = (id_habitacion, fecha_ingreso, fecha_salida, total, id_reserva)
         else:
             query = """
-                insert into Habitaciones (HabitacionId, ClienteId, FechaInicial, FechaFinal, Total)
+                insert into Reservas (HabitacionId, ClienteId, FechaInicial, FechaFinal, Total)
                 values (?, ?, ?, ?, ?)
             """
             datos = (id_habitacion, id_cliente, fecha_ingreso, fecha_salida, total)
@@ -30,7 +30,7 @@ def create_reserva_admin(id_reserva, id_cliente, fecha_ingreso, fecha_salida, id
         #.lasrowid  -retorna el id del registro insertado
         last_id = id_reserva if id_reserva else cursor.lastrowid 
     except Exception as error:
-        print(f'insert habitacion {error}')
+        print(f'insert reserva admin {error}')
         last_id = None
     finally:
         cursor.close()
@@ -47,8 +47,11 @@ def select_reserva_admin(id_reserva=None):
 
         if id_reserva:
             query = """
-                select Row_Number() over (order by Reservas.Id desc) as Row, Reservas.Id, HabitacionId, ClienteId, FechaInicial, FechaFinal, Total,
-                    IfNull(Nombres, '')|| ' ' ||IfNull(Apellidos, '') as NombreCompleto, Numero as NumeroHabitacion
+                select Row_Number() over (order by Reservas.Id desc) as Row, Reservas.Id, HabitacionId, ClienteId, 
+                    strftime('%Y-%m-%d', FechaInicial) as FechaInicial, strftime('%Y-%m-%d', FechaFinal) as FechaFinal, 
+                    Total, PrintF('$%.2f', Total) as TotalFormat,
+                    IfNull(Nombres, '')|| ' ' ||IfNull(Apellidos, '') as NombreCompleto, Username, 
+                    Numero, 'Habitación ' || IFNull(habitaciones.numero, '') as NumeroHabitacion
                 from Reservas
                     inner join Habitaciones on Habitaciones.Id = HabitacionId
                     inner join Usuarios on Usuarios.Id = ClienteId
@@ -58,8 +61,11 @@ def select_reserva_admin(id_reserva=None):
             resultado = cursor.fetchone()
         else:
             query = """
-                select Row_Number() over (order by Reservas.FechaInicial desc) as Row, Reservas.Id, HabitacionId, ClienteId, FechaInicial, FechaFinal, Total,
-                    IfNull(Nombres, '')|| ' ' ||IfNull(Apellidos, '') as NombreCompleto, Numero as NumeroHabitacion
+                select Row_Number() over (order by Reservas.FechaInicial desc) as Row, Reservas.Id, HabitacionId, ClienteId, 
+                    strftime('%Y-%m-%d', FechaInicial) as FechaInicial, strftime('%Y-%m-%d', FechaFinal) as FechaFinal, 
+                    Total, Total, PrintF('$%.2f', Total) as TotalFormat,
+                    IfNull(Nombres, '')|| ' ' ||IfNull(Apellidos, '') as NombreCompleto, Username, 
+                    Numero, 'Habitación ' || IFNull(habitaciones.numero, '') as NumeroHabitacion
                 from Reservas
                     inner join Habitaciones on Habitaciones.Id = HabitacionId
                     inner join Usuarios on Usuarios.Id = ClienteId
