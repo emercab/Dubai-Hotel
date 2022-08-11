@@ -2,11 +2,14 @@
 # de las operaciones sobre las rutas de Mi Cuenta. Desde acá se enviará las
 # respuestas a las rutass
 
+from asyncio.windows_events import NULL
+from pickle import NONE
 from flask import session
 from flask_bcrypt import check_password_hash, generate_password_hash
 import models.model_micuenta as model
 from models.model_micuenta import select_reservas
 from routes.micuenta import reservas
+from datetime import datetime
 
 
 def check_login(username, password):
@@ -230,9 +233,33 @@ def change_password(cedula, password, new_password):
         return respuesta
 # Fin de change_password()
 
+
 def consulta_miReserva (userId):
     data = model.select_reservas(userId)
+    
     if data==None: 
         return[]
-    return data
+    
+    data_reservas=[]
+    for val in data:
+        
+        fechaInicial= datetime.strptime(val["fechaInicial"],"%Y-%m-%d %H:%M:%S")
+        fechaFinal= datetime.strptime(val["fechaFinal"],"%Y-%m-%d %H:%M:%S")
+        
+        if  len(val["numero"])==0:
+            print("Es cero")
+
+        data_consulta={
+            "fechaInicial": datetime.strftime(fechaInicial, "%B %d, %Y"),
+            "fechaFinal": datetime.strftime(fechaFinal, "%B %d, %Y"),
+            "numero": str(val["numero"]),
+            "calificacion": str(val["calificacion"])            
+        }
+        
+        print(data_consulta)
+        data_reservas.append(data_consulta)
+                
+    return data_reservas
+
+
     

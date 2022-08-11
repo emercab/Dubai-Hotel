@@ -153,8 +153,7 @@ def select_reservas(user_id):
         cursor = conn.cursor()
         # Creo la sentencia SQL
         sentence = """
-           SELECT reservas.fechaInicial, reservas.fechaFinal, habitaciones.numero, habitaciones.calificacion FROM reservas 
-           INNER JOIN habitaciones ON reservas.habitacionId = habitaciones.id
+           SELECT reservas.fechaInicial, reservas.fechaFinal, habitaciones.numero, habitaciones.calificacion FROM reservas INNER JOIN habitaciones ON reservas.habitacionId = habitaciones.id
            WHERE clienteID =?
         """
         # Ejecuto la sentencia SQL
