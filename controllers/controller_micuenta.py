@@ -3,11 +3,12 @@
 # respuestas a las rutass
 
 
+import math
 from flask import session
 from flask_bcrypt import check_password_hash, generate_password_hash
 import models.model_micuenta as model
 from models.model_micuenta import select_reservas
-from routes.micuenta import reservas
+from routes.micuenta import calificar_habitacion, reservas
 from datetime import datetime
 
 
@@ -232,12 +233,46 @@ def change_password(cedula, password, new_password):
         return respuesta
 # Fin de change_password()
 
+
 def comentarios(usuario,id_comentario):
     print(id_comentario)
     comentarios=model.select_comentario(usuario,id_comentario)
     if len(comentarios)>0:
         return comentarios
     return[]
+
+
+def calculate_stars(calificacion):
+    stars = {}
+    
+    if calificacion != "" and calificacion != None:
+        
+        # Estrellas llenas
+        llenas = math.trunc(calificacion)
+        
+        # Estrellas medias
+        decimal = calificacion - llenas
+        if decimal >= 0 and decimal < 0.25:
+            medias = 0
+        elif decimal >= 0.25 and decimal < 0.75:
+            medias = 1
+        else:
+            medias = 0
+            llenas += 1
+        
+        # Estrellas vacías
+        vacias = 5 - llenas - medias
+        
+        stars["full"] = llenas
+        stars["middle"] = medias
+        stars["empty"] = vacias
+    else:
+        stars["full"] = 0
+        stars["middle"] = 0
+        stars["empty"] = 5
+    return stars
+# Fin de calculate_stars()
+
 
 def consulta_miReserva (userId):
     data = model.select_reservas(userId)
@@ -250,18 +285,22 @@ def consulta_miReserva (userId):
         
         fechaInicial= datetime.strptime(val["fechaInicial"],"%Y-%m-%d %H:%M:%S")
         fechaFinal= datetime.strptime(val["fechaFinal"],"%Y-%m-%d %H:%M:%S")
+        calificacion = ""
         
-        if  len(val["numero"])==0:
-            print("Es cero")
+        if  val["calificacion"] == "" or val["calificacion"] == None:
+            calificacion = "No disponible"
+        else:
+            calificacion = f"{val['calificacion']:.1f}".replace(".", ",") + " / 5"
+        
+        stars = calculate_stars(val["calificacion"])            
 
         data_consulta={
             "fechaInicial": datetime.strftime(fechaInicial, "%B %d, %Y"),
             "fechaFinal": datetime.strftime(fechaFinal, "%B %d, %Y"),
-            "numero": str(val["numero"]),
-            "calificacion": str(val["calificacion"])            
+            "numero": val["numero"],
+            "calificacion": calificacion,
+            "stars": stars,
         }
-        
-        print(data_consulta)
         data_reservas.append(data_consulta)
                 
     return data_reservas

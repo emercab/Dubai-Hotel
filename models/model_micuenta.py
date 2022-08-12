@@ -168,6 +168,8 @@ def select_reservas(user_id):
         conn.close()
     
     return result
+
+
 def select_comentario(usuario,id_comentario=None):
     try:
         # Me conecto a la DB
