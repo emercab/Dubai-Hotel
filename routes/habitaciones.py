@@ -26,13 +26,21 @@ def habitaciones():
 # Ruta Reservar
 @bp_habitaciones.route("/habitaciones/reservar", methods=["GET", "POST"])
 def reservar():
-    # Obtengo las habitaciones disponibles por defecto entre hoy y una semana más
-    today = datetime.strftime(datetime.today(), "%Y-%m-%d")
-    tomorrow = datetime.strftime(datetime.today() + timedelta(days=1), "%Y-%m-%d")
-    rooms = controller.available_rooms(today, tomorrow)
-
     # Inicializo el form y le paso las habitaciones al select
     reserva_form = ReservaForm(request.form)
+
+    # Obtengo las habitaciones disponibles por defecto entre hoy y una semana más
+    if request.method.lower() == 'get':    
+        today = datetime.strftime(datetime.today(), "%Y-%m-%d")
+        tomorrow = datetime.strftime(datetime.today() + timedelta(days=1), "%Y-%m-%d")
+        reserva_form.fecha_inicio.render_kw["min"] = today
+        reserva_form.fecha_final.render_kw["min"] = tomorrow
+    else:
+        today = reserva_form.fecha_inicio.data
+        tomorrow = reserva_form.fecha_final.data
+    rooms = controller.available_rooms(today, tomorrow)
+    
+    print(today, tomorrow)
     #Valido que haya habitaciones
     if len(rooms) > 0:
         options = [(r[0], f"Habitación {r[1]}") for r in rooms]
