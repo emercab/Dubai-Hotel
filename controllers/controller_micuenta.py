@@ -245,10 +245,9 @@ def create_comment(reservaId, comentario, calificacion,comentarioId,habitacionId
     return nuevo_id
 
 
-
 def calculate_stars(calificacion):
     stars = {}
-    
+   
     if calificacion != "" and calificacion != None:
         
         # Estrellas llenas
