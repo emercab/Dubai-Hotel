@@ -250,8 +250,8 @@ def create_comment(reservaId, comentario, calificacion,comentarioId,habitacionId
         WHERE habitaciones.id=?
         """
         datos2 = (str(habitacionId),str(habitacionId))
-        cursor.execute(query2, datos2)
         cursor.execute(query, datos)
+        cursor.execute(query2, datos2)
         conn.commit()
 
 
