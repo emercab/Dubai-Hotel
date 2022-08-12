@@ -7,7 +7,6 @@ from forms.forms_micuenta import LoginForm, RegisterForm, ChangePassword
 from markupsafe import escape
 from flask_bcrypt import Bcrypt
 import controllers.controller_micuenta as controller
-import time
 
 # Menú para admins
 # Mostrar errores del form
