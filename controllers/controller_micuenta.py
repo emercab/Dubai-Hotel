@@ -2,8 +2,7 @@
 # de las operaciones sobre las rutas de Mi Cuenta. Desde acá se enviará las
 # respuestas a las rutass
 
-from asyncio.windows_events import NULL
-from pickle import NONE
+
 from flask import session
 from flask_bcrypt import check_password_hash, generate_password_hash
 import models.model_micuenta as model
