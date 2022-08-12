@@ -2,7 +2,7 @@
 # todos los formularios del proyecto usando la librería WTForms
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, EmailField, IntegerField, SubmitField
+from wtforms import StringField, PasswordField, EmailField, IntegerField, SubmitField,DecimalField
 from wtforms.validators import DataRequired, Email, EqualTo
 
 
@@ -196,6 +196,43 @@ class ChangePassword(FlaskForm):
     )
     btn_cambiar_password = SubmitField(
         "Cambiar Contraseña",
+        render_kw= {
+            "class": "btn btn-primary text-secondary"
+        }
+    )
+
+class NuevaCalificacion(FlaskForm):
+    habitacion = StringField(
+        "Habitación",
+        render_kw={
+            "readonly": "",
+            "class": "form-control"
+        }
+    )
+
+    calificacion = DecimalField(
+        "Calificación",
+        validators=[
+            DataRequired("Ingresar calificación.")
+        ],
+        render_kw={
+            "class": "form-control"
+        },
+        places=1
+    )
+
+    comentario = StringField(
+        "Comentario",
+        validators=[
+            DataRequired("Ingresar comentario.")
+        ],
+        render_kw={
+            "class": "form-control"
+        }
+    )
+
+    btn_enviar_comentario = SubmitField(
+        "Enviar Comentario",
         render_kw= {
             "class": "btn btn-primary text-secondary"
         }

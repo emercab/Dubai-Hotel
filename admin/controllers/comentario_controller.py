@@ -1,4 +1,4 @@
-from admin.models.comentario_model import select_comentario, create_comentario
+from admin.models.comentario_model import select_comentario, create_comentario,delete_comentario
 
 
 def consultar_comentario(id_comentario):
@@ -14,3 +14,7 @@ def guardar_comentario(id_comentario,comentario,calificacion):
     nuevo_comentario = create_comentario(id_comentario,comentario,calificacion)
 
     return nuevo_comentario
+
+def eliminar_comentario(id_comentario):
+
+    delete_comentario(id_comentario)
