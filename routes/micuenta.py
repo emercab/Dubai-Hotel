@@ -159,6 +159,9 @@ def mi_cuenta():
 def reservas():
     # Preparo datos a enviar a la vista
     data = controller.data_to_template("Mis Reservas")
+    userId = data["id"]
+    misReservas= controller.consulta_miReserva(userId)
+    data["mis_reservas"] = misReservas
     return render_template("mis-reservas.html", data=data)
 # Fin Ruta de Mis Reservas
 

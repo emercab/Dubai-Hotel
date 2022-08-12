@@ -143,6 +143,31 @@ def update_password(user_id, new_password_hash):
     return True
 # Fin de update_password()
 
+def select_reservas(user_id):
+    # Actualiza el password del usuario, retorna True o False si tuvo éxito
+    try:
+        # Me conecto a la DB
+        conn = conectar()
+        conn.row_factory=sqlite3.Row
+        # Creo el cursor que me permitirá operar en la DB
+        cursor = conn.cursor()
+        # Creo la sentencia SQL
+        sentence = """
+           SELECT reservas.fechaInicial, reservas.fechaFinal, habitaciones.numero, habitaciones.calificacion FROM reservas INNER JOIN habitaciones ON reservas.habitacionId = habitaciones.id
+           WHERE clienteID =?
+        """
+        # Ejecuto la sentencia SQL
+        cursor.execute(sentence, [user_id])
+        result = cursor.fetchall()
+    except Exception as error:
+        # Si hay un error, lo imprimo y retorno False
+        print(f"Error: {error}")
+        return None
+    finally:
+        # Pase lo que pase, cierro la conexión
+        conn.close()
+    
+    return result
 def select_comentario(usuario,id_comentario=None):
     try:
         # Me conecto a la DB
