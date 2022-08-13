@@ -36,6 +36,9 @@ def info_reserva():
         fecha2 = params["fecha2"]
         habitacion_id = params["habitacion_id"]
 
+    fecha1 = escape(fecha1)
+    fecha2 = escape(fecha2)
+
     # Obtengo total a pagar y habitaciones disponibles para luego
     # retornarlos como respuesta
     total_a_pagar = controller_habitaciones.calcular_total_reserva(fecha1, fecha2, habitacion_id)

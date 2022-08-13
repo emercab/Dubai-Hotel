@@ -88,6 +88,40 @@ async function llenarSelect() {
     }
 }
 
+//retorna un formato de fecha valido para los input[type=date]
+const format = (date) => {
+    const setValue = (value) => {
+        return value < 10 ? `0${value}` : value;
+    };
+
+    if (date) {
+        const newDate = new Date(date);
+        let year = newDate.getFullYear();
+        let month = setValue(newDate.getMonth() + 1);
+        let day = setValue(newDate.getDate());
+        const formatDate =  `${year}-${month}-${day}`;
+
+        return formatDate;
+    }
+
+    return null;
+};
+
+document.querySelectorAll('#fecha_inicio,#fecha_final').forEach(input => {
+    input.addEventListener('change', () => {
+        if (fecha_inicio && fecha_final) {
+            const fechaIngreso = new Date(fecha_inicio.value + ' 00:00:00');
+            const fechaSalida = new Date(fecha_final.value + ' 00:00:00');
+
+            if (fechaIngreso >= fechaSalida || fecha_final.value === '') {
+                fechaIngreso.setDate(fechaIngreso.getDate() + 1);
+
+                const fechaMasUnDia = format(fechaIngreso);
+                fecha_final.value = fechaMasUnDia;
+            }
+        }
+    });
+});
 
 // Hago que se actualice el precio de la reserva cada vez que se haga
 // cambios en los controles de fecha y habitaciones

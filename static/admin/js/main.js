@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $(document).on('change', '.date-field', function() {
         const hora = ' 00:00:00';
-        console.log(hora);
+
         if (txtFechaIngreso && txtFechaSalida) {
             const fechaIngreso = new Date(txtFechaIngreso.value + hora);
             const fechaSalida = new Date(txtFechaSalida.value + hora);
