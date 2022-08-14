@@ -236,9 +236,14 @@ def change_password(cedula, password, new_password):
 
 def comentarios(usuario,id_comentario):
     comentarios=model.select_comentario(usuario,id_comentario)
-    if comentarios[0][0] != None or comentarios[0][1] != None or comentarios[0][2] != None:
+    if comentarios:
+        if type(comentarios) == tuple:
+            if comentarios[0] == None:
+                return []
+        elif type(comentarios) == list:
+            if comentarios[0][0] == None:
+                return []
         return comentarios
-    print('No hay nada')
     return []
 
 
@@ -313,6 +318,3 @@ def consulta_miReserva (userId):
         data_reservas.append(data_consulta)
                 
     return data_reservas
-
-
-    

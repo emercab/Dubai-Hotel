@@ -205,9 +205,9 @@ def select_comentario(usuario, id_comentario=None):
                 LEFT JOIN comentarios ON reservas.id=comentarios.reservaId 
                 WHERE usuarios.id=? 
             """
-        # Ejecuto la sentencia SQL
-        cursor.execute(sentence, [str(usuario)])
-        resultado=cursor.fetchall()
+            # Ejecuto la sentencia SQL
+            cursor.execute(sentence, [str(usuario)])
+            resultado=cursor.fetchall()
     except Exception as error:
         # Si hay un error, lo imprimo y retorno False
         print(f"Error: {error}")

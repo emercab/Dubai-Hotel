@@ -192,7 +192,6 @@ def nueva_calificacion(id_calificacion=None):
     data["form"] = calificar_form
     comentarios=controller.comentarios(data["id"],id_calificacion)
     data["comentarios"]=comentarios
-    print(comentarios[3])
     if calificar_form.validate_on_submit():
         # Capturo las variables ingresadas por el usuario y 
         # por seguridad aplico escape a todo lo ingresado
