@@ -140,3 +140,28 @@
    width: 80%;
    max-width: 350px;
 }
+.login-right .users-example-info {
+   width: 80%;
+   background-color: rgba(250,243,227,0.5);
+   border-radius: 12px;
+   box-shadow: 0 0 9px  var(--dark);
+   padding: 10px;
+   margin-top: 32px;
+   text-align: center;
+}
+.login-right .users-example-info h4 {
+   padding-bottom: 4px;
+}
+.login-right .users-example-info .linea2 {
+   width: 90%;
+   border-bottom: 2px solid var(--primary);
+   margin: 0 auto;
+}
+.login-right .users-example-info ul {
+   list-style: none;
+   font-size: var(--sm);
+   margin-top: 8px;
+}
+.login-right .users-example-info ul li {
+   padding-bottom: 4px;
+}
