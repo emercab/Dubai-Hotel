@@ -236,12 +236,18 @@ def change_password(cedula, password, new_password):
 
 def comentarios(usuario,id_comentario):
     comentarios=model.select_comentario(usuario,id_comentario)
-    if len(comentarios)>0:
+    if comentarios[0][0] != None or comentarios[0][1] != None or comentarios[0][2] != None:
         return comentarios
-    return[]
+    print('No hay nada')
+    return []
+
 
 def create_comment(reservaId, comentario, calificacion,comentarioId,habitacionId):
     nuevo_id = model.create_comment(reservaId, comentario, calificacion,comentarioId,habitacionId)
+    if nuevo_id:
+        result = model.update_calificacion(habitacionId)
+        if not result:
+            return False
     return nuevo_id
 
 
