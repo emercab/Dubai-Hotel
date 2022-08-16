@@ -1,0 +1,13 @@
+.login-container {
+    width: 90%;
+}
+.login-left .login-info-container {
+    padding: 0 10px;
+}
+.login-left .login-info-container .info-icon {
+    width: 64px;
+    padding-left: 10px;
+}
+.login-left .login-info-container .login-info {
+    min-width: 230px;
+}

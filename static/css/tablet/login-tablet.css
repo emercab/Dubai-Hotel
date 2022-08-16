@@ -1,0 +1,21 @@
+.login-main {
+    height: auto;
+    min-height: 100vh;
+}
+.login-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 80%;
+    max-width: 550px;
+    margin: 20px 0;
+}
+.login-left, .login-right {
+    width: 100%;
+    min-width: 340px;
+}
+.login-left .login-info-container {
+    margin-top: 20px;
+}
+.login-right .users-example-info {
+    margin-top: 12px;
+}
