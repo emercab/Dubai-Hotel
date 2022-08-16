@@ -81,12 +81,15 @@
 /* Hero
     Solamente para la página del home
 */
+.hero {
+    min-height: calc(100vh + 70px);
+    padding: 110px 0 40px;
+}
 .hero .hero-text {
     width: 41%;
     min-width: 510px;
     max-width: 560px;
     margin: 0 25px;
-    padding-top: 150px;
 }
 .hero .hero-text h1 {
     line-height: 42px;
