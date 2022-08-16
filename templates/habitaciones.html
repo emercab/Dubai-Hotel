@@ -1,41 +1,45 @@
 {% extends "layout.html" %}
 
 {% block estilos_propios %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='./css/habitaciones.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='./css/habitaciones.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='./css/tablet/habitaciones-tablet.css') }}" media="(max-width:900px)">
+   <link rel="stylesheet" href="{{ url_for('static', filename='./css/mobile/habitaciones-mobile.css') }}" media="(max-width:580px)">
 {% endblock %}
 
 {% block banner %}
-    <!-- Título en el contenido de la página -->
-    <section class="section section-title">
-        <h1>Habitación Estandar</h1>
-    </section>
+   <!-- Título en el contenido de la página -->
+   <section class="section section-title">
+       <h1>Habitación Estándar</h1>
+   </section>
 {% endblock %}
 
 {% block principal %}
-    <section class="section-habitaciones">      
-    <div class="padre">
-    
-          <div class="slider">
-             <ul>
-                 <li>
-                   <img src="https://i.ibb.co/GWRqyC5/hotel-room2.jpg" alt="SLS Dubai Hotel"/>
-                 </li>
-                 <li>
-                   <img src="https://i.ibb.co/yd51sY4/hotel-room3.jpg" alt="SLS Dubai Hotel"/>
-                 </li>
-                 <li>
-                   <img src="https://i.ibb.co/wQbv6kx/hotel-room4.jpg" alt="SLS Dubai Hotel">
-                 </li>
-                 <li>
-                   <img src="https://i.ibb.co/Swb6m8v/hotel-room5.jpg" alt="SLS Dubai Hotel">
-                 </li>
-             </ul>
-       </div>
-    <div class="titulo">
-          <h1>Habitación Premium</h1>
-          <p> La habitación Special Double cuenta con las características de excelencia y confort que distinguen a nuestro hotel. Son 30 metros cuadrados en una habitación recomendada especialmente para aquellos que viajan solos o con sus parejas. Cuenta con una cama Queen Size (1.80m x 1.90m) y un escritorio que posibilita y facilita las actividades de trabajo virtual.</p>
-     <a href="/habitaciones/reservar" class="btn btn-secondary text-primary">¡Reserve ahora!</a>
-    </div>
-    </section>
+   <section class="section-habitaciones">      
+      <div class="padre">
+         <div class="slider">
+            <ul>
+               <li>
+                  <img src="https://i.ibb.co/GWRqyC5/hotel-room2.jpg" alt="SLS Dubai Hotel"/>
+               </li>
+               <li>
+                  <img src="https://i.ibb.co/yd51sY4/hotel-room3.jpg" alt="SLS Dubai Hotel"/>
+               </li>
+               <li>
+                  <img src="https://i.ibb.co/wQbv6kx/hotel-room4.jpg" alt="SLS Dubai Hotel">
+               </li>
+               <li>
+                  <img src="https://i.ibb.co/Swb6m8v/hotel-room5.jpg" alt="SLS Dubai Hotel">
+               </li>
+            </ul>
+         </div>
+         <div class="titulo">
+            <h1>Habitación Premium</h1>
+            <p>
+               La habitación Special Double cuenta con las características de excelencia y confort que distinguen a nuestro hotel. Son 30 metros cuadrados en una habitación recomendada especialmente para aquellos que viajan solos o con sus parejas. Cuenta con una cama Queen Size (1.80m x 1.90m) y un escritorio que posibilita y facilita las actividades de trabajo virtual.
+            </p>
+            <a href="/habitaciones/reservar" class="btn btn-secondary text-primary">¡Reserve ahora!</a>
+         </div>
+      </div>
+   </section>
 {% endblock %}
 

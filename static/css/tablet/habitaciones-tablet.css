@@ -1,0 +1,32 @@
+.section-title h1 {
+    font-size: 34px;
+}
+.padre {
+    flex-wrap: wrap;
+    justify-content: center;
+    height: auto;
+    padding: 0 25px;
+    gap: 0;
+}
+
+.padre .slider {
+    order: 1;
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 20px;
+}
+
+.padre .titulo {
+    order: 0;
+    width: 100%;
+    max-width: 700px;
+    gap: 25px;
+    margin-bottom: 35px;
+}
+.titulo h1 {
+    font-size: 34px;
+}
+.titulo p {
+    font-size: var(--md);
+    line-height:28px;
+}

@@ -96,7 +96,6 @@
     font-size: 42px;
 }
 .hero .hero-text p {
-    color: var(--light);
     font-size: var(--lg);
 }
 /* Section */
@@ -104,19 +103,12 @@
     padding: 40px 25px;
 }
 .section-title {
-    display: flex;
-    align-items: center;
-    height: calc(100vw * 300 / 1920);
-    background-image: url(https://i.ibb.co/PN33vZk/background-header.jpg);
-    background-position:center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    padding: 0 50px;
-}
-.section-title h1 {
-    color: var(--light);
-    padding-bottom: 6px;
-    border-bottom: 2px solid var(--primary);
+    width: 100%;
+    margin-top: 70px;
+    min-height: 110px;
+    background-position: right;
+    background-size: cover;
+    padding-left: 25px;
 }
 
 

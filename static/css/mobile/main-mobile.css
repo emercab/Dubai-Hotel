@@ -53,14 +53,8 @@ h3 { font-size: 25px }
     padding: 40px 25px;
 }
 .section-title {
-    display: flex;
-    align-items: center;
-    height: calc(100vw * 300 / 1920);
-    background-image: url(https://i.ibb.co/PN33vZk/background-header.jpg);
-    background-position:center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    padding: 0 50px;
+    min-height: 90px;
+    padding-right: 100px;
 }
 .section-title h1 {
     color: var(--light);
