@@ -2,7 +2,9 @@
 
 {% block estilos_propios %}
     <link rel="stylesheet" href="{{ url_for('static', filename='./css/index.css') }}">
-{% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/tablet/index-tablet.css') }}" media="(max-width:900px)">
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/mobile/index-mobile.css') }}" media="(max-width:580px)">
+ {% endblock %}
 
 {% block banner %}
     <!-- Hero -->
@@ -20,15 +22,15 @@
 {% block principal %}
     <section class="section">
         <div class="row section-enjoy">
-        <div class="info">
-            <h2>Disfruta nuestras habitaciones</h2>
-            <p>
-                Hemos cuidado cada detalle para hacer que tu experiencia sea inolvidable.<br>
-                Conoce y explora en un ambiente de tranquilidad y relajación.
-            </p>
-            <a href="/habitaciones" class="btn btn-secondary text-primary">Buscar habitaciones</a>
-        </div>
-        <img src="https://i.ibb.co/RSpx1Lp/logo-transparent-light.png" alt="SLS Dubai Hotel">
+            <div class="info">
+                <h2>Disfruta nuestras habitaciones</h2>
+                <p>
+                    Hemos cuidado cada detalle para hacer que tu experiencia sea inolvidable.<br>
+                    Conoce y explora en un ambiente de tranquilidad y relajación.
+                </p>
+                <a href="/habitaciones" class="btn btn-secondary text-primary">Buscar habitaciones</a>
+            </div>
+            <img src="https://i.ibb.co/RSpx1Lp/logo-transparent-light.png" alt="SLS Dubai Hotel">
         </div>
     </section>
 {% endblock %}

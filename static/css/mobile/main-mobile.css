@@ -1,0 +1,139 @@
+h1 { font-size: 32px }
+h2 { font-size: 29px }
+h3 { font-size: 25px }
+
+/* Header */
+.header .menu {
+    width: 95%;
+    min-width: 288px;
+    padding-right: 25px;
+    right: -100%;
+}
+.header .menu-visible {
+    /* Muestra el menú principal en mobile */
+    right: 0;
+}
+.header .menu .item {
+    font-size: var(--md);
+}
+.header .menu .item.dropdown .dropdown-item .sub-menu {
+    font-size: 17px;
+}
+.header .menu .item.dropdown .dropdown-item.open .sub-menu {
+    min-height: 100px;
+    padding: 15px 35px 15px 12px;
+}
+.header .menu .item.dropdown:hover .sub-menu {
+    top: 0;
+}
+
+
+/* Hero
+    Solamente para la página del home
+*/
+.hero .hero-text {
+    width: 88%;
+    min-width: 281px;
+    max-width: 500px;
+    margin: 0 25px;
+    padding-top: 150px;
+    text-align: center;
+}
+.hero .hero-text h1 {
+    line-height: 34px;
+    font-size: 34px;
+}
+.hero .hero-text p {
+    font-size: var(--md);
+}
+.hero .hero-text a {
+    margin: 0 auto;
+}
+/* Section */
+.row {
+    padding: 40px 25px;
+}
+.section-title {
+    display: flex;
+    align-items: center;
+    height: calc(100vw * 300 / 1920);
+    background-image: url(https://i.ibb.co/PN33vZk/background-header.jpg);
+    background-position:center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 0 50px;
+}
+.section-title h1 {
+    color: var(--light);
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--primary);
+}
+
+
+/* Footer */
+.footer {
+    padding: 20px 25px 0;
+    font-size: 17px;
+}
+.footer h3 {
+    font-size: 24px;
+}
+.footer .footer-top,
+.footer .footer-bottom {
+    flex-wrap: wrap;
+    text-align: center;
+}
+.footer .footer-top .left,
+.footer .footer-top .right,
+.footer .footer-bottom .left,
+.footer .footer-bottom .right {
+    width: 90%;
+    margin: 0 auto;
+}
+.footer .footer-top .right ul li {
+    padding: 6px;
+    margin-bottom: 5px;
+}
+.footer .footer-top .right ul .menu-icon {
+    margin-right: 8px;
+}
+.footer .footer-top .left .icons-social-media {
+    width: 95%;
+    max-width: 285px;
+    min-width: 218px;
+    margin: 12px auto 15px;
+}
+.footer .footer-top .right {
+    margin-top: 35px;
+}
+
+.footer .footer-bottom .logo {
+    width: 220px;
+    margin: 0 auto 35px;
+}
+.footer .footer-bottom .autores-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    gap: 12px;
+}
+.footer .footer-bottom .autores-container .img-mision-tic {
+    width: 90%;
+    min-width: 220px;
+    max-width: 220px;
+}
+.footer .footer-bottom .autores-container .autores {
+    width: 90%;
+    max-width: 240px;
+}
+.footer .footer-bottom .autores-container ul {
+    list-style: none;
+}
+.footer .footer-bottom .autores-container ul li {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+.footer .footer-bottom .autores-container ul li a {
+    font-size: var(--md)
+}

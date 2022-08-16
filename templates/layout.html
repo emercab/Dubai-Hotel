@@ -10,6 +10,8 @@
    <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,700&family=Mada:wght@400;700&display=swap" rel="stylesheet"> 
    <!-- CSS -->
    <link rel="stylesheet" href="{{ url_for('static', filename='./css/main.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='./css/tablet/main-tablet.css') }}" media="(max-width:900px)">
+   <link rel="stylesheet" href="{{ url_for('static', filename='./css/mobile/main-mobile.css') }}" media="(max-width:580px)">
    {% block estilos_propios %}
    {% endblock %}
    <!-- Title -->
@@ -29,78 +31,88 @@
                <ul class="menu">
                   <li class="item"><a href="/">Home</a></li>
                   <li class="item dropdown">
-                     <a href="/habitaciones">
-                        <span>Habitaciones</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                           <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" stroke-width="0.6"></path> 
-                        </svg>
-                     </a>
-                     <ul class="sub-menu">
-                        <li>
-                           <a href="/habitaciones">Habitación Premium</a>
-                        </li>
-                        <li>
-                           <a href="/habitaciones/reservar">Reservar</a>
-                        </li>
-                     </ul>
+                     <div class="dropdown-item">
+                        <a href="#">
+                           <span>Habitaciones</span>
+                           <svg width="18" height="18" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" stroke-width="0.6"></path> 
+                           </svg>
+                        </a>
+                        <ul class="sub-menu">
+                           <li>
+                              <a href="/habitaciones">Habitación Premium</a>
+                           </li>
+                           <li>
+                              <a href="/habitaciones/reservar">Reservar</a>
+                           </li>
+                        </ul>
+                     </div>
                   </li>
                   <li class="item"><a href="/contacto">Contacto</a></li>
                   <li class="item dropdown">
-                     <a href="">
-                        <span>Mi cuenta</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                           <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" stroke-width="0.6"></path> 
-                        </svg>
-                     </a>
-                     <ul class="sub-menu">
-                     {% if not data.user_login %}
-                        <li>
-                           <a href="/mi-cuenta/login">Login</a>
+                     <div class="dropdown-item">
+                        <a href="#">
+                           <span>Mi cuenta</span>
+                           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" stroke-width="0.6"></path> 
+                           </svg>
+                        </a>
+                        <ul class="sub-menu">
+                        {% if not data.user_login %}
+                           <li>
+                              <a href="/mi-cuenta/login">Login</a>
+                           </li>
+                           <li>
+                              <a href="/mi-cuenta/register">Registrarse</a>
+                           </li>
+                        {% else %}
+                           <!-- Icono y nombre del usuario -->
+                           <li>
+                              <div class="user-info">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="text-black" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                                 </svg>
+                                 <span>{{ data.nombre }}</span>
+                              </div>
+                           </li>
+                           {% if data.tipo_usuario == 3 %}
+                           <li>
+                              <a href="/mi-cuenta">Mi Cuenta</a>
+                           </li>
+                           {% endif %}
+                           <li>
+                              <a href="/mi-cuenta/cambiar-password">Cambiar Contraseña</a>
                         </li>
-                        <li>
-                           <a href="/mi-cuenta/register">Registrarse</a>
-                        </li>
-                     {% else %}
-                        <!-- Icono y nombre del usuario -->
-                        <li>
-                           <div class="user-info">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="text-black" viewBox="0 0 16 16">
-                                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                              </svg>
-                              <span>{{ data.nombre }}</span>
-                           </div>
-                        </li>
-                        {% if data.tipo_usuario == 3 %}
-                        <li>
-                            <a href="/mi-cuenta">Mi Cuenta</a>
-                        </li>
+                           {% if data.tipo_usuario == 1 or data.tipo_usuario == 2 %}
+                           <li>
+                              <a href="/admin">Administrar Sitio</a>
+                           </li>
+                           <li>
+                           {% endif %}
+                           {% if data.tipo_usuario == 3 %}
+                           <li>
+                                 <a href="/mi-cuenta/reservas">Mis Reservas</a>
+                           </li>
+                           <li>
+                              <a href="/mi-cuenta/calificar-habitacion">Calificar Habitación</a>
+                           </li>
+                           {% endif %}
+                           <li>
+                              <a href="/mi-cuenta/logout">Cerrar Sesión</a>
+                           </li>
                         {% endif %}
-                        <li>
-                           <a href="/mi-cuenta/cambiar-password">Cambiar Contraseña</a>
-                       </li>
-                        {% if data.tipo_usuario == 1 or data.tipo_usuario == 2 %}
-                        <li>
-                           <a href="/admin">Administrar Sitio</a>
-                        </li>
-                        <li>
-                        {% endif %}
-                        {% if data.tipo_usuario == 3 %}
-                        <li>
-                              <a href="/mi-cuenta/reservas">Mis Reservas</a>
-                        </li>
-                        <li>
-                            <a href="/mi-cuenta/calificar-habitacion">Calificar Habitación</a>
-                        </li>
-                        {% endif %}
-                        <li>
-                            <a href="/mi-cuenta/logout">Cerrar Sesión</a>
-                        </li>
-                     {% endif %}
-                     </ul>
+                        </ul>
+                     </div>
                   </li>
                </ul>
             </nav>
+            <!-- Botón Menu Mobile-->
+            <button class="nav-btn-toggle" aria-label="Abrir menú">
+               <svg width="32" height="32" class="btn-toggle text-primary" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+               </svg>
+            </button>
          </div>
       </header>
       {% block banner %}
@@ -151,7 +163,7 @@
             </div>
          </div>
          <div class="footer-bottom">
-            <img src="https://i.ibb.co/2P0J6qT/logo-transparent-dark.png" alt="SLS Dubai Hotel">
+            <img src="https://i.ibb.co/2P0J6qT/logo-transparent-dark.png" alt="SLS Dubai Hotel" class="logo">
             <div class="autores-container">
                <img 
                   src="https://i.ibb.co/1G9MLt3/logo-mision-uninorte-light.png" 
@@ -213,6 +225,6 @@
    </div>
    {% block scripts %}
    {% endblock %}
-   <script src=""></script>
+   <script src="{{ url_for('static', filename='./js/main.js') }}"></script>
 </body>
 </html>

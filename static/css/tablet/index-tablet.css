@@ -1,0 +1,13 @@
+.section-enjoy .info {
+    width: 63%;
+}
+.section-enjoy .info h2 {
+    font-size: 26px;
+}
+.section-enjoy .info p {
+    font-size: 17px;
+}
+.section-enjoy img {
+    width: 37%;
+    padding-left: 8px;
+}

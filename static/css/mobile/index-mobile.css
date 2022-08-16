@@ -1,0 +1,18 @@
+.section-enjoy {
+    flex-wrap: wrap;
+}
+.section-enjoy .info {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+.section-enjoy .info h2 {
+    font-size: 26px;
+}
+.section-enjoy .info p {
+    font-size: 17px;
+}
+.section-enjoy img {
+    width: 90%;
+    margin: 35px auto 0;
+}
