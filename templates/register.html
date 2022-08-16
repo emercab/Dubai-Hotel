@@ -2,6 +2,8 @@
 
 {% block estilos_propios %}
     <link rel="stylesheet" href="{{ url_for('static', filename='./css/register.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/tablet/register-tablet.css') }}" media="(max-width:900px)">
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/mobile/register-mobile.css') }}" media="(max-width:580px)">
 {% endblock %}
 
 {% block principal %}
