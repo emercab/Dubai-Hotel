@@ -21,7 +21,7 @@ function datos_listos() {
     }
 }
 
-const URL_API = 'http://localhost:5005/api/info-reserva';
+const URL_API = window.location.origin+'/api/info-reserva';
 
 // Llamo a la función fetch de Node y le mando la url de mi API y
 // retorno los datos devueltos por la API
