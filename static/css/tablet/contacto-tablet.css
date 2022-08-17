@@ -1,0 +1,18 @@
+.row {
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-top: 110px;
+}
+.map {
+    width: 85%;
+    max-width: 450px;
+}
+.info {
+    width: 80%;
+}
+.modal {
+    width: 90%;
+    height: auto;
+    max-width: 600px;
+    padding: 30px;
+}

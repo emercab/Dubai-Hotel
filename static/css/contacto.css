@@ -12,7 +12,6 @@
     --font1: 'Mada', sans-serif;
     --font2: 'Literata', serif;
 }
-
 .row {
     display: flex;
     width: 100%;
@@ -20,34 +19,23 @@
     gap: 40px;
     height: auto;
 }
-
 .map {
     width: 40%;
 }
-
-
-.section-contact .map h2 {
+.section-contact .info h2 {
     color: var(--primary);
     margin-bottom: 8px;
-
 }
-
-.section-contact .map p {
+.section-contact .info p {
     color: var(--dark);
     font-size: var(--md);
     margin-bottom: 24px;
 }
-
-.section-contact .map hr {
+.section-contact .info hr {
     border-top: var(--secondary);
     border-width: 3px;
     border-color: var(--secondary);
 }
-
-* {
-    box-sizing: border-box;
-}
-
 .modal-container {
     /* display: none; */
     background-color: rgba(0, 0, 0, 0.6);
@@ -62,7 +50,6 @@
     width: 100%;
     transition: opacity 0.3s ease ;
 }
-
 .modal-container.show {
     pointer-events: auto;
     opacity: 1;
@@ -80,21 +67,17 @@
     max-width: 100%;
     text-align: center;    
 }
-
 .modal h2{
     color: var(--secondary);
 }
-
 .formulario {
     display: flex;
     flex-direction: column;
     align-items: center;    
 }
-
 .formulario .formulario-input {
     width: 100%;
 }
-
 .input, .textarea {
     border-radius: 10px;
     font-size: var(--md);
@@ -102,7 +85,6 @@
     padding: 0 8px;
     margin-bottom: 16px;
 }
-
 .input {
     height: 45px;
     border: 1px solid var(--primary);
@@ -113,7 +95,6 @@
     border: 1px solid var(--primary);
     border-radius: 8px; 
 }
-
 .actions {
     display: flex;
     justify-content: center;
