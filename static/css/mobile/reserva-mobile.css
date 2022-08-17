@@ -1,0 +1,23 @@
+.section-title h1 {
+    font-size: 30px;
+}
+.form-register {
+    padding: 20px 10px;
+}
+.form-register h2 {
+    font-size: 25px;
+    margin-bottom: 12px;
+}
+.form-register .container {
+    flex-direction: column;
+}
+.form-register .container .date-container {
+    width: 100%;
+}
+.form-register .total {
+    font-size: 25px;
+}
+.form-row-inline {
+    flex-direction: column;
+    align-items: flex-start;
+}

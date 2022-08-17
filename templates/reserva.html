@@ -2,19 +2,21 @@
 
 {% block estilos_propios %}
     <link rel="stylesheet" href="{{ url_for('static', filename='./css/reserva.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/tablet/reserva-tablet.css') }}" media="(max-width:900px)">
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/mobile/reserva-mobile.css') }}" media="(max-width:580px)">
 {% endblock %}
 
 {% block banner %}
     <!-- Título en el contenido de la página -->
     <section class="section section-title">
-        <h1>Habitación Estandar</h1>
+        <h1>Habitación Estándar</h1>
     </section>
 {% endblock %}
 
 {% block principal %}
 <section class="section section-form">
     <form action="/habitaciones/reservar" method="post" class="form-register">
-        <h2>Ingrese sus Datos</h2>
+        <h2>Ingrese sus Datos:</h2>
         <!-- Genero mi secret key para evitar ataques csrf -->
         {{data.form.csrf_token}}
 

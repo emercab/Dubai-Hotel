@@ -60,6 +60,7 @@ h3 { font-size: 25px }
     color: var(--light);
     padding-bottom: 6px;
     border-bottom: 2px solid var(--primary);
+    line-height: 30px;
 }
 
 
