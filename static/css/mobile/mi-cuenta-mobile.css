@@ -1,0 +1,15 @@
+.row-welcome .info,
+.row-welcome .info-container .img {
+    width: 100%;
+}
+.row-welcome .info h2 {
+    text-align: center;
+}
+.row-welcome .info p {
+    padding-left: 0;
+    text-align: center;
+}
+
+form {
+    padding: 15px;
+}

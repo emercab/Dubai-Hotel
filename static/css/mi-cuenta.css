@@ -20,6 +20,7 @@ main {
 }
 
 .sidebar {
+    display: block;
     margin: 0;
     padding: 7px;
     width: 250px;
@@ -30,9 +31,8 @@ main {
 .content {
     width: 100%
 }
-
 .row-welcome {
-    padding: 25px 80px;
+    padding: 25px 60px;
 }
 .info-container {
     display: flex;
@@ -58,6 +58,12 @@ main {
 .row-welcome .info p {
     margin-bottom: 20px;
     padding-left: 30px;
+}
+.row-welcome .info .info-desktop {
+    display: inline;
+}
+.row-welcome .info .info-mobile {
+    display: none;
 }
 .row-welcome .info img {
     width: 90%;
@@ -168,7 +174,7 @@ form {
     font-size: var(--md);
     padding: 30px 30px;
     background-color: var(--dark);
-    border-radius: 20px;
+    border-radius: 10px;
     color: var(--white);
 }
 .form-control {

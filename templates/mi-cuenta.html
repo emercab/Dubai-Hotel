@@ -2,6 +2,8 @@
 
 {% block estilos_propios %}
     <link rel="stylesheet" href="{{ url_for('static', filename='./css/mi-cuenta.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/tablet/mi-cuenta-tablet.css') }}" media="(max-width:900px)">
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/mobile/mi-cuenta-mobile.css') }}" media="(max-width:580px)">
 {% endblock %}
 
 {% block banner %}
@@ -28,7 +30,7 @@
                   <h2>Hola, {{ data.nombre }}:</h2>
                   <p>Nos encanta tenerte en nuestra plataforma.</p>
                   <p>
-                     Desde los menús ubicados en la parte superior e izquierda de esta página, podrás acceder a las opciones relacionadas con tu cuenta de usuario, tus reservas y comentarios.
+                     Desde <span class="info-desktop">los</span><span class="info-mobile">el</span> menú<span class="info-desktop">s</span> ubicado<span class="info-desktop">s</span> en la parte superior <span class="info-desktop">e izquierda</span> de esta página, podrás acceder a las opciones relacionadas con tu cuenta de usuario, tus reservas y comentarios.
                   </p>
                   <img src="https://i.ibb.co/YW7z6v7/logo-transparent-light.png" alt="Dubai Hotel">
                </div>
