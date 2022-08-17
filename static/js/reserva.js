@@ -26,7 +26,7 @@ const URL_API = 'http://localhost:5005/api/info-reserva';
 // Llamo a la función fetch de Node y le mando la url de mi API y
 // retorno los datos devueltos por la API
 async function fetchData(urlApi) {
-    fetch(urlApi)
+    //fetch(urlApi)
     const response = await fetch(urlApi);
     const data = await response.json();
     return data;
