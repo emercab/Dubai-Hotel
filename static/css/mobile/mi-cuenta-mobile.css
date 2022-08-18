@@ -13,3 +13,23 @@
 form {
     padding: 15px;
 }
+
+.card {
+    width: 100%;
+    max-width: 360px;
+}
+.card .card-info h3 {
+    font-size: 24px;
+    padding: 0;
+}
+.card .card-info .calificacion-container {
+    padding: 10px 0;
+}
+.card .card-info .nota {
+    font-size: 25px;
+    line-height: 30px;
+}
+.card .card-info .info-reserva-container {
+    margin-top: 8px;
+}
+

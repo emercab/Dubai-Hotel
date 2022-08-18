@@ -63,6 +63,20 @@ h3 { font-size: 25px }
     line-height: 30px;
 }
 
+/* Cards */
+.cards-container {
+    row-gap: 35px;
+}
+.card {
+    flex-direction: column;
+}
+.card img {
+    width: 100%;
+    min-height: 0;
+    height: 130px;
+    object-position: center 70%;
+}
+
 
 /* Footer */
 .footer {
