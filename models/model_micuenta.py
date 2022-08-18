@@ -144,6 +144,7 @@ def update_password(user_id, new_password_hash):
     return True
 # Fin de update_password()
 
+
 def select_reservas(user_id):
     # Actualiza el password del usuario, retorna True o False si tuvo éxito
     try:
@@ -171,7 +172,7 @@ def select_reservas(user_id):
     return result
 
 
-def select_comentario(usuario,id_comentario=None):
+def select_comentario(usuario, id_comentario=None):
     try:
         # Me conecto a la DB
         conn = conectar()
@@ -182,14 +183,13 @@ def select_comentario(usuario,id_comentario=None):
             datos=(str(usuario),str(id_comentario))
             # Creo la sentencia SQL
             sentence = """
-                SELECT reservas.id, reservas.habitacionId, habitaciones.numero, comentarios.id AS comentarioId, comentarios.comentario, comentarios.calificacion FROM usuarios
-                LEFT JOIN reservas
-                ON usuarios.id=reservas.clienteID
-                LEFT JOIN habitaciones
-                ON habitaciones.id=reservas.habitacionId
-                LEFT JOIN comentarios
-                ON reservas.id=comentarios.reservaId
-                WHERE usuarios.id=? AND reservas.habitacionId=?
+                SELECT reservas.id, reservas.habitacionId, habitaciones.numero, comentarios.id 
+                AS comentarioId, comentarios.comentario, comentarios.calificacion 
+                FROM usuarios 
+                LEFT JOIN reservas ON usuarios.id=reservas.clienteID 
+                LEFT JOIN habitaciones ON habitaciones.id=reservas.habitacionId 
+                LEFT JOIN comentarios ON reservas.id=comentarios.reservaId 
+                WHERE usuarios.id=? AND reservas.habitacionId=? 
             """
             # Ejecuto la sentencia SQL
             cursor.execute(sentence, datos)
@@ -197,19 +197,17 @@ def select_comentario(usuario,id_comentario=None):
         else:
             datos=(str(usuario))
             sentence = """
-                SELECT reservas.id, reservas.habitacionId, habitaciones.numero, comentarios.id AS comentarioId, comentarios.comentario, comentarios.calificacion FROM usuarios
-                LEFT JOIN reservas
-                ON usuarios.id=reservas.clienteID
-                LEFT JOIN habitaciones
-                ON habitaciones.id=reservas.habitacionId
-                LEFT JOIN comentarios
-                ON reservas.id=comentarios.reservaId
+                SELECT reservas.id, reservas.habitacionId, habitaciones.numero, comentarios.id 
+                AS comentarioId, comentarios.comentario, comentarios.calificacion 
+                FROM usuarios 
+                LEFT JOIN reservas ON usuarios.id=reservas.clienteID 
+                LEFT JOIN habitaciones ON habitaciones.id=reservas.habitacionId 
+                LEFT JOIN comentarios ON reservas.id=comentarios.reservaId 
                 WHERE usuarios.id=? 
             """
             # Ejecuto la sentencia SQL
-            cursor.execute(sentence,[str(usuario)])
-            resultado=cursor.fetchall() 
-
+            cursor.execute(sentence, [str(usuario)])
+            resultado=cursor.fetchall()
     except Exception as error:
         # Si hay un error, lo imprimo y retorno False
         print(f"Error: {error}")
@@ -219,6 +217,7 @@ def select_comentario(usuario,id_comentario=None):
         conn.close()
     return resultado
 
+
 def create_comment(reservaId, comentario, calificacion,comentarioId,habitacionId):
     try:
         conn = conectar()
@@ -226,7 +225,7 @@ def create_comment(reservaId, comentario, calificacion,comentarioId,habitacionId
 
         if comentarioId:
             query = """
-                UPDATE comentarios
+                UPDATE comentarios 
                 SET comentario = ?,
                     calificacion = ?
                 WHERE id =?;
@@ -234,26 +233,14 @@ def create_comment(reservaId, comentario, calificacion,comentarioId,habitacionId
             datos = (comentario, str(calificacion), str(comentarioId))
         else:
             query = """
-                INSERT INTO comentarios (reservaId,comentario,calificacion,fecha)
+                INSERT INTO comentarios (reservaId,comentario,calificacion,fecha) 
                 VALUES( ?,	? ,?, ?);
             """
             datos = (str(reservaId), comentario,str(calificacion),datetime.datetime.now())
-        query2 ="""
-        UPDATE habitaciones
-        SET calificacion =(SELECT SUM(comentarios.calificacion)/COUNT(comentarios.calificacion) AS calificacion FROM habitaciones
-        INNER JOIN reservas
-        ON habitaciones.id = reservas.habitacionId
-        INNER JOIN comentarios
-        ON reservas.id = comentarios.reservaId
-        GROUP BY habitaciones.id
-        HAVING habitaciones.id=?)
-        WHERE habitaciones.id=?
-        """
-        datos2 = (str(habitacionId),str(habitacionId))
-        cursor.execute(query, datos)
-        cursor.execute(query2, datos2)
-        conn.commit()
 
+        cursor.execute(query, datos)
+
+        conn.commit()
 
         #.lasrowid  -retorna el id del registro insertado
         last_id = comentarioId if comentarioId else cursor.lastrowid 
@@ -265,3 +252,31 @@ def create_comment(reservaId, comentario, calificacion,comentarioId,habitacionId
         conn.close()
 
     return last_id
+
+
+def update_calificacion(habitacion_id):
+    try:
+        conn = conectar()
+        cursor = conn.cursor()
+        query = """
+        UPDATE habitaciones 
+        SET calificacion =(
+            SELECT SUM(comentarios.calificacion)/COUNT(comentarios.calificacion) 
+            AS calificacion FROM habitaciones 
+            INNER JOIN reservas ON habitaciones.id = reservas.habitacionId 
+            INNER JOIN comentarios ON reservas.id = comentarios.reservaId 
+            GROUP BY habitaciones.id 
+            HAVING habitaciones.id=?) 
+        WHERE habitaciones.id=?;
+        """
+        datos = (str(habitacion_id), str(habitacion_id))
+        cursor.execute(query, datos)
+        conn.commit()
+    except Exception as error:
+        print(f'insert habitacion {error}')
+        return False
+    finally:
+        cursor.close()
+        conn.close()
+    
+    return True

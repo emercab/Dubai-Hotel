@@ -178,6 +178,7 @@ def calificar_habitacion():
     return render_template("calificar-habitacion.html", data=data)
 # Fin Ruta Calificar Habitaciones
 
+
 # Ruta Nueva Calificacion
 @bp_micuenta.route("/mi-cuenta/calificar-habitacion/nueva-calificacion", methods=["get","post"])
 @bp_micuenta.route("/mi-cuenta/calificar-habitacion/nueva-calificacion/<id_calificacion>", methods=["get","post"])
@@ -191,7 +192,6 @@ def nueva_calificacion(id_calificacion=None):
     data["form"] = calificar_form
     comentarios=controller.comentarios(data["id"],id_calificacion)
     data["comentarios"]=comentarios
-    print(comentarios[3])
     if calificar_form.validate_on_submit():
         # Capturo las variables ingresadas por el usuario y 
         # por seguridad aplico escape a todo lo ingresado
@@ -199,12 +199,12 @@ def nueva_calificacion(id_calificacion=None):
         comentario = escape(calificar_form.comentario.data)
         calificacion = escape(calificar_form.calificacion.data)
         comentarioId = comentarios[3]
-        habitacionId = comentarios[1]
-        
-        
+        habitacionId = comentarios[1]      
 
         # Llamo a la función del controller que realiza el cambio de password
-        result = controller.create_comment(reservaId, comentario, calificacion,comentarioId,habitacionId)
+        result = controller.create_comment(
+            reservaId, comentario, calificacion, comentarioId, habitacionId
+        )
         # Reviso la respuesta obtenida por el controlador
         if result:
             return redirect("/mi-cuenta/calificar-habitacion")
@@ -214,6 +214,7 @@ def nueva_calificacion(id_calificacion=None):
             flash(f"Error. {result}")
     return render_template("nueva-calificacion.html", data=data)
 # Fin Ruta Calificar Habitaciones
+
 
 # Ruta de Cerrar Sesión
 @bp_micuenta.route("/mi-cuenta/logout", methods=["GET"])

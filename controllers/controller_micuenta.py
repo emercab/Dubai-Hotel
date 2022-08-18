@@ -236,12 +236,23 @@ def change_password(cedula, password, new_password):
 
 def comentarios(usuario,id_comentario):
     comentarios=model.select_comentario(usuario,id_comentario)
-    if len(comentarios)>0:
+    if comentarios:
+        if type(comentarios) == tuple:
+            if comentarios[0] == None:
+                return []
+        elif type(comentarios) == list:
+            if comentarios[0][0] == None:
+                return []
         return comentarios
-    return[]
+    return []
+
 
 def create_comment(reservaId, comentario, calificacion,comentarioId,habitacionId):
     nuevo_id = model.create_comment(reservaId, comentario, calificacion,comentarioId,habitacionId)
+    if nuevo_id:
+        result = model.update_calificacion(habitacionId)
+        if not result:
+            return False
     return nuevo_id
 
 
@@ -307,6 +318,3 @@ def consulta_miReserva (userId):
         data_reservas.append(data_consulta)
                 
     return data_reservas
-
-
-    

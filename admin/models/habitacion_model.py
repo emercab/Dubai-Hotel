@@ -104,6 +104,6 @@ def actualizar_precio_habitacion(precio, connection):
         connection.commit()
     except Exception as error:
         raise error
-    #finally:
-        #cursor.close()
-        #connection.close()
+    finally:
+        cursor.close()
+        connection.close()

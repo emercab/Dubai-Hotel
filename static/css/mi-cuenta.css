@@ -23,7 +23,6 @@ main {
     margin: 0;
     padding: 7px;
     width: 250px;
-    background-color: #F7BF4F;
     min-height: 500px;
     height: auto;
 }
@@ -74,7 +73,8 @@ main {
 .sidebar a {
     display: block;
     color: black;
-    padding: 16px;
+    padding: 8px 16px;
+    margin-bottom: 8px;
     text-decoration: none;
 }
   
@@ -82,14 +82,14 @@ main {
 .sidebar a.active {
     background-color: #3F6346;
     color: white;
-    border-radius: 15px;
+    border-radius: 8px;
 }
   
     /* Links on mouse-over */
 .sidebar a:hover:not(.active) {
     background-color: #5E826C;
     color: white;
-    border-radius: 15px;
+    border-radius: 8px;
 }
 
 .card {
@@ -135,7 +135,7 @@ main {
     margin-top: 20px;
 }
 .card .card-info .info-reserva-container .info-left {
-    width: 50%;
+    width: 57%;
 }
 .card .card-info .info-reserva-container .info-left .estadia {
     font-size: var(--md);
@@ -146,7 +146,7 @@ main {
     margin-left: 15px;
 }
 .card .card-info .info-reserva-container .info-right {
-    width: 50%;
+    width: 43%;
 }
 .card .card-info .info-reserva-container .info-right .item {
     display: flex;
@@ -192,4 +192,13 @@ form {
 }
 .container-mensajes {
     margin-bottom: 16px;
+}
+.sin-reserva {
+    display: flex;
+    align-items: center;
+    padding-bottom: 155px;
+    column-gap: 25px;
+}
+.info-icon {
+    color: var(--primary)
 }
